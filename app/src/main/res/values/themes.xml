@@ -1,9 +1,91 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Front" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Base.Theme.Front" parent="Theme.AppCompat.Light">
+        <item name="colorPrimary">@color/green</item>
+        <item name="colorPrimaryVariant">@color/gray600</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/green</item>
+        <item name="colorSecondaryVariant">@color/gray200</item>
+        <item name="colorOnSecondary">@color/black</item>
     </style>
 
     <style name="Theme.Front" parent="Base.Theme.Front" />
+
+    <style name="AndroidH1">
+        <item name="android:fontFamily">@font/noto_bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:lineSpacingExtra">26sp</item>
+    </style>
+
+    <style name="AndroidH2">
+        <item name="android:fontFamily">@font/noto_medium</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:lineSpacingExtra">24sp</item>
+    </style>
+
+    <style name="AndroidSubtitle1">
+        <item name="android:fontFamily">@font/noto_bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingExtra">24sp</item>
+    </style>
+
+    <style name="AndroidSubtitle2">
+        <item name="android:fontFamily">@font/noto_medium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingExtra">24sp</item>
+    </style>
+
+    <style name="AndroidBody1">
+        <item name="android:fontFamily">@font/noto_regular</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineSpacingExtra">24sp</item>
+    </style>
+
+    <style name="AndroidBody2">
+        <item name="android:fontFamily">@font/noto_bold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">20sp</item>
+    </style>
+
+    <style name="AndroidBody3">
+        <item name="android:fontFamily">@font/noto_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">20sp</item>
+    </style>
+
+    <style name="AndroidCaption1">
+        <item name="android:fontFamily">@font/noto_bold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">18sp</item>
+    </style>
+
+    <style name="AndroidCaption2">
+        <item name="android:fontFamily">@font/noto_medium</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">18sp</item>
+    </style>
+
+    <style name="AndroidCaption3">
+        <item name="android:fontFamily">@font/noto_regular</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:lineSpacingExtra">12sp</item>
+    </style>
+
+    <style name="AndroidButton1">
+        <item name="android:fontFamily">@font/noto_bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:lineSpacingExtra">24sp</item>
+    </style>
+
+    <style name="AndroidButton2">
+        <item name="android:fontFamily">@font/noto_medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingExtra">20sp</item>
+    </style>
+
+    <style name="AndroidRate">
+        <item name="android:fontFamily">@font/noto_medium</item>
+        <item name="android:textSize">36sp</item>
+    </style>
 </resources>

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">front</string>
+    <string name="email">이메일</string>
+    <string name="max_300">최대 300자</string>
+    <string name="max_150">최대 150</string>
+    <string name="max_500">최대 500자</string>
 </resources>
