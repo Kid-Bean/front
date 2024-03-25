@@ -1,14 +1,24 @@
 package soongsil.kidbean.front.ui.quiz
 
-import android.R
+import RetrofitImpl
+import RetrofitImpl.retrofit
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Spinner
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import soongsil.kidbean.front.data.controller.ImageQuizController
+import soongsil.kidbean.front.data.dto.response.ImageQuizMemberDetailResponse
 import soongsil.kidbean.front.databinding.ActivityImageQuizAddBinding
 
 
@@ -25,17 +35,10 @@ class ImageQuizAddActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        // API로 가져온 제목 넣기
-        binding.tvTitle.text = "제목"
-
-        // API로 가져온 이미지 넣기
-
+        loadInfo()
 
         // 카테고리 세팅
         categorySetting()
-
-        // API로 가져온 정답 넣기
-        binding.tvCorrect.text = "정답"
 
         // 수정 버튼 눌렀을 때 수정 화면으로 이동
         binding.btnEdit.setOnClickListener {
@@ -61,8 +64,55 @@ class ImageQuizAddActivity : AppCompatActivity() {
         }
     }
 
+    private fun loadInfo() {
+        val imageQuizController = retrofit.create(ImageQuizController::class.java)
+        imageQuizController.getImageQuizById(1, 2).enqueue(object :
+            Callback<ImageQuizMemberDetailResponse> {
+            override fun onResponse(
+                call: Call<ImageQuizMemberDetailResponse>,
+                response: Response<ImageQuizMemberDetailResponse>,
+            ) {
+                if (response.isSuccessful) {
+                    // 정상적으로 통신이 성공된 경우
+                    Log.d("post", "onResponse 성공: " + response.body().toString())
+
+                    val body = response.body()
+
+                    // API로 가져온 제목 넣기
+                    binding.tvTitle.text = body?.title
+
+                    // API로 가져온 이미지 넣기
+                    val imageView: ImageView = binding.imgQuiz
+                    val imgUrl = body?.imgUrl
+
+                    Glide.with(imageView.context)
+                        .load(imgUrl)
+                        .into(imageView)
+
+                    // API로 가져온 정답 넣기
+                    binding.tvCorrect.text = body?.answer
+
+                } else {
+                    // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
+                    Log.d("post", "onResponse 실패 + ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<ImageQuizMemberDetailResponse>, t: Throwable) {
+                // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
+                Log.d("post", "onFailure 에러: " + t.message.toString())
+            }
+        })
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        loadInfo()
+    }
+
     override fun onResume() {
         super.onResume()
+        loadInfo()
     }
 
     private fun categorySetting() {
