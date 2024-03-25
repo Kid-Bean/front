@@ -28,6 +28,9 @@ class ImageQuizAddActivity : AppCompatActivity() {
         // API로 가져온 제목 넣기
         binding.tvTitle.text = "제목"
 
+        // API로 가져온 이미지 넣기
+
+
         // 카테고리 세팅
         categorySetting()
 
