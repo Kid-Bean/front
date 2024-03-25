@@ -38,7 +38,7 @@
             tools:ignore="MissingConstraints,NotSibling">
 
         <ImageButton
-                android:id="@+id/btn_review_close"
+                android:id="@+id/btn_back"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="left"
@@ -87,7 +87,7 @@
             android:layout_centerInParent="true"/>
 
     <TextView
-            android:id="@+id/et_email"
+            android:id="@+id/tv_correct"
             style="@style/AndroidBody3"
             android:text="정답"
             android:textColor="@color/black"
@@ -124,7 +124,7 @@
                 app:layout_constraintRight_toRightOf="parent" />
 
         <Button
-                android:id="@+id/btn_send_report"
+                android:id="@+id/btn_delete"
                 style="@style/AndroidButton1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
