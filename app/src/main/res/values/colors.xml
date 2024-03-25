@@ -5,10 +5,11 @@
     <color name="kakao_login">#FEE500</color>
     <color name="green">#4CAF50</color>
     <color name="green50">#E8F5E9</color>
-    <color name="green500">#69F0AE</color>
+    <color name="green500">#2FDB7A</color>
     <color name="gray50">#FAFAFA</color>
     <color name="gray200">#EEEEEE</color>
     <color name="gray400">#BDBDBD</color>
     <color name="gray600">#757575</color>
     <color name="gray900">#212121</color>
+    <color name="red">#DF5757</color>
 </resources>

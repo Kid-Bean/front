@@ -7,106 +7,163 @@
     android:padding="16dp"
     tools:context=".ui.quiz.ImageQuizAddActivity">
 
-    <TextView
-        android:id="@+id/tv_report"
-        style="@style/AndroidSubtitle1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:includeFontPadding="false"
-        android:text="@string/email"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
-        android:id="@+id/ll_my_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_report">
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:ignore="MissingConstraints">
 
         <TextView
-            style="@style/AndroidBody1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/email"
-            android:textColor="@color/black"
-            android:layout_marginRight="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_ch_nickname"/>
+                android:id="@+id/tv_image_quiz_add"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                style="@style/AndroidH1"
+                android:textColor="@color/black"
+                android:text="그림 맞추기"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
 
-        <EditText
-            android:id="@+id/et_email"
-            style="@style/AndroidBody3"
-            android:hint="@string/email"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/shape_edittext_small_gray"
-            android:inputType="text"
-            android:maxLines="1"
-            />
+    <LinearLayout
+            android:id="@+id/layout_back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/linearLayout"
+            app:layout_constraintBottom_toBottomOf="@id/linearLayout"
+            tools:ignore="MissingConstraints,NotSibling">
+
+        <ImageButton
+                android:id="@+id/btn_review_close"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="left"
+                android:foregroundGravity="bottom"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_pre"
+                android:scaleType="fitCenter"
+                tools:ignore="MissingConstraints"
+                android:contentDescription="TODO">
+        </ImageButton>
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_inquire_content"
-        style="@style/AndroidBody1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:text="@string/email"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_my_email"/>
+            android:id="@+id/tv_title"
+            style="@style/AndroidSubtitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="제목"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@id/layout_back"
+            app:layout_constraintStart_toStartOf="@id/layout_back"
+            app:layout_constraintTop_toBottomOf="@id/linearLayout"
+            tools:ignore="NotSibling" />
 
-    <EditText
-        android:id="@+id/et_report_comment"
-        style="@style/AndroidBody3"
+    <ImageView
+        android:id="@+id/img_quiz"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="300dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/shape_edittext_big"
         android:gravity="top"
-        android:hint="@string/email"
-        android:includeFontPadding="false"
-        android:inputType="textMultiLine"
-        android:lineSpacingExtra="-4dp"
-        android:lines="10"
-        android:maxLength="500"
-        android:padding="10dp"
-        android:privateImeOptions="defaultInputmode=korea"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_inquire_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
-        android:id="@+id/tv_maxtext"
-        style="@style/AndroidCaption2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/max_500"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toEndOf="@+id/et_report_comment"
-        app:layout_constraintTop_toBottomOf="@+id/et_report_comment" />
+            android:id="@+id/tv_category"
+            style="@style/AndroidBody1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:text="@string/email"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_quiz"/>
 
-    <Button
-        android:id="@+id/btn_send_report"
-        style="@style/AndroidButton1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/shape_btn"
-        android:includeFontPadding="false"
-        android:text="@string/email"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+    <LinearLayout
+            android:id="@+id/ll_my_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_category">
+
+        <TextView
+                style="@style/AndroidBody1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/email"
+                android:textColor="@color/black"
+                android:layout_marginRight="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"/>
+
+        <EditText
+                android:id="@+id/et_email"
+                style="@style/AndroidBody3"
+                android:hint="@string/email"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/shape_edittext_small_gray"
+                android:inputType="text"
+                android:maxLines="1"
+                />
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+                android:id="@+id/btn_edit"
+                style="@style/AndroidButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/shape_btn"
+                android:backgroundTint="@color/green500"
+                android:includeFontPadding="false"
+                android:text="수정"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+        <Button
+                android:id="@+id/btn_send_report"
+                style="@style/AndroidButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/shape_btn"
+                android:backgroundTint="@color/red"
+                android:includeFontPadding="false"
+                android:text="삭제"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+    </LinearLayout>
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
