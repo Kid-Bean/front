@@ -1,6 +1,5 @@
 package soongsil.kidbean.front.ui.quiz
 
-import RetrofitImpl
 import RetrofitImpl.retrofit
 import android.os.Bundle
 import android.util.Log
@@ -15,17 +14,15 @@ import com.bumptech.glide.Glide
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import soongsil.kidbean.front.data.controller.ImageQuizController
 import soongsil.kidbean.front.data.dto.response.ImageQuizMemberDetailResponse
-import soongsil.kidbean.front.databinding.ActivityImageQuizAddBinding
+import soongsil.kidbean.front.databinding.ActivityImageQuizShowBinding
 
 
-class ImageQuizAddActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityImageQuizAddBinding
+class ImageQuizShowActivity : AppCompatActivity() {
+    private lateinit var binding : ActivityImageQuizShowBinding
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityImageQuizAddBinding.inflate(layoutInflater)
+        binding = ActivityImageQuizShowBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
@@ -53,10 +50,10 @@ class ImageQuizAddActivity : AppCompatActivity() {
                 setTitle("그림 문제 추가 삭제")
                 setMessage("작성한 문제를 삭제하시겠습니까?")
                 setNegativeButton("취소") { _, _ ->
-                    Toast.makeText(this@ImageQuizAddActivity, "삭제를 취소하였습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ImageQuizShowActivity, "삭제를 취소하였습니다.", Toast.LENGTH_SHORT).show()
                 }
                 setPositiveButton("삭제") { _, _ ->
-                    Toast.makeText(this@ImageQuizAddActivity, "삭제가 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ImageQuizShowActivity, "삭제가 완료되었습니다.", Toast.LENGTH_SHORT).show()
                 }
             }.create().show()
 
@@ -85,9 +82,10 @@ class ImageQuizAddActivity : AppCompatActivity() {
                     val imageView: ImageView = binding.imgQuiz
                     val imgUrl = body?.imgUrl
 
-                    Glide.with(imageView.context)
+                    Glide.with(this@ImageQuizShowActivity)
                         .load(imgUrl)
                         .into(imageView)
+                    imageView.visibility = View.VISIBLE
 
                     // API로 가져온 정답 넣기
                     binding.tvCorrect.text = body?.answer
@@ -141,7 +139,7 @@ class ImageQuizAddActivity : AppCompatActivity() {
                 // 선택된 아이템의 텍스트 가져오기
                 val selectedCategory = parent.getItemAtPosition(position).toString()
                 // 선택된 아이템에 대한 작업 수행 (예: 토스트 메시지 표시)
-                Toast.makeText(this@ImageQuizAddActivity, "선택된 카테고리: $selectedCategory", Toast.LENGTH_SHORT)
+                Toast.makeText(this@ImageQuizShowActivity, "선택된 카테고리: $selectedCategory", Toast.LENGTH_SHORT)
                     .show()
             }
 
