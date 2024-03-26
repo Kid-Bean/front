@@ -119,6 +119,7 @@ class ImageQuizShowActivity : AppCompatActivity() {
         categories.add("동물")
         categories.add("식물")
         categories.add("음식")
+        categories.add("없음")
 
         // 어댑터 생성 및 데이터 설정
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
