@@ -40,9 +40,6 @@ class ImageQuizShowActivity : AppCompatActivity() {
 
         loadInfo()
 
-        // 카테고리 세팅
-        categorySetting()
-
         // 수정 버튼 눌렀을 때 수정 화면으로 이동
         binding.btnEdit.setOnClickListener {
             // 그림 문제 목록 화면으로 이동
@@ -98,6 +95,19 @@ class ImageQuizShowActivity : AppCompatActivity() {
                         .into(imageView)
                     imageView.visibility = View.VISIBLE
 
+                    // API로 가져온 카테고리 넣기
+                    var category = body?.category
+                    if (category.equals("ANIMAL")) {
+                        category = "동물"
+                    }
+                    else if (category.equals("PLANT")) {
+                        category = "식물"
+                    }
+                    else if (category.equals("FOOD")) {
+                        category = "음식"
+                    }
+                    binding.tvCategoryAnswer.text = category
+
                     // API로 가져온 정답 넣기
                     answer = body?.answer.toString()
                     binding.tvCorrect.text = answer
@@ -123,42 +133,5 @@ class ImageQuizShowActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         loadInfo()
-    }
-
-    private fun categorySetting() {
-        // 스피너에 표시될 데이터 생성
-        val categories: MutableList<String> = ArrayList()
-        categories.add("동물")
-        categories.add("식물")
-        categories.add("음식")
-        categories.add("없음")
-
-        // 어댑터 생성 및 데이터 설정
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-        // 스피너에 어댑터 설정
-        val spinner = binding.tvCategory
-        spinner.adapter = adapter
-
-        // 스피너 아이템 선택 이벤트 처리
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View,
-                position: Int,
-                id: Long
-            ) {
-                // 선택된 아이템의 텍스트 가져오기
-                val selectedCategory = parent.getItemAtPosition(position).toString()
-                // 선택된 아이템에 대한 작업 수행 (예: 토스트 메시지 표시)
-                Toast.makeText(this@ImageQuizShowActivity, "선택된 카테고리: $selectedCategory", Toast.LENGTH_SHORT)
-                    .show()
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                // 아무것도 선택되지 않았을 때 처리할 작업 (필요에 따라 구현)
-            }
-        }
     }
 }

@@ -77,31 +77,59 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_title"
             tools:ignore="SpeakableTextPresentCheck" />
 
-    <Spinner
+    <LinearLayout
             android:id="@+id/tv_category"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="15dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_quiz"
-            android:layout_centerInParent="true"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="4"
+            android:paddingTop="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_quiz">
+
+        <TextView
+                style="@style/AndroidBody1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="카테고리"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_ch_nickname"/>
+
+        <TextView
+                android:id="@+id/tv_category_answer"
+                style="@style/AndroidBody3"
+                android:text="없음"
+                android:textColor="@color/black"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center_horizontal"
+                android:background="@drawable/shape_edittext_small_gray"
+                android:inputType="text"
+                android:maxLines="1"
+                />
+    </LinearLayout>
 
     <LinearLayout
             android:id="@+id/ll_my_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:weightSum="4"
             android:paddingTop="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_category">
 
         <TextView
                 style="@style/AndroidBody1"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="정답"
+                android:layout_weight="1"
                 android:textColor="@color/black"
-                android:layout_marginRight="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_ch_nickname"/>
@@ -109,10 +137,11 @@
         <TextView
                 android:id="@+id/tv_correct"
                 style="@style/AndroidBody3"
-                android:text="기린"
+                android:textColor="@color/black"
+                android:text="정답"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:gravity="center_horizontal"
                 android:background="@drawable/shape_edittext_small_gray"
                 android:inputType="text"
@@ -170,7 +199,7 @@
         app:layout_constraintRight_toRightOf="parent">
 
         <LinearLayout
-           android:layout_width="wrap_content"
+           android:layout_width="0dp"
            android:layout_height="match_parent"
            android:layout_weight="1"
            android:orientation="vertical">
@@ -194,7 +223,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
@@ -217,7 +246,7 @@
         </LinearLayout>
 
         <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
@@ -241,7 +270,7 @@
         </LinearLayout>
 
         <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical">
