@@ -83,6 +83,10 @@ class ImageQuizUploadActivity : AppCompatActivity() {
             finish()
         }
 
+        bottomSetting()
+    }
+
+    private fun bottomSetting() {
         binding.btnHome.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
