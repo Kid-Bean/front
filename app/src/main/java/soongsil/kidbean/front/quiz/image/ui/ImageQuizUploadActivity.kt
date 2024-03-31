@@ -1,11 +1,13 @@
 package soongsil.kidbean.front.quiz.image.ui
 
 import RetrofitImpl.retrofit
+import android.Manifest
+import android.R
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.icu.text.CaseMap.Title
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -30,9 +32,8 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import soongsil.kidbean.front.databinding.ActivityImageQuizUpdateBinding
+import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityImageQuizUploadBinding
-import soongsil.kidbean.front.quiz.image.dto.request.ImageQuizUpdateRequest
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
 import java.io.File
 
@@ -51,14 +52,14 @@ class ImageQuizUploadActivity : AppCompatActivity() {
 
         binding.btnBack.setOnClickListener {
             // 그림 문제 목록 화면으로 이동
-            val intent = Intent(this, ImageQuizShowActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
-        binding.imgQuiz.setOnClickListener {
-            //갤러리 호출
-            requestStoragePermission()
+        // 외부 저장소에 대한 런타임 퍼미션 요청
+        requestStoragePermission()
 
+        binding.imgQuiz.setOnClickListener {
             openGallery()
         }
 
@@ -76,28 +77,42 @@ class ImageQuizUploadActivity : AppCompatActivity() {
                 }
                 setPositiveButton("삭제") { _, _ ->
                     loadInfo()
-
-                    Toast.makeText(this@ImageQuizUploadActivity, "등록이 완료되었습니다.", Toast.LENGTH_SHORT)
-                        .show()
                 }
             }.create().show()
 
             finish()
         }
-    }
 
-    private fun openGallery() {
-        //갤러리 호출
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(intent, ImageQuizUploadActivity.REQUEST_IMAGE_PICK)
+        binding.btnHome.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+        // 문제 풀기 화면으로 변경하기!
+        binding.btnQuiz.setOnClickListener {
+            /*val intent = Intent(this, ImageQuizShowActivity::class.java)
+            startActivity(intent)*/
+        }
+
+        // 프로그램 화면으로 변경하기!
+        binding.btnProgram.setOnClickListener {
+            /*val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)*/
+        }
+
+        // 마이페이지 화면으로 변경하기!
+        binding.btnProgram.setOnClickListener {
+            /*val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)*/
+        }
     }
 
     private fun requestStoragePermission() {
-        if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
             PackageManager.PERMISSION_GRANTED
         ) {
             requestPermissions(
-                arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
                 PERMISSION_REQUEST_CODE
             )
         }
@@ -107,31 +122,21 @@ class ImageQuizUploadActivity : AppCompatActivity() {
         private const val REQUEST_IMAGE_PICK = 1
     }
 
-    //결과 가져오기
-    private val activityResult: ActivityResultLauncher<Intent> = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()){
-
-        //결과 코드 OK , 결가값 null 아니면
-        if(it.resultCode == RESULT_OK && it.data != null){
-            //값 담기
-            val uri  = it.data!!.data
-
-            //화면에 보여주기
-            Glide.with(this)
-                .load(uri) //이미지
-                .into(binding.imgQuiz) //보여줄 위치
-        }
+    private fun openGallery() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        Log.d("opengallery", intent.toString())
+        startActivityForResult(intent, REQUEST_IMAGE_PICK)
     }
 
-    //결과 가져오기
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == ImageQuizUploadActivity.REQUEST_IMAGE_PICK && resultCode == Activity.RESULT_OK && data != null) {
+        Log.d("activity", "${requestCode}, ${resultCode}, ${data}")
+        if (requestCode == REQUEST_IMAGE_PICK && resultCode == RESULT_OK && data != null) {
             val imageUri = data.data
             binding.imgQuiz.setImageURI(imageUri)
             selectedImagePath = imageUri?.let { getImagePath(it) }
-            selectedImagePath?.let { Log.d("path", it) }
+            selectedImagePath?.let { Log.d("getpath", it) }
         }
     }
 
@@ -179,13 +184,15 @@ class ImageQuizUploadActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         // 정상적으로 통신이 성공된 경우
                         Log.d("post", "onResponse 성공: " + response.body().toString())
-
-                        val body = response.body()
+                        Toast.makeText(this@ImageQuizUploadActivity, "등록이 완료되었습니다.", Toast.LENGTH_SHORT)
+                            .show()
 
                     } else {
                         // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
                         Log.d("post", "onResponse 실패 + ${response.code()}")
                     }
+
+                    finish()
                 }
 
                 override fun onFailure(call: Call<Void>, t: Throwable) {
@@ -218,8 +225,8 @@ class ImageQuizUploadActivity : AppCompatActivity() {
         categories.add("음식")
 
         // 어댑터 생성 및 데이터 설정
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        val adapter = ArrayAdapter(this, R.layout.simple_spinner_item, categories)
+        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
 
         // 스피너에 어댑터 설정
         val spinner = binding.tvCategory

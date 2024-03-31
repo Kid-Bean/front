@@ -176,6 +176,7 @@
             app:layout_constraintRight_toRightOf="parent">
 
         <LinearLayout
+                android:id="@+id/btn_home"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -200,6 +201,7 @@
         </LinearLayout>
 
         <LinearLayout
+                android:id="@+id/btn_quiz"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -223,6 +225,7 @@
         </LinearLayout>
 
         <LinearLayout
+                android:id="@+id/btn_program"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -247,6 +250,7 @@
         </LinearLayout>
 
         <LinearLayout
+                android:id="@+id/btn_mypage"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

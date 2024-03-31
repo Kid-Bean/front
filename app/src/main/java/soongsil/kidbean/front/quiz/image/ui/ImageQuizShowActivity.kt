@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberDetailResponse
 import soongsil.kidbean.front.databinding.ActivityImageQuizShowBinding
@@ -63,6 +64,29 @@ class ImageQuizShowActivity : AppCompatActivity() {
             }.create().show()
 
             finish()
+        }
+
+        binding.btnHome.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+        // 문제 풀기 화면으로 변경하기!
+        binding.btnQuiz.setOnClickListener {
+            /*val intent = Intent(this, ImageQuizShowActivity::class.java)
+            startActivity(intent)*/
+        }
+
+        // 프로그램 화면으로 변경하기!
+        binding.btnProgram.setOnClickListener {
+            /*val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)*/
+        }
+
+        // 마이페이지 화면으로 변경하기!
+        binding.btnProgram.setOnClickListener {
+            /*val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)*/
         }
     }
 
