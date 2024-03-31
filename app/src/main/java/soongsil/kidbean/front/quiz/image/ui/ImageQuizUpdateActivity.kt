@@ -88,6 +88,8 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
                         .show()
                 }
                 setPositiveButton("삭제") { _, _ ->
+                    loadInfo()
+
                     Toast.makeText(this@ImageQuizUpdateActivity, "등록이 완료되었습니다.", Toast.LENGTH_SHORT)
                         .show()
                 }

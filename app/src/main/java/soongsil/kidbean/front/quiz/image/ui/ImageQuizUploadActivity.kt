@@ -4,27 +4,37 @@ import RetrofitImpl.retrofit
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.icu.text.CaseMap.Title
 import android.net.Uri
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import soongsil.kidbean.front.databinding.ActivityImageQuizUpdateBinding
 import soongsil.kidbean.front.databinding.ActivityImageQuizUploadBinding
+import soongsil.kidbean.front.quiz.image.dto.request.ImageQuizUpdateRequest
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
 import java.io.File
-
 
 class ImageQuizUploadActivity : AppCompatActivity() {
     private lateinit var binding: ActivityImageQuizUploadBinding
@@ -46,7 +56,7 @@ class ImageQuizUploadActivity : AppCompatActivity() {
         }
 
         binding.imgQuiz.setOnClickListener {
-            // 외부 저장소에 대한 런타임 퍼미션 요청
+            //갤러리 호출
             requestStoragePermission()
 
             openGallery()
@@ -64,20 +74,22 @@ class ImageQuizUploadActivity : AppCompatActivity() {
                     Toast.makeText(this@ImageQuizUploadActivity, "등록을 취소하였습니다.", Toast.LENGTH_SHORT)
                         .show()
                 }
-                setPositiveButton("등록") { _, _ ->
+                setPositiveButton("삭제") { _, _ ->
                     loadInfo()
+
                     Toast.makeText(this@ImageQuizUploadActivity, "등록이 완료되었습니다.", Toast.LENGTH_SHORT)
                         .show()
                 }
             }.create().show()
+
+            finish()
         }
-        finish()
     }
 
     private fun openGallery() {
         //갤러리 호출
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        startActivityForResult(intent, REQUEST_IMAGE_PICK)
+        startActivityForResult(intent, ImageQuizUploadActivity.REQUEST_IMAGE_PICK)
     }
 
     private fun requestStoragePermission() {
@@ -96,10 +108,26 @@ class ImageQuizUploadActivity : AppCompatActivity() {
     }
 
     //결과 가져오기
+    private val activityResult: ActivityResultLauncher<Intent> = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()){
+
+        //결과 코드 OK , 결가값 null 아니면
+        if(it.resultCode == RESULT_OK && it.data != null){
+            //값 담기
+            val uri  = it.data!!.data
+
+            //화면에 보여주기
+            Glide.with(this)
+                .load(uri) //이미지
+                .into(binding.imgQuiz) //보여줄 위치
+        }
+    }
+
+    //결과 가져오기
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_IMAGE_PICK && resultCode == Activity.RESULT_OK && data != null) {
+        if (requestCode == ImageQuizUploadActivity.REQUEST_IMAGE_PICK && resultCode == Activity.RESULT_OK && data != null) {
             val imageUri = data.data
             binding.imgQuiz.setImageURI(imageUri)
             selectedImagePath = imageUri?.let { getImagePath(it) }
@@ -132,7 +160,7 @@ class ImageQuizUploadActivity : AppCompatActivity() {
             category = "PLANT"
         }
 
-            val quizData = """
+        val quizData = """
         {
             "title": ${binding.tvTitle.text},
             "answer": ${binding.tvCorrect.text},
@@ -169,6 +197,16 @@ class ImageQuizUploadActivity : AppCompatActivity() {
             // 파일이 선택되지 않았을 때 처리할 로직 추가 가능
             Toast.makeText(this@ImageQuizUploadActivity, "이미지를 선택해주세요.", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        loadInfo()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadInfo()
     }
 
     private fun categorySetting() {
