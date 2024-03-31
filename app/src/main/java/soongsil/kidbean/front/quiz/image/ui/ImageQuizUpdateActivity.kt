@@ -90,9 +90,6 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
                 }
                 setPositiveButton("삭제") { _, _ ->
                     loadInfo()
-
-                    Toast.makeText(this@ImageQuizUpdateActivity, "등록이 완료되었습니다.", Toast.LENGTH_SHORT)
-                        .show()
                 }
             }.create().show()
 
@@ -190,7 +187,9 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
             val fileBody = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
             MultipartBody.Part.createFormData("image", imageFile.name, fileBody)
         } else {
-            null
+            // 이미지가 변경되지 않은 경우 공백("")을 넘겨주기 위한 코드
+            val emptyRequestBody = "".toRequestBody("text/plain".toMediaTypeOrNull())
+            MultipartBody.Part.createFormData("image", "", emptyRequestBody)
         }
 
         if (binding.tvCategory.equals("식물")) {
@@ -217,12 +216,14 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
                         // 정상적으로 통신이 성공된 경우
                         Log.d("post", "onResponse 성공: " + response.body().toString())
 
-                        val body = response.body()
-
+                        Toast.makeText(this@ImageQuizUpdateActivity, "등록이 완료되었습니다.", Toast.LENGTH_SHORT)
+                            .show()
                     } else {
                         // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
                         Log.d("post", "onResponse 실패 + ${response.code()}")
                     }
+
+                    finish()
                 }
 
                 override fun onFailure(call: Call<Void>, t: Throwable) {
