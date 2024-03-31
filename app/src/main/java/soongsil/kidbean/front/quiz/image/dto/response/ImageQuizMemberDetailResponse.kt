@@ -1,4 +1,4 @@
-package soongsil.kidbean.front.data.dto.response
+package soongsil.kidbean.front.quiz.image.dto.response
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,12 +1,10 @@
-package soongsil.kidbean.front.ui.quiz.image
+package soongsil.kidbean.front.quiz.image.ui
 
 import RetrofitImpl.retrofit
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -15,9 +13,8 @@ import com.bumptech.glide.Glide
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import soongsil.kidbean.front.MainActivity
-import soongsil.kidbean.front.data.controller.ImageQuizController
-import soongsil.kidbean.front.data.dto.response.ImageQuizMemberDetailResponse
+import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
+import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberDetailResponse
 import soongsil.kidbean.front.databinding.ActivityImageQuizShowBinding
 
 
@@ -26,6 +23,7 @@ class ImageQuizShowActivity : AppCompatActivity() {
     private lateinit var title : String
     private lateinit var imgUrl : String
     private lateinit var answer : String
+    private lateinit var category: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityImageQuizShowBinding.inflate(layoutInflater)
@@ -43,7 +41,7 @@ class ImageQuizShowActivity : AppCompatActivity() {
         // 수정 버튼 눌렀을 때 수정 화면으로 이동
         binding.btnEdit.setOnClickListener {
             // 그림 문제 목록 화면으로 이동
-            val intent = Intent(this, ImageQuizEnrollActivity::class.java)
+            val intent = Intent(this, ImageQuizUpdateActivity::class.java)
             intent.putExtra("edit", -1)
             intent.putExtra("title", title)
             intent.putExtra("imgUrl", imgUrl)
@@ -70,7 +68,7 @@ class ImageQuizShowActivity : AppCompatActivity() {
 
     private fun loadInfo() {
         val imageQuizController = retrofit.create(ImageQuizController::class.java)
-        imageQuizController.getImageQuizById(1, 2).enqueue(object :
+        imageQuizController.getImageQuizById(1, 7).enqueue(object :
             Callback<ImageQuizMemberDetailResponse> {
             override fun onResponse(
                 call: Call<ImageQuizMemberDetailResponse>,
@@ -96,7 +94,7 @@ class ImageQuizShowActivity : AppCompatActivity() {
                     imageView.visibility = View.VISIBLE
 
                     // API로 가져온 카테고리 넣기
-                    var category = body?.category
+                    category = body?.category.toString()
                     if (category.equals("ANIMAL")) {
                         category = "동물"
                     }
