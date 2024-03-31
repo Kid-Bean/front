@@ -59,13 +59,17 @@ class ImageQuizShowActivity : AppCompatActivity() {
                     Toast.makeText(this@ImageQuizShowActivity, "삭제를 취소하였습니다.", Toast.LENGTH_SHORT).show()
                 }
                 setPositiveButton("삭제") { _, _ ->
-                    Toast.makeText(this@ImageQuizShowActivity, "삭제가 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                    postDelete()
                 }
             }.create().show()
 
             finish()
         }
 
+        bottomSetting()
+    }
+
+    private fun bottomSetting() {
         binding.btnHome.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
@@ -141,6 +145,31 @@ class ImageQuizShowActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ImageQuizMemberDetailResponse>, t: Throwable) {
+                // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
+                Log.d("post", "onFailure 에러: " + t.message.toString())
+            }
+        })
+    }
+
+    private fun postDelete() {
+        val imageQuizController = retrofit.create(ImageQuizController::class.java)
+        imageQuizController.deleteImageQuiz(1, 7).enqueue(object :
+            Callback<Void> {
+            override fun onResponse(
+                call: Call<Void>,
+                response: Response<Void>,
+            ) {
+                if (response.isSuccessful) {
+                    // 정상적으로 통신이 성공된 경우
+                    Log.d("post", "onResponse 성공: " + response.body().toString())
+                    Toast.makeText(this@ImageQuizShowActivity, "삭제가 완료되었습니다.", Toast.LENGTH_SHORT).show()
+                } else {
+                    // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
+                    Log.d("post", "onResponse 실패 + ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
                 // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
                 Log.d("post", "onFailure 에러: " + t.message.toString())
             }
