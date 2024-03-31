@@ -214,6 +214,8 @@
             </Button>
 
             <TextView
+                style="@style/AndroidBody3"
+                android:includeFontPadding="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray600"
@@ -238,6 +240,8 @@
             </Button>
 
             <TextView
+                    style="@style/AndroidBody3"
+                    android:includeFontPadding="false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
@@ -263,6 +267,8 @@
             </Button>
 
             <TextView
+                    style="@style/AndroidBody3"
+                    android:includeFontPadding="false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="프로그램"
@@ -288,6 +294,8 @@
             </Button>
 
             <TextView
+                    style="@style/AndroidBody3"
+                    android:includeFontPadding="false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/gray600"
