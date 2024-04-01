@@ -44,7 +44,7 @@
                 android:layout_gravity="left"
                 android:foregroundGravity="bottom"
                 android:background="@android:color/transparent"
-                android:src="@drawable/ic_pre"
+                android:src="@drawable/ic_left"
                 android:scaleType="fitCenter"
                 tools:ignore="MissingConstraints"
                 android:contentDescription="TODO">
@@ -183,15 +183,15 @@
                 android:orientation="vertical">
 
             <Button
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:background="@drawable/ic_home"
                     android:backgroundTint="@color/gray600"
                     android:layout_gravity="center_horizontal">
             </Button>
 
             <TextView
-                    style="@style/AndroidBody3"
+                    style="@style/AndroidCaption2"
                     android:includeFontPadding="false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -210,14 +210,14 @@
                 android:orientation="vertical">
 
             <Button
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:background="@drawable/ic_quiz"
                     android:layout_gravity="center_horizontal">
             </Button>
 
             <TextView
-                    style="@style/AndroidBody3"
+                    style="@style/AndroidCaption2"
                     android:includeFontPadding="false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -236,15 +236,15 @@
                 android:orientation="vertical">
 
             <Button
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:background="@drawable/ic_program"
                     android:backgroundTint="@color/gray600"
                     android:layout_gravity="center_horizontal">
             </Button>
 
             <TextView
-                    style="@style/AndroidBody3"
+                    style="@style/AndroidCaption2"
                     android:includeFontPadding="false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -263,15 +263,15 @@
                 android:orientation="vertical">
 
             <Button
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:background="@drawable/ic_mypage"
                     android:backgroundTint="@color/gray600"
                     android:layout_gravity="center_horizontal">
             </Button>
 
             <TextView
-                    style="@style/AndroidBody3"
+                    style="@style/AndroidCaption2"
                     android:includeFontPadding="false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
