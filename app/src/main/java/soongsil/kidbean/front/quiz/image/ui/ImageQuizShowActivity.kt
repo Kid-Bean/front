@@ -25,6 +25,7 @@ class ImageQuizShowActivity : AppCompatActivity() {
     private lateinit var imgUrl : String
     private lateinit var answer : String
     private lateinit var category: String
+    private var quizId: Long = -1L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityImageQuizShowBinding.inflate(layoutInflater)
@@ -37,13 +38,14 @@ class ImageQuizShowActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        quizId = intent.getLongExtra("quizId", -1L)
+
         loadInfo()
 
         // 수정 버튼 눌렀을 때 수정 화면으로 이동
         binding.btnEdit.setOnClickListener {
             // 그림 문제 목록 화면으로 이동
             val intent = Intent(this, ImageQuizUpdateActivity::class.java)
-            intent.putExtra("edit", -1)
             intent.putExtra("title", title)
             intent.putExtra("imgUrl", imgUrl)
             intent.putExtra("answer", answer)
@@ -53,17 +55,20 @@ class ImageQuizShowActivity : AppCompatActivity() {
         // 삭제 버튼 눌렀을 때 팝업 띄우기
         binding.btnDelete.setOnClickListener {
             AlertDialog.Builder(this).apply {
-                setTitle("그림 문제 추가 삭제")
-                setMessage("작성한 문제를 삭제하시겠습니까?")
+                setTitle("그림 문제 삭제")
+                setMessage("문제를 삭제하시겠습니까?")
                 setNegativeButton("취소") { _, _ ->
                     Toast.makeText(this@ImageQuizShowActivity, "삭제를 취소하였습니다.", Toast.LENGTH_SHORT).show()
                 }
                 setPositiveButton("삭제") { _, _ ->
                     postDelete()
+                    finish()
+
+                    // MainActivity로 이동
+                    val intent = Intent(this@ImageQuizShowActivity, MainActivity::class.java)
+                    startActivity(intent)
                 }
             }.create().show()
-
-            finish()
         }
 
         bottomSetting()
@@ -96,7 +101,7 @@ class ImageQuizShowActivity : AppCompatActivity() {
 
     private fun loadInfo() {
         val imageQuizController = retrofit.create(ImageQuizController::class.java)
-        imageQuizController.getImageQuizById(1, 7).enqueue(object :
+        imageQuizController.getImageQuizById(1, quizId).enqueue(object :
             Callback<ImageQuizMemberDetailResponse> {
             override fun onResponse(
                 call: Call<ImageQuizMemberDetailResponse>,

@@ -82,18 +82,17 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
         //  등록 버튼 눌렀을 때 팝업 띄우기
         binding.btnEnroll.setOnClickListener {
             AlertDialog.Builder(this).apply {
-                setTitle("그림 문제 등록")
-                setMessage("문제를 등록하시겠습니까?")
+                setTitle("그림 문제 수정")
+                setMessage("문제를 수정하시겠습니까?")
                 setNegativeButton("취소") { _, _ ->
-                    Toast.makeText(this@ImageQuizUpdateActivity, "등록을 취소하였습니다.", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@ImageQuizUpdateActivity, "수정을 취소하였습니다.", Toast.LENGTH_SHORT)
                         .show()
                 }
-                setPositiveButton("삭제") { _, _ ->
+                setPositiveButton("수정") { _, _ ->
                     loadInfo()
+                    finish()
                 }
             }.create().show()
-
-            finish()
         }
 
         bottomSetting()
@@ -204,13 +203,13 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
         {
             "title": ${binding.tvTitle.text},
             "answer": ${binding.tvCorrect.text},
-            "category": ${category}
+            "category": $category
         }
         """.trimIndent().toRequestBody("application/json".toMediaTypeOrNull())
 
         val imageQuizController = retrofit.create(ImageQuizController::class.java)
         if (fileUpdate != null) {
-            imageQuizController.updateImageQuiz(1, 7, fileUpdate, quizData).enqueue(object :
+            imageQuizController.updateImageQuiz(1, 8, fileUpdate, quizData).enqueue(object :
                 Callback<Void> {
                 override fun onResponse(
                     call: Call<Void>,
@@ -220,11 +219,13 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
                         // 정상적으로 통신이 성공된 경우
                         Log.d("post", "onResponse 성공: " + response.body().toString())
 
-                        Toast.makeText(this@ImageQuizUpdateActivity, "등록이 완료되었습니다.", Toast.LENGTH_SHORT)
+                        Toast.makeText(this@ImageQuizUpdateActivity, "수정이 완료되었습니다.", Toast.LENGTH_SHORT)
                             .show()
                     } else {
                         // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
-                        Log.d("post", "onResponse 실패 + ${response.code()}")
+                        Log.d("post", "onResponse 실패 + ${response.code()} + ${quizData}")
+                        Toast.makeText(this@ImageQuizUpdateActivity, "수정이 실패하였습니다.", Toast.LENGTH_SHORT)
+                            .show()
                     }
 
                     finish()
@@ -243,12 +244,10 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
-        loadInfo()
     }
 
     override fun onResume() {
         super.onResume()
-        loadInfo()
     }
 
     private fun categorySetting() {

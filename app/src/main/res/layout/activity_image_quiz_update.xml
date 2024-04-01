@@ -157,7 +157,7 @@
                 android:background="@drawable/shape_btn"
                 android:backgroundTint="@color/green"
                 android:includeFontPadding="false"
-                android:text="문제 등록"
+                android:text="문제 수정하기"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"

@@ -12,6 +12,7 @@ import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberDetailResponse
+import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberResponse
 
 interface ImageQuizController {
 
@@ -20,6 +21,11 @@ interface ImageQuizController {
         @Path("memberId") memberId: Long,
         @Path("quizId") quizId: Long
         ): Call<ImageQuizMemberDetailResponse>
+
+    @GET("quiz/image/member/{memberId}")
+    fun getAllImageQuizByMember(
+        @Path("memberId") memberId: Long
+    ): Call<List<ImageQuizMemberResponse>>
 
     @Multipart
     @PUT("quiz/image/member/{memberId}/{quizId}")
