@@ -17,6 +17,7 @@ import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberDetailResponse
 import soongsil.kidbean.front.databinding.ActivityImageQuizShowBinding
+import soongsil.kidbean.front.quiz.MyQuizActivity
 
 
 class ImageQuizShowActivity : AppCompatActivity() {
@@ -64,8 +65,7 @@ class ImageQuizShowActivity : AppCompatActivity() {
                     postDelete()
                     finish()
 
-                    // MainActivity로 이동
-                    val intent = Intent(this@ImageQuizShowActivity, MainActivity::class.java)
+                    val intent = Intent(this@ImageQuizShowActivity, MyQuizActivity::class.java)
                     startActivity(intent)
                 }
             }.create().show()
