@@ -34,6 +34,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityImageQuizUploadBinding
+import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
 import java.io.File
 
@@ -180,10 +181,10 @@ class ImageQuizUploadActivity : AppCompatActivity() {
         val imageQuizController = retrofit.create(ImageQuizController::class.java)
         if (fileUpdate != null) {
             imageQuizController.uploadImageQuiz(1, fileUpdate, quizData).enqueue(object :
-                Callback<Void> {
+                Callback<ResponseTemplate<Void>> {
                 override fun onResponse(
-                    call: Call<Void>,
-                    response: Response<Void>,
+                    call: Call<ResponseTemplate<Void>>,
+                    response: Response<ResponseTemplate<Void>>,
                 ) {
                     if (response.isSuccessful) {
                         // 정상적으로 통신이 성공된 경우
@@ -199,7 +200,7 @@ class ImageQuizUploadActivity : AppCompatActivity() {
                     finish()
                 }
 
-                override fun onFailure(call: Call<Void>, t: Throwable) {
+                override fun onFailure(call: Call<ResponseTemplate<Void>>, t: Throwable) {
                     // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
                     Log.d("post", "onFailure 에러: " + t.message.toString())
                 }

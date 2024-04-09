@@ -26,24 +26,24 @@ interface ImageQuizController {
     @GET("quiz/image/member/{memberId}")
     fun getAllImageQuizByMember(
         @Path("memberId") memberId: Long
-    ): Call<List<ImageQuizMemberResponse>>
+    ): Call<ResponseTemplate<List<ImageQuizMemberResponse>>>
 
     @Multipart
     @PUT("quiz/image/member/{memberId}/{quizId}")
     fun updateImageQuiz(
         @Path("memberId") memberId: Long,
         @Path("quizId") quizId: Long,
-        @Part image: MultipartBody.Part,
+        @Part s3Url: MultipartBody.Part,
         @Part("imageQuizUpdateRequest") request: RequestBody
-    ): Call<Void>
+    ): Call<ResponseTemplate<Void>>
 
     @Multipart
     @POST("quiz/image/member/{memberId}")
     fun uploadImageQuiz(
         @Path("memberId") memberId: Long,
-        @Part image: MultipartBody.Part,
+        @Part s3Url: MultipartBody.Part,
         @Part("imageQuizUploadRequest") request: RequestBody
-    ): Call<Void>
+    ): Call<ResponseTemplate<Void>>
 
     @DELETE("quiz/image/member/{memberId}/{quizId}")
     fun deleteImageQuiz(

@@ -13,6 +13,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityImageQuizListBinding
+import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberResponse
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
 
@@ -78,16 +79,16 @@ class ImageQuizListActivity : AppCompatActivity() {
     private fun loadQuizList() {
         val imageQuizController = retrofit.create(ImageQuizController::class.java)
         imageQuizController.getAllImageQuizByMember(1).enqueue(object :
-            Callback<List<ImageQuizMemberResponse>> {
+            Callback<ResponseTemplate<List<ImageQuizMemberResponse>>> {
             override fun onResponse(
-                call: Call<List<ImageQuizMemberResponse>>,
-                response: Response<List<ImageQuizMemberResponse>>,
+                call: Call<ResponseTemplate<List<ImageQuizMemberResponse>>>,
+                response: Response<ResponseTemplate<List<ImageQuizMemberResponse>>>,
             ) {
                 if (response.isSuccessful) {
                     // 정상적으로 통신이 성공된 경우
                     Log.d("post", "onResponse 성공: " + response.body().toString())
 
-                    val body = response.body()
+                    val body = response.body()?.results
 
                     if (body!!.isNotEmpty()) {
                         setAdapter(body)
@@ -98,7 +99,7 @@ class ImageQuizListActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<List<ImageQuizMemberResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseTemplate<List<ImageQuizMemberResponse>>>, t: Throwable) {
                 // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
                 Log.d("post", "onFailure 에러: " + t.message.toString())
             }
