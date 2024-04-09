@@ -11,6 +11,7 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
+import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberDetailResponse
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberResponse
 
@@ -20,7 +21,7 @@ interface ImageQuizController {
     fun getImageQuizById(
         @Path("memberId") memberId: Long,
         @Path("quizId") quizId: Long
-        ): Call<ImageQuizMemberDetailResponse>
+        ): Call<ResponseTemplate<ImageQuizMemberDetailResponse>>
 
     @GET("quiz/image/member/{memberId}")
     fun getAllImageQuizByMember(
@@ -48,5 +49,5 @@ interface ImageQuizController {
     fun deleteImageQuiz(
         @Path("memberId") memberId: Long,
         @Path("quizId") quizId: Long
-    ) :Call<Void>
+    ) :Call<ResponseTemplate<Void>>
 }

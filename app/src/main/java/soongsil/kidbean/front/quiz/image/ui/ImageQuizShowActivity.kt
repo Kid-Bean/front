@@ -17,6 +17,7 @@ import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberDetailResponse
 import soongsil.kidbean.front.databinding.ActivityImageQuizShowBinding
+import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.quiz.MyQuizActivity
 
 
@@ -39,7 +40,7 @@ class ImageQuizShowActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        quizId = intent.getLongExtra("quizId", -1L)
+        quizId = intent.getLongExtra("quizId", 6)
 
         loadInfo()
 
@@ -102,16 +103,16 @@ class ImageQuizShowActivity : AppCompatActivity() {
     private fun loadInfo() {
         val imageQuizController = retrofit.create(ImageQuizController::class.java)
         imageQuizController.getImageQuizById(1, quizId).enqueue(object :
-            Callback<ImageQuizMemberDetailResponse> {
+            Callback<ResponseTemplate<ImageQuizMemberDetailResponse>> {
             override fun onResponse(
-                call: Call<ImageQuizMemberDetailResponse>,
-                response: Response<ImageQuizMemberDetailResponse>,
+                call: Call<ResponseTemplate<ImageQuizMemberDetailResponse>>,
+                response: Response<ResponseTemplate<ImageQuizMemberDetailResponse>>,
             ) {
                 if (response.isSuccessful) {
                     // 정상적으로 통신이 성공된 경우
                     Log.d("post", "onResponse 성공: " + response.body().toString())
 
-                    val body = response.body()
+                    val body = response.body()?.results
 
                     // API로 가져온 제목 넣기
                     title = body?.title.toString()
@@ -119,7 +120,7 @@ class ImageQuizShowActivity : AppCompatActivity() {
 
                     // API로 가져온 이미지 넣기
                     val imageView: ImageView = binding.imgQuiz
-                    imgUrl = body?.imgUrl.toString()
+                    imgUrl = body?.s3Url.toString()
 
                     Glide.with(this@ImageQuizShowActivity)
                         .load(imgUrl)
@@ -127,7 +128,7 @@ class ImageQuizShowActivity : AppCompatActivity() {
                     imageView.visibility = View.VISIBLE
 
                     // API로 가져온 카테고리 넣기
-                    category = body?.category.toString()
+                    category = body?.quizCategory.toString()
                     if (category.equals("ANIMAL")) {
                         category = "동물"
                     }
@@ -149,7 +150,7 @@ class ImageQuizShowActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<ImageQuizMemberDetailResponse>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseTemplate<ImageQuizMemberDetailResponse>>, t: Throwable) {
                 // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
                 Log.d("post", "onFailure 에러: " + t.message.toString())
             }
@@ -158,11 +159,11 @@ class ImageQuizShowActivity : AppCompatActivity() {
 
     private fun postDelete() {
         val imageQuizController = retrofit.create(ImageQuizController::class.java)
-        imageQuizController.deleteImageQuiz(1, 7).enqueue(object :
-            Callback<Void> {
+        imageQuizController.deleteImageQuiz(1, 6).enqueue(object :
+            Callback<ResponseTemplate<Void>> {
             override fun onResponse(
-                call: Call<Void>,
-                response: Response<Void>,
+                call: Call<ResponseTemplate<Void>>,
+                response: Response<ResponseTemplate<Void>>,
             ) {
                 if (response.isSuccessful) {
                     // 정상적으로 통신이 성공된 경우
@@ -174,7 +175,7 @@ class ImageQuizShowActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<Void>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseTemplate<Void>>, t: Throwable) {
                 // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
                 Log.d("post", "onFailure 에러: " + t.message.toString())
             }
