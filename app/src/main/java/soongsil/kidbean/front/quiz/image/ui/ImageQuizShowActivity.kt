@@ -14,17 +14,17 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
-import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
-import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberDetailResponse
 import soongsil.kidbean.front.databinding.ActivityImageQuizShowBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.quiz.MyQuizActivity
+import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberDetailResponse
+import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
 
 
 class ImageQuizShowActivity : AppCompatActivity() {
     private lateinit var binding : ActivityImageQuizShowBinding
     private lateinit var title : String
-    private lateinit var imgUrl : String
+    private lateinit var s3Url : String
     private lateinit var answer : String
     private lateinit var category: String
     private var quizId: Long = -1L
@@ -49,7 +49,7 @@ class ImageQuizShowActivity : AppCompatActivity() {
             // 그림 문제 목록 화면으로 이동
             val intent = Intent(this, ImageQuizUpdateActivity::class.java)
             intent.putExtra("title", title)
-            intent.putExtra("imgUrl", imgUrl)
+            intent.putExtra("imgUrl", s3Url)
             intent.putExtra("answer", answer)
             startActivity(intent)
         }
@@ -120,10 +120,10 @@ class ImageQuizShowActivity : AppCompatActivity() {
 
                     // API로 가져온 이미지 넣기
                     val imageView: ImageView = binding.imgQuiz
-                    imgUrl = body?.s3Url.toString()
+                    s3Url = body?.s3Url.toString()
 
                     Glide.with(this@ImageQuizShowActivity)
-                        .load(imgUrl)
+                        .load(s3Url)
                         .into(imageView)
                     imageView.visibility = View.VISIBLE
 
@@ -159,7 +159,7 @@ class ImageQuizShowActivity : AppCompatActivity() {
 
     private fun postDelete() {
         val imageQuizController = retrofit.create(ImageQuizController::class.java)
-        imageQuizController.deleteImageQuiz(1, 6).enqueue(object :
+        imageQuizController.deleteImageQuiz(1, quizId).enqueue(object :
             Callback<ResponseTemplate<Void>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<Void>>,

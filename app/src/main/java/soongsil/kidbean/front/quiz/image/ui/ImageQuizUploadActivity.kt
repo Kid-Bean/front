@@ -33,8 +33,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
+import soongsil.kidbean.front.base.ResponseTemplate
 import soongsil.kidbean.front.databinding.ActivityImageQuizUploadBinding
-import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
 import java.io.File
 
