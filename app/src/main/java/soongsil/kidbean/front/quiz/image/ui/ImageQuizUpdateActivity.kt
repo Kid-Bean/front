@@ -28,6 +28,7 @@ import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityImageQuizUpdateBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
 import java.io.File
 
@@ -35,6 +36,7 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
     private lateinit var binding: ActivityImageQuizUpdateBinding
     private lateinit var title: String
     private lateinit var answer: String
+    private var quizId: Long = -1L
 
     private val PERMISSION_REQUEST_CODE = 1
     private var selectedImagePath: String? = null
@@ -52,6 +54,7 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        quizId = intent.getLongExtra("quizId", 6)
         title = intent.getStringExtra("title").toString()
         answer = intent.getStringExtra("answer").toString()
 
@@ -101,8 +104,8 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
 
         // 문제 풀기 화면으로 변경하기!
         binding.btnQuiz.setOnClickListener {
-            /*val intent = Intent(this, ImageQuizShowActivity::class.java)
-            startActivity(intent)*/
+            val intent = Intent(this, MyQuizActivity::class.java)
+            startActivity(intent)
         }
 
         // 프로그램 화면으로 변경하기!
@@ -204,7 +207,7 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
 
         val imageQuizController = retrofit.create(ImageQuizController::class.java)
         if (fileUpdate != null) {
-            imageQuizController.updateImageQuiz(1, 6, fileUpdate, quizData).enqueue(object :
+            imageQuizController.updateImageQuiz(1, quizId, fileUpdate, quizData).enqueue(object :
                 Callback<ResponseTemplate<Void>> {
                 override fun onResponse(
                     call: Call<ResponseTemplate<Void>>,

@@ -3,38 +3,29 @@ package soongsil.kidbean.front.quiz.image.ui
 import RetrofitImpl.retrofit
 import android.Manifest
 import android.R
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.ImageView
 import android.widget.Toast
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.bumptech.glide.Glide
-import okhttp3.MediaType.Companion.toMediaType
+import androidx.appcompat.app.AppCompatActivity
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
-import soongsil.kidbean.front.base.ResponseTemplate
 import soongsil.kidbean.front.databinding.ActivityImageQuizUploadBinding
+import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
 import java.io.File
 
@@ -95,8 +86,8 @@ class ImageQuizUploadActivity : AppCompatActivity() {
 
         // 문제 풀기 화면으로 변경하기!
         binding.btnQuiz.setOnClickListener {
-            /*val intent = Intent(this, ImageQuizShowActivity::class.java)
-            startActivity(intent)*/
+            val intent = Intent(this, MyQuizActivity::class.java)
+            startActivity(intent)
         }
 
         // 프로그램 화면으로 변경하기!

@@ -1,4 +1,4 @@
-package soongsil.kidbean.front.quiz.image.ui
+package soongsil.kidbean.front.quiz.word.ui
 
 import RetrofitImpl.retrofit
 import android.content.Intent
@@ -14,23 +14,23 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
-import soongsil.kidbean.front.databinding.ActivityImageQuizShowBinding
+import soongsil.kidbean.front.databinding.ActivityWordQuizShowBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberDetailResponse
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
+import soongsil.kidbean.front.quiz.image.ui.ImageQuizUpdateActivity
+import soongsil.kidbean.front.quiz.word.dto.response.WordQuizMemberDetailResponse
+import soongsil.kidbean.front.quiz.word.presentation.WordQuizController
 
-
-class ImageQuizShowActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityImageQuizShowBinding
+class WordQuizShowActivity : AppCompatActivity() {
+    private lateinit var binding : ActivityWordQuizShowBinding
     private lateinit var title : String
-    private lateinit var s3Url : String
     private lateinit var answer : String
-    private lateinit var category: String
     private var quizId: Long = -1L
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityImageQuizShowBinding.inflate(layoutInflater)
+        binding = ActivityWordQuizShowBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
@@ -40,7 +40,7 @@ class ImageQuizShowActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        quizId = intent.getLongExtra("quizId", 6)
+        quizId = intent.getLongExtra("quizId", 1)
 
         loadInfo()
 
@@ -48,9 +48,7 @@ class ImageQuizShowActivity : AppCompatActivity() {
         binding.btnEdit.setOnClickListener {
             // 그림 문제 목록 화면으로 이동
             val intent = Intent(this, ImageQuizUpdateActivity::class.java)
-            intent.putExtra("quizId", quizId)
             intent.putExtra("title", title)
-            intent.putExtra("imgUrl", s3Url)
             intent.putExtra("answer", answer)
             startActivity(intent)
         }
@@ -61,13 +59,13 @@ class ImageQuizShowActivity : AppCompatActivity() {
                 setTitle("그림 문제 삭제")
                 setMessage("문제를 삭제하시겠습니까?")
                 setNegativeButton("취소") { _, _ ->
-                    Toast.makeText(this@ImageQuizShowActivity, "삭제를 취소하였습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@WordQuizShowActivity, "삭제를 취소하였습니다.", Toast.LENGTH_SHORT).show()
                 }
                 setPositiveButton("삭제") { _, _ ->
-                    postDelete()
+                    //postDelete()
                     finish()
 
-                    val intent = Intent(this@ImageQuizShowActivity, MyQuizActivity::class.java)
+                    val intent = Intent(this@WordQuizShowActivity, MyQuizActivity::class.java)
                     startActivity(intent)
                 }
             }.create().show()
@@ -102,47 +100,31 @@ class ImageQuizShowActivity : AppCompatActivity() {
     }
 
     private fun loadInfo() {
-        val imageQuizController = retrofit.create(ImageQuizController::class.java)
-        imageQuizController.getImageQuizById(1, quizId).enqueue(object :
-            Callback<ResponseTemplate<ImageQuizMemberDetailResponse>> {
+        val wordQuizController = retrofit.create(WordQuizController::class.java)
+        wordQuizController.getAnswerQuizById(1, quizId).enqueue(object :
+            Callback<ResponseTemplate<WordQuizMemberDetailResponse>> {
             override fun onResponse(
-                call: Call<ResponseTemplate<ImageQuizMemberDetailResponse>>,
-                response: Response<ResponseTemplate<ImageQuizMemberDetailResponse>>,
+                call: Call<ResponseTemplate<WordQuizMemberDetailResponse>>,
+                response: Response<ResponseTemplate<WordQuizMemberDetailResponse>>,
             ) {
                 if (response.isSuccessful) {
                     // 정상적으로 통신이 성공된 경우
                     Log.d("post", "onResponse 성공: " + response.body().toString())
 
                     val body = response.body()?.results
+                    val words = body?.words
 
                     // API로 가져온 제목 넣기
                     title = body?.title.toString()
                     binding.tvTitle.text = title
 
-                    // API로 가져온 이미지 넣기
-                    val imageView: ImageView = binding.imgQuiz
-                    s3Url = body?.s3Url.toString()
-
-                    Glide.with(this@ImageQuizShowActivity)
-                        .load(s3Url)
-                        .into(imageView)
-                    imageView.visibility = View.VISIBLE
-
-                    // API로 가져온 카테고리 넣기
-                    category = body?.quizCategory.toString()
-                    if (category.equals("ANIMAL")) {
-                        category = "동물"
-                    }
-                    else if (category.equals("PLANT")) {
-                        category = "식물"
-                    }
-                    else if (category.equals("FOOD")) {
-                        category = "음식"
-                    }
-                    binding.tvCategoryAnswer.text = category
+                    binding.tvWord1.text = words!![0].content
+                    binding.tvWord2.text = words[1].content
+                    binding.tvWord3.text = words[2].content
+                    binding.tvWord4.text = words[3].content
 
                     // API로 가져온 정답 넣기
-                    answer = body?.answer.toString()
+                    answer = body.answer
                     binding.tvCorrect.text = answer
 
                 } else {
@@ -151,45 +133,10 @@ class ImageQuizShowActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<ResponseTemplate<ImageQuizMemberDetailResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseTemplate<WordQuizMemberDetailResponse>>, t: Throwable) {
                 // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
                 Log.d("post", "onFailure 에러: " + t.message.toString())
             }
         })
-    }
-
-    private fun postDelete() {
-        val imageQuizController = retrofit.create(ImageQuizController::class.java)
-        imageQuizController.deleteImageQuiz(1, quizId).enqueue(object :
-            Callback<ResponseTemplate<Void>> {
-            override fun onResponse(
-                call: Call<ResponseTemplate<Void>>,
-                response: Response<ResponseTemplate<Void>>,
-            ) {
-                if (response.isSuccessful) {
-                    // 정상적으로 통신이 성공된 경우
-                    Log.d("post", "onResponse 성공: " + response.body().toString())
-                    Toast.makeText(this@ImageQuizShowActivity, "삭제가 완료되었습니다.", Toast.LENGTH_SHORT).show()
-                } else {
-                    // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
-                    Log.d("post", "onResponse 실패 + ${response.code()}")
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseTemplate<Void>>, t: Throwable) {
-                // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
-                Log.d("post", "onFailure 에러: " + t.message.toString())
-            }
-        })
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        loadInfo()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        loadInfo()
     }
 }

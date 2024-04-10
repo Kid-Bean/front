@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp"
-        tools:context=".quiz.answer.ui.AnswerQuizShowActivity">
+        tools:context=".quiz.word.ui.WordQuizShowActivity">
 <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -50,14 +50,29 @@
     </ImageButton>
 </LinearLayout>
 
+    <TextView
+            android:id="@+id/tv_title"
+            style="@style/AndroidSubtitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="제목"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@id/layout_back"
+            app:layout_constraintStart_toStartOf="@id/layout_back"
+            app:layout_constraintTop_toBottomOf="@id/linearLayout"
+            tools:ignore="NotSibling" />
+
     <LinearLayout
+            android:id="@+id/list_words"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
             app:layout_constraintStart_toStartOf="@id/linearLayout"
             app:layout_constraintEnd_toEndOf="@id/linearLayout"
-            app:layout_constraintBottom_toBottomOf="@id/btn_two">
+            app:layout_constraintBottom_toTopOf="@id/btn_two">
 
         <TextView
                 android:id="@+id/tv_word1"
@@ -107,7 +122,45 @@
                 android:inputType="text"
                 android:maxLines="1" />
 
+        <LinearLayout
+                android:id="@+id/tv_answer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="4"
+                android:paddingTop="30dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/list_words">
+
+            <TextView
+                    style="@style/AndroidBody1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="정답"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_ch_nickname"/>
+
+            <TextView
+                    android:id="@+id/tv_correct"
+                    style="@style/AndroidBody3"
+                    android:textColor="@color/black"
+                    android:text="정답"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/shape_edittext_small_gray"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    />
+        </LinearLayout>
+
     </LinearLayout>
+
+
 
 
 <LinearLayout
