@@ -31,14 +31,15 @@ class ImageQuizAdapter(private val dataList: List<ImageQuizMemberResponse>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val currentQuiz = dataList[position]
         holder.bind(position)
 
-        holder.itemView.setOnClickListener(View.OnClickListener { v ->
-            var intent = Intent(v.context, ImageQuizShowActivity::class.java)
-            intent.putExtra("quizId", quizId)
-            Log.d("imagequiz", quizId.toString())
-            v.context.startActivity(intent)
-        })
+        holder.itemView.setOnClickListener {
+            val intent = Intent(it.context, ImageQuizShowActivity::class.java)
+            intent.putExtra("quizId", currentQuiz.quizId)
+            Log.d("imagequiz", currentQuiz.quizId.toString())
+            it.context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int = dataList.size
