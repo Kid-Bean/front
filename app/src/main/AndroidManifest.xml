@@ -39,12 +39,7 @@
             tools:targetApi="33">
         <activity
                 android:name=".quiz.word.ui.WordQuizListActivity"
-                android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                android:exported="false">
         </activity>
         <activity
                 android:name=".quiz.word.ui.WordQuizShowActivity"
@@ -55,7 +50,12 @@
                 android:exported="false" />
         <activity
                 android:name=".quiz.image.ui.ImageQuizListActivity"
-                android:exported="false">
+                android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
                 android:name=".quiz.image.ui.ImageQuizUploadActivity"

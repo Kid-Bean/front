@@ -54,7 +54,7 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        quizId = intent.getLongExtra("quizId", 6)
+        quizId = intent.getLongExtra("quizId", 7)
         title = intent.getStringExtra("title").toString()
         answer = intent.getStringExtra("answer").toString()
 

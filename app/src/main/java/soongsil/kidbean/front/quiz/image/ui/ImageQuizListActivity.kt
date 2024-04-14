@@ -26,7 +26,7 @@ class ImageQuizListActivity : AppCompatActivity() {
 
         binding.btnBack.setOnClickListener {
             // 홈 화면으로 이동
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, MyQuizActivity::class.java)
             startActivity(intent)
         }
 

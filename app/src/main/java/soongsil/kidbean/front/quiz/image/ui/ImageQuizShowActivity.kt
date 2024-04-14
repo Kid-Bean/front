@@ -36,11 +36,11 @@ class ImageQuizShowActivity : AppCompatActivity() {
 
         binding.btnBack.setOnClickListener {
             // 그림 문제 목록 화면으로 이동
-            //val intent = Intent(this, ImageQuizListActivity::class.java)
+            val intent = Intent(this, ImageQuizListActivity::class.java)
             startActivity(intent)
         }
 
-        quizId = intent.getLongExtra("quizId", 6)
+        quizId = intent.getLongExtra("quizId", 7)
 
         loadInfo()
 
