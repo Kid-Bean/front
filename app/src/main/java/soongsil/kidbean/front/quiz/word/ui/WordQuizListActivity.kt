@@ -13,7 +13,6 @@ import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityWordQuizListBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.quiz.MyQuizActivity
-import soongsil.kidbean.front.quiz.image.ui.ImageQuizUploadActivity
 import soongsil.kidbean.front.quiz.word.dto.response.WordQuizMemberResponse
 import soongsil.kidbean.front.quiz.word.presentation.WordQuizController
 
@@ -27,13 +26,13 @@ class WordQuizListActivity : AppCompatActivity() {
 
         binding.btnBack.setOnClickListener {
             // 홈 화면으로 이동
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, MyQuizActivity::class.java)
             startActivity(intent)
         }
 
         binding.btnEnroll.setOnClickListener {
-            // 그림 문제 등록 화면으로 이동
-            val intent = Intent(this, ImageQuizUploadActivity::class.java)
+            // 단어 문제 등록 화면으로 이동
+            // val intent = Intent(this, ImageQuizUploadActivity::class.java)
             startActivity(intent)
         }
 

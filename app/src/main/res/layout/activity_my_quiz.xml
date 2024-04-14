@@ -92,12 +92,12 @@ tools:context=".quiz.MyQuizActivity">
             android:layout_gravity="center_vertical">
     </Button>
     <Button
-            android:id="@+id/btn_sentence"
+            android:id="@+id/btn_word"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginBottom="20dp"
             style="@style/AndroidH2"
-            android:text="문장 만들기"
+            android:text="단어 맞추기"
             android:background="@drawable/shape_round_box"
             android:layout_gravity="center_vertical">
     </Button>

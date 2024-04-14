@@ -4,12 +4,9 @@ import RetrofitImpl.retrofit
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.bumptech.glide.Glide
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,9 +14,6 @@ import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityWordQuizShowBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.quiz.MyQuizActivity
-import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberDetailResponse
-import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
-import soongsil.kidbean.front.quiz.image.ui.ImageQuizUpdateActivity
 import soongsil.kidbean.front.quiz.word.dto.response.WordQuizMemberDetailResponse
 import soongsil.kidbean.front.quiz.word.presentation.WordQuizController
 
@@ -35,8 +29,7 @@ class WordQuizShowActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnBack.setOnClickListener {
-            // 그림 문제 목록 화면으로 이동
-            //val intent = Intent(this, ImageQuizListActivity::class.java)
+            val intent = Intent(this, WordQuizListActivity::class.java)
             startActivity(intent)
         }
 
@@ -47,7 +40,7 @@ class WordQuizShowActivity : AppCompatActivity() {
         // 수정 버튼 눌렀을 때 수정 화면으로 이동
         binding.btnEdit.setOnClickListener {
             // 그림 문제 목록 화면으로 이동
-            val intent = Intent(this, ImageQuizUpdateActivity::class.java)
+            //val intent = Intent(this, ImageQuizUpdateActivity::class.java)
             intent.putExtra("title", title)
             intent.putExtra("answer", answer)
             startActivity(intent)
