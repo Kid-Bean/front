@@ -20,6 +20,8 @@ android {
         versionName "1.0"
 
         buildConfigField "String", "BASE_URL", properties["BASE_URL"]
+        buildConfigField "String", "CLOVA_CLIENT_ID", properties["CLOVA_CLIENT_ID"]
+        buildConfigField "String", "CLOVA_CLIENT_SECRET", properties["CLOVA_CLIENT_SECRET"]
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -71,6 +73,9 @@ dependencies {
     //glide - 사진 업로드
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+
+    //clova CSR
+    implementation 'com.naver.speech.clientapi:naverspeech-ncp-sdk-android:1.1.6'
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.1"

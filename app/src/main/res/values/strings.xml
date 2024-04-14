@@ -4,4 +4,6 @@
     <string name="max_300">최대 300자</string>
     <string name="max_150">최대 150</string>
     <string name="max_500">최대 500자</string>
+    <string name="str_start">시작</string>
+    <string name="str_stop">정지</string>
 </resources>

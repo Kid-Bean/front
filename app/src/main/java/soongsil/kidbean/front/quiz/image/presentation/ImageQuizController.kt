@@ -13,6 +13,7 @@ import retrofit2.http.Path
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberDetailResponse
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberResponse
+import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveResponse
 
 interface ImageQuizController {
 
@@ -49,4 +50,9 @@ interface ImageQuizController {
         @Path("memberId") memberId: Long,
         @Path("quizId") quizId: Long
     ) :Call<ResponseTemplate<Void>>
+
+    @GET("quiz/image/{memberId}")
+    fun getRandomImageQuizByMember(
+        @Path("memberId") memberId: Long
+    ): Call<ResponseTemplate<ImageQuizSolveResponse>>
 }
