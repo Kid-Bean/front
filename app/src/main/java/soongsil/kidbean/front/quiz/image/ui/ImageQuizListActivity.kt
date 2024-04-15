@@ -13,6 +13,7 @@ import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityImageQuizListBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.quiz.MyQuizActivity
+import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberResponse
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
 
@@ -58,8 +59,8 @@ class ImageQuizListActivity : AppCompatActivity() {
 
         // 문제 풀기 화면으로 변경하기!
         binding.btnQuiz.setOnClickListener {
-            /*val intent = Intent(this, QuizSolveActivity::class.java)
-            startActivity(intent)*/
+            val intent = Intent(this, QuizListActivity::class.java)
+            startActivity(intent)
         }
 
         // 프로그램 화면으로 변경하기!

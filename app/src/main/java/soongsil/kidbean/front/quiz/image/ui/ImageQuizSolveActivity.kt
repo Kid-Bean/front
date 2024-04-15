@@ -1,11 +1,14 @@
 package soongsil.kidbean.front.quiz.image.ui
 
 import RetrofitImpl.retrofit
+import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
+import android.os.Looper
 import android.os.Message
 import android.util.Log
 import android.view.View
@@ -23,14 +26,10 @@ import retrofit2.Callback
 import retrofit2.Response
 import soongsil.kidbean.front.BuildConfig
 import soongsil.kidbean.front.MainActivity
-import android.Manifest
-import android.annotation.SuppressLint
-import android.graphics.Color
-import android.os.Looper
 import soongsil.kidbean.front.R
 import soongsil.kidbean.front.databinding.ActivityImageQuizSolveBinding
 import soongsil.kidbean.front.global.ResponseTemplate
-import soongsil.kidbean.front.quiz.MyQuizActivity
+import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.image.application.AudioWriterPCM
 import soongsil.kidbean.front.quiz.image.application.NaverRecognizer
 import soongsil.kidbean.front.quiz.image.dto.request.ImageQuizSolveListRequest
@@ -108,7 +107,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
 
         binding.btnBack.setOnClickListener {
             // 홈 화면으로 이동 - 진짜 나가겠냐고 물어보기
-            //val intent = Intent(this, ImageQuizListActivity::class.java)
+            val intent = Intent(this, QuizListActivity::class.java)
             startActivity(intent)
         }
 
@@ -127,7 +126,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
 
         // 문제 풀기 화면으로 변경하기!
         binding.btnQuiz.setOnClickListener {
-            val intent = Intent(this, MyQuizActivity::class.java)
+            val intent = Intent(this, QuizListActivity::class.java)
             startActivity(intent)
         }
 
@@ -220,10 +219,10 @@ class ImageQuizSolveActivity : AppCompatActivity() {
                 txtResult?.text = answer
                 txtResult?.visibility = View.VISIBLE
 
-                // Handler와 Runnable을 사용해서 3초 뒤에 작업을 실행
+                // Handler와 Runnable을 사용해서 1.5초 뒤에 작업을 실행
                 Handler(Looper.getMainLooper()).postDelayed({
                     showRecordingStoppedAlertDialog()
-                }, 3000) // 3000 밀리초 == 3초
+                }, 1500) // 1500 밀리초 == 1.5초
 
             }
 
@@ -266,7 +265,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
 
     // 녹음이 끝나면 AlertDialog 표시
     private fun showRecordingStoppedAlertDialog() {
-        AlertDialog.Builder(this).apply {
+        AlertDialog.Builder(this@ImageQuizSolveActivity).apply {
             setTitle("문제 풀기 완료")
             setMessage("다음 문제로 넘어가시겠어요?\n입력한 정답 : " + mResult.toString())
 
@@ -331,10 +330,12 @@ class ImageQuizSolveActivity : AppCompatActivity() {
                     })
 
                     //점수를 가지고 Home 화면으로 이동
-                    val intent = Intent(this@ImageQuizSolveActivity, MainActivity::class.java)
+                    val intent = Intent(this@ImageQuizSolveActivity, QuizListActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     intent.putExtra("score", score)
                     startActivity(intent)
                     finish()
+                    naverRecognizer!!.speechRecognizer!!.release()
 
                 } else {    //다음 문제 풀기 시작
                     naverRecognizer!!.speechRecognizer!!.release()
@@ -342,7 +343,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
 
                     val intent = Intent(this@ImageQuizSolveActivity, ImageQuizSolveActivity::class.java)
                     // 현재 태스크의 모든 액티비티를 제거하고, 새로운 태스크를 생성하여 그 안에서 액티비티를 실행
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 
                     intent.putExtra("listData", originalList as Serializable) // Map을 Serializable로 캐스팅
                     intent.putExtra("quizCount", quizCount + 1L)

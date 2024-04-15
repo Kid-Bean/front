@@ -2,23 +2,20 @@ package soongsil.kidbean.front.quiz.word.ui
 
 import RetrofitImpl.retrofit
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
-import soongsil.kidbean.front.R
-import soongsil.kidbean.front.databinding.ActivityImageQuizUpdateBinding
 import soongsil.kidbean.front.databinding.ActivityWordQuizUpdateBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.quiz.MyQuizActivity
-import soongsil.kidbean.front.quiz.image.ui.ImageQuizShowActivity
+import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.word.dto.request.WordQuizUpdateRequest
-import soongsil.kidbean.front.quiz.word.dto.response.WordQuizMemberDetailResponse
 import soongsil.kidbean.front.quiz.word.presentation.WordQuizController
 
 class WordQuizUpdateActivity : AppCompatActivity() {
@@ -88,8 +85,8 @@ class WordQuizUpdateActivity : AppCompatActivity() {
 
         // 문제 풀기 화면으로 변경하기!
         binding.btnQuiz.setOnClickListener {
-            /*val intent = Intent(this, QuizSolveActivity::class.java)
-            startActivity(intent)*/
+            val intent = Intent(this, QuizListActivity::class.java)
+            startActivity(intent)
         }
 
         // 프로그램 화면으로 변경하기!
