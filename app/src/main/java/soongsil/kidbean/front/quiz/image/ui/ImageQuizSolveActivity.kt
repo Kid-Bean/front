@@ -25,6 +25,7 @@ import soongsil.kidbean.front.BuildConfig
 import soongsil.kidbean.front.MainActivity
 import android.Manifest
 import android.annotation.SuppressLint
+import android.os.Looper
 import soongsil.kidbean.front.R
 import soongsil.kidbean.front.databinding.ActivityImageQuizSolveBinding
 import soongsil.kidbean.front.global.ResponseTemplate
@@ -215,9 +216,15 @@ class ImageQuizSolveActivity : AppCompatActivity() {
                 mResult = strBuf.toString()
                 txtResult!!.text = mResult
 
-                showRecordingStoppedAlertDialog()
+
                 txtResult?.setText(answer)
                 txtResult?.visibility = View.VISIBLE
+
+                // Handler와 Runnable을 사용해서 2초 뒤에 작업을 실행
+                Handler(Looper.getMainLooper()).postDelayed({
+                    showRecordingStoppedAlertDialog()
+                }, 4000) // 2000 밀리초 == 2초
+
             }
 
             R.id.recognitionError -> {
