@@ -50,7 +50,7 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
 
         binding.btnBack.setOnClickListener {
             // 그림 문제 목록 화면으로 이동
-            val intent = Intent(this, ImageQuizShowActivity::class.java)
+            val intent = Intent(this, ImageQuizListActivity::class.java)
             startActivity(intent)
             finish()
         }
