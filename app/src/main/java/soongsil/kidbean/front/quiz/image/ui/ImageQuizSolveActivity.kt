@@ -25,12 +25,15 @@ import soongsil.kidbean.front.BuildConfig
 import soongsil.kidbean.front.MainActivity
 import android.Manifest
 import android.annotation.SuppressLint
+import retrofit2.Retrofit
 import soongsil.kidbean.front.R
 import soongsil.kidbean.front.databinding.ActivityImageQuizSolveBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.image.application.AudioWriterPCM
 import soongsil.kidbean.front.quiz.image.application.NaverRecognizer
+import soongsil.kidbean.front.quiz.image.dto.request.ImageQuizSolveListRequest
+import soongsil.kidbean.front.quiz.image.dto.request.ImageQuizSolveRequest
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveResponse
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
 import java.io.Serializable
@@ -45,6 +48,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
     private lateinit var answer : String
     private var quizId: Long = -1L
     private var quizCount: Long = 1L
+    private var memberId:Long = 1L
 
     private val CLIENT_ID = BuildConfig.CLOVA_CLIENT_ID
 
@@ -139,7 +143,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
 
     private fun loadInfo() {
         val imageQuizController = retrofit.create(ImageQuizController::class.java)
-        imageQuizController.getRandomImageQuizByMember(1).enqueue(object :
+        imageQuizController.getRandomImageQuizByMember(memberId).enqueue(object :
             Callback<ResponseTemplate<ImageQuizSolveResponse>> {
             @SuppressLint("SetTextI18n")
             override fun onResponse(
@@ -264,23 +268,45 @@ class ImageQuizSolveActivity : AppCompatActivity() {
 
                 Log.d("final answer", mResult.toString())
 
+                // 이전에 풀었던 문제들
+                // Intent에서 Serializable 데이터를 받아오고, 이를 안전하게 Map<Long, String>으로 캐스팅
+                // 만약 null이면 빈 Map을 생성
+                val originalMap = intent.getSerializableExtra("mapData") as? Map<Long, String> ?: emptyMap()
+
+                //원본 Map을 MutableMap으로 변환 후 이번에 푼 문제 정보 추가 - 중복된 문제 없게 나중에 바꿔주기 or 무시
+                val mutableMap = originalMap.toMutableMap()
+                mutableMap[quizId] = mResult.toString()
+
+                // mapData의 모든 키와 값을 로그로 출력
+                mutableMap.forEach { (key, value) ->
+                    Log.d("MapData", "Key: $key, Value: $value")
+                }
+
                 //5번째 문제 - 푼 문제들을 전부 제출
                 if (quizCount == 5L) {
-
-                } else {    //다음 문제 풀기 시작
-                    // 이전에 풀었던 문제들
-                    // Intent에서 Serializable 데이터를 받아오고, 이를 안전하게 Map<Long, String>으로 캐스팅
-                    // 만약 null이면 빈 Map을 생성
-                    val originalMap = intent.getSerializableExtra("mapData") as? Map<Long, String> ?: emptyMap()
-
-                    //원본 Map을 MutableMap으로 변환 후 이번에 푼 문제 정보 추가 - 중복된 문제 없게 나중에 바꿔주기 or 무시
-                    val mutableMap = originalMap.toMutableMap()
-                    mutableMap[quizId] = mResult.toString()
-
-                    // mapData의 모든 키와 값을 로그로 출력
-                    mutableMap.forEach { (key, value) ->
-                        Log.d("MapData", "Key: $key, Value: $value")
+                    val quizSolveRequestList = mutableMap.map { (key, value) ->
+                        ImageQuizSolveRequest(quizId = key, answer = value)
                     }
+
+                    val request = ImageQuizSolveListRequest(quizSolvedRequestList = quizSolveRequestList)
+
+                    val call = retrofit.create(ImageQuizController::class.java).solveImageQuiz(memberId, request)
+
+                    call.enqueue(object : Callback<Void> {
+                        override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                            if (response.isSuccessful) {
+                                Log.d("request", "success")
+                            } else {
+                                Log.d("request", "fail")
+                            }
+                        }
+
+                        override fun onFailure(call: Call<Void>, t: Throwable) {
+                            // 네트워크 에러 등 요청 실패 처리
+                            Log.d("request", "fail network")
+                        }
+                    })
+                } else {    //다음 문제 풀기 시작
 
                     naverRecognizer!!.speechRecognizer!!.release()
                     Log.d("recognizer die", "true")

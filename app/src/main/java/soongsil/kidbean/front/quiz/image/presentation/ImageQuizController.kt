@@ -3,6 +3,7 @@ package soongsil.kidbean.front.quiz.image.presentation
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Multipart
@@ -11,6 +12,7 @@ import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.quiz.image.dto.request.ImageQuizSolveListRequest
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberDetailResponse
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberResponse
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveResponse
@@ -55,4 +57,10 @@ interface ImageQuizController {
     fun getRandomImageQuizByMember(
         @Path("memberId") memberId: Long
     ): Call<ResponseTemplate<ImageQuizSolveResponse>>
+
+    @POST("quiz/image/{memberId}")
+    fun solveImageQuiz(
+        @Path("memberId") memberId: Long,
+        @Body request: ImageQuizSolveListRequest
+    ) :Call<Void>
 }
