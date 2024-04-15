@@ -25,6 +25,7 @@ import soongsil.kidbean.front.BuildConfig
 import soongsil.kidbean.front.MainActivity
 import android.Manifest
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.os.Looper
 import soongsil.kidbean.front.R
 import soongsil.kidbean.front.databinding.ActivityImageQuizSolveBinding
@@ -216,14 +217,13 @@ class ImageQuizSolveActivity : AppCompatActivity() {
                 mResult = strBuf.toString()
                 txtResult!!.text = mResult
 
-
-                txtResult?.setText(answer)
+                txtResult?.text = answer
                 txtResult?.visibility = View.VISIBLE
 
-                // Handler와 Runnable을 사용해서 2초 뒤에 작업을 실행
+                // Handler와 Runnable을 사용해서 3초 뒤에 작업을 실행
                 Handler(Looper.getMainLooper()).postDelayed({
                     showRecordingStoppedAlertDialog()
-                }, 4000) // 2000 밀리초 == 2초
+                }, 3000) // 3000 밀리초 == 3초
 
             }
 
@@ -241,8 +241,11 @@ class ImageQuizSolveActivity : AppCompatActivity() {
                 if (writer != null) {
                     writer!!.close()
                 }
-                binding.btnStart.setText(R.string.str_start)
-                btnStart!!.isEnabled = true
+
+                btnStart?.isClickable = false
+                btnStart?.isFocusable = false
+                // 시각적으로 비활성화된 것처럼 보이게 하기 위해
+                btnStart?.visibility = View.INVISIBLE
             }
         }
     }
@@ -271,7 +274,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
 
             setPositiveButton("다음 문제로") { _, _ ->
                 binding.btnStart.setText(R.string.str_start)
-                binding.txtResult.setText(answer)
+                binding.txtResult.text = answer
                 finish()
 
                 Log.d("final answer", mResult.toString())
@@ -314,7 +317,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
                                 // API로 가져온 정답 넣기
                                 score = body?.score!!
 
-                                Log.d("score", score.toString());
+                                Log.d("score", score.toString())
                             } else {
                                 // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
                                 Log.d("post", "onResponse 실패 + ${response.code()}")
