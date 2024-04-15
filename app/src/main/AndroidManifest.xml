@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission
             android:name="android.permission.WRITE_EXTERNAL_STORAGE"
             android:maxSdkVersion="32"
@@ -33,13 +34,15 @@
             android:requestLegacyExternalStorage="true"
             android:roundIcon="@drawable/kidbean"
             android:supportsRtl="true"
-            android:theme="@style/Theme.Front"
+            android:theme="@style/Theme.Design.Light"
             android:usesCleartextTraffic="true"
             tools:replace="android:usesCleartextTraffic"
             tools:targetApi="33">
         <activity
-                android:name=".quiz.word.ui.WordQuizListActivity"
-                android:exported="true">
+                android:name=".quiz.image.ui.ImageQuizSolveActivity"
+                android:screenOrientation="portrait"
+                android:exported="true" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -47,16 +50,18 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".quiz.word.ui.WordQuizShowActivity"
+                android:name=".quiz.word.ui.WordQuizListActivity"
                 android:exported="false">
         </activity>
+        <activity
+                android:name=".quiz.word.ui.WordQuizShowActivity"
+                android:exported="false"></activity>
         <activity
                 android:name=".quiz.MyQuizActivity"
                 android:exported="false" />
         <activity
                 android:name=".quiz.image.ui.ImageQuizListActivity"
-                android:exported="false">
-        </activity>
+                android:exported="false"></activity>
         <activity
                 android:name=".quiz.image.ui.ImageQuizUploadActivity"
                 android:exported="false" />
@@ -65,16 +70,10 @@
                 android:exported="false" />
         <activity
                 android:name=".quiz.image.ui.ImageQuizShowActivity"
-                android:exported="false">
-        </activity>
+                android:exported="false"></activity>
         <activity
                 android:name=".MainActivity"
                 android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
