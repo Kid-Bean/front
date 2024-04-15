@@ -24,6 +24,7 @@ import retrofit2.Response
 import soongsil.kidbean.front.BuildConfig
 import soongsil.kidbean.front.MainActivity
 import android.Manifest
+import android.annotation.SuppressLint
 import soongsil.kidbean.front.R
 import soongsil.kidbean.front.databinding.ActivityImageQuizSolveBinding
 import soongsil.kidbean.front.global.ResponseTemplate
@@ -32,6 +33,7 @@ import soongsil.kidbean.front.quiz.image.application.AudioWriterPCM
 import soongsil.kidbean.front.quiz.image.application.NaverRecognizer
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveResponse
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
+import java.io.Serializable
 import java.lang.ref.WeakReference
 
 
@@ -42,6 +44,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
     private lateinit var s3Url : String
     private lateinit var answer : String
     private var quizId: Long = -1L
+    private var quizCount: Long = 1L
 
     private val CLIENT_ID = BuildConfig.CLOVA_CLIENT_ID
 
@@ -50,7 +53,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
 
     private var txtResult: Button? = null
     private var btnStart: Button? = null
-    //mResult에 실제 대답한 글이 있음
+    //mResult에 실제 대답한 내용 있음
     private var mResult: String? = null
 
     private var writer: AudioWriterPCM? = null
@@ -70,9 +73,6 @@ class ImageQuizSolveActivity : AppCompatActivity() {
                 arrayOf(Manifest.permission.RECORD_AUDIO),
                 RECORD_AUDIO_PERMISSION_REQUEST_CODE
             )
-        } else {
-            // 이미 권한이 있는 경우 다음 작업 수행
-            // 예: 오디오 녹음 시작
         }
 
         txtResult = binding.txtResult
@@ -81,12 +81,15 @@ class ImageQuizSolveActivity : AppCompatActivity() {
         handler = RecognitionHandler(this)
         naverRecognizer = NaverRecognizer(this, handler!!, CLIENT_ID)
 
-        btnStart!!.setOnClickListener {
+        Log.d("naverRecognizer status", naverRecognizer!!.speechRecognizer!!.isRunning.toString())
+
+        btnStart?.setOnClickListener {
             if (!naverRecognizer!!.speechRecognizer!!.isRunning) {
                 // Start button is pushed when SpeechRecognizer's state is inactive.
                 // Run SpeechRecongizer by calling recognize().
                 mResult = ""
                 txtResult!!.text = "Connecting..."
+                Log.d("text info", txtResult!!.text.toString())
                 binding.btnStart.setText(R.string.str_stop)
                 naverRecognizer!!.recognize()
             } else {
@@ -102,7 +105,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        quizId = intent.getLongExtra("quizId", 6)
+        quizId = intent.getLongExtra("quizId", 1)
 
         loadInfo()
         bottomSetting()
@@ -138,6 +141,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
         val imageQuizController = retrofit.create(ImageQuizController::class.java)
         imageQuizController.getRandomImageQuizByMember(1).enqueue(object :
             Callback<ResponseTemplate<ImageQuizSolveResponse>> {
+            @SuppressLint("SetTextI18n")
             override fun onResponse(
                 call: Call<ResponseTemplate<ImageQuizSolveResponse>>,
                 response: Response<ResponseTemplate<ImageQuizSolveResponse>>,
@@ -160,6 +164,9 @@ class ImageQuizSolveActivity : AppCompatActivity() {
 
                     // API로 가져온 정답 넣기
                     answer = body?.answer.toString()
+                    quizId = body?.quizId!!
+                    quizCount = intent.getLongExtra("quizCount", 1)
+                    binding.tvCount.text = "$quizCount/5"
 
                 } else {
                     // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
@@ -246,7 +253,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
     private fun showRecordingStoppedAlertDialog() {
         AlertDialog.Builder(this).apply {
             setTitle("문제 풀기 완료")
-            setMessage("다음 문제로 넘어가시겠어요?")
+            setMessage("다음 문제로 넘어가시겠어요?\n입력한 정답 : " + mResult.toString())
 
             Log.d("answer", txtResult?.text.toString())
 
@@ -257,16 +264,36 @@ class ImageQuizSolveActivity : AppCompatActivity() {
 
                 Log.d("final answer", mResult.toString())
 
-                //퀴즈가 몇번이나 반복되었는지
-                val quizCount = intent.getIntExtra("quizCount", 1)
-
                 //5번째 문제 - 푼 문제들을 전부 제출
-                if (quizCount == 5) {
+                if (quizCount == 5L) {
 
                 } else {    //다음 문제 풀기 시작
+                    // 이전에 풀었던 문제들
+                    // Intent에서 Serializable 데이터를 받아오고, 이를 안전하게 Map<Long, String>으로 캐스팅
+                    // 만약 null이면 빈 Map을 생성
+                    val originalMap = intent.getSerializableExtra("mapData") as? Map<Long, String> ?: emptyMap()
+
+                    //원본 Map을 MutableMap으로 변환 후 이번에 푼 문제 정보 추가 - 중복된 문제 없게 나중에 바꿔주기 or 무시
+                    val mutableMap = originalMap.toMutableMap()
+                    mutableMap[quizId] = mResult.toString()
+
+                    // mapData의 모든 키와 값을 로그로 출력
+                    mutableMap.forEach { (key, value) ->
+                        Log.d("MapData", "Key: $key, Value: $value")
+                    }
+
+                    naverRecognizer!!.speechRecognizer!!.release()
+                    Log.d("recognizer die", "true")
+
                     val intent = Intent(this@ImageQuizSolveActivity, ImageQuizSolveActivity::class.java)
+                    // 현재 태스크의 모든 액티비티를 제거하고, 새로운 태스크를 생성하여 그 안에서 액티비티를 실행
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK and Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+                    intent.putExtra("mapData", mutableMap as Serializable) // Map을 Serializable로 캐스팅
+                    intent.putExtra("quizCount", quizCount + 1L)
 
                     startActivity(intent)
+                    finish()
                 }
             }
         }.create().show()
@@ -294,6 +321,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
         super.onStart()
         // NOTE : initialize() must be called on start time.
         naverRecognizer!!.speechRecognizer!!.initialize()
+        Log.d("recognizer start", "true")
     }
 
     override fun onResume() {
@@ -302,12 +330,6 @@ class ImageQuizSolveActivity : AppCompatActivity() {
         txtResult!!.text = ""
         binding.btnStart.setText(R.string.str_start)
         btnStart!!.isEnabled = true
-    }
-
-    override fun onStop() {
-        super.onStop()
-        // NOTE : release() must be called on stop time.
-        naverRecognizer!!.speechRecognizer!!.release()
     }
 
     companion object {
