@@ -32,7 +32,7 @@ class WordQuizListActivity : AppCompatActivity() {
 
         binding.btnEnroll.setOnClickListener {
             // 단어 문제 등록 화면으로 이동
-            // val intent = Intent(this, ImageQuizUploadActivity::class.java)
+             val intent = Intent(this, WordQuizUploadActivity::class.java)
             startActivity(intent)
         }
 
@@ -49,8 +49,8 @@ class WordQuizListActivity : AppCompatActivity() {
 
         // 문제 풀기 화면으로 변경하기!
         binding.btnQuiz.setOnClickListener {
-            val intent = Intent(this, MyQuizActivity::class.java)
-            startActivity(intent)
+            /*val intent = Intent(this, QuizSolveActivity::class.java)
+            startActivity(intent)*/
         }
 
         // 프로그램 화면으로 변경하기!

@@ -7,12 +7,14 @@ import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Multipart
+import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberResponse
 import soongsil.kidbean.front.quiz.word.dto.request.WordQuizUpdateRequest
+import soongsil.kidbean.front.quiz.word.dto.request.WordQuizUploadRequest
 import soongsil.kidbean.front.quiz.word.dto.response.WordQuizMemberDetailResponse
 import soongsil.kidbean.front.quiz.word.dto.response.WordQuizMemberResponse
 
@@ -29,7 +31,12 @@ interface WordQuizController {
         @Path("memberId") memberId: Long
     ): Call<ResponseTemplate<List<WordQuizMemberResponse>>>
 
-    @Multipart
+    @POST("quiz/word/member/{memberId}")
+    fun uploadWordQuiz(
+        @Path("memberId") memberId: Long,
+        @Body request: WordQuizUploadRequest
+    ): Call<ResponseTemplate<Void>>
+
     @PUT("quiz/word/member/{memberId}/{quizId}")
     fun updateWordQuiz(
         @Path("memberId") memberId: Long,

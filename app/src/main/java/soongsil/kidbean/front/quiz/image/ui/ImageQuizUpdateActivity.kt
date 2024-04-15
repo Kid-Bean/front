@@ -105,8 +105,8 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
 
         // 문제 풀기 화면으로 변경하기!
         binding.btnQuiz.setOnClickListener {
-            val intent = Intent(this, MyQuizActivity::class.java)
-            startActivity(intent)
+            /*val intent = Intent(this, QuizSolveActivity::class.java)
+            startActivity(intent)*/
         }
 
         // 프로그램 화면으로 변경하기!
