@@ -37,7 +37,7 @@ class ImageQuizUploadActivity : AppCompatActivity() {
     private val PERMISSION_REQUEST_CODE = 1
     private var selectedImagePath: String? = null
 
-    private var category: String = "ANIMAL"
+    private var category: String = "NONE"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityImageQuizUploadBinding.inflate(layoutInflater)
@@ -48,6 +48,7 @@ class ImageQuizUploadActivity : AppCompatActivity() {
             // 그림 문제 목록 화면으로 이동
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         // 외부 저장소에 대한 런타임 퍼미션 요청
@@ -122,7 +123,6 @@ class ImageQuizUploadActivity : AppCompatActivity() {
 
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        Log.d("opengallery", intent.toString())
         startActivityForResult(intent, REQUEST_IMAGE_PICK)
     }
 
@@ -182,6 +182,9 @@ class ImageQuizUploadActivity : AppCompatActivity() {
                         Toast.makeText(this@ImageQuizUploadActivity, "등록이 완료되었습니다.", Toast.LENGTH_SHORT)
                             .show()
 
+                        // 통신이 성공하면 Activity를 종료
+                        finish()
+
                     } else {
                         // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
                         Toast.makeText(this@ImageQuizUploadActivity, "등록이 실패하였습니다.", Toast.LENGTH_SHORT)
@@ -205,6 +208,8 @@ class ImageQuizUploadActivity : AppCompatActivity() {
             // 파일이 선택되지 않았을 때 처리할 로직 추가 가능
             Toast.makeText(this@ImageQuizUploadActivity, "이미지를 선택해주세요.", Toast.LENGTH_SHORT).show()
         }
+
+        finish()
     }
 
     override fun onRestart() {
@@ -225,6 +230,7 @@ class ImageQuizUploadActivity : AppCompatActivity() {
         categories.add("없음")
         categories.add("동물")
         categories.add("식물")
+        categories.add("사물")
         categories.add("음식")
 
         // 어댑터 생성 및 데이터 설정

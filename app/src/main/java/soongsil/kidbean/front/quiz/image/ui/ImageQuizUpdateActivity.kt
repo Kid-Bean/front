@@ -52,6 +52,7 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
             // 그림 문제 목록 화면으로 이동
             val intent = Intent(this, ImageQuizShowActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         quizId = intent.getLongExtra("quizId", 7)
@@ -61,6 +62,9 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
         binding.tvTitle.setText(title)
         binding.tvCorrect.setText(answer)
 
+        // 외부 저장소에 대한 런타임 퍼미션 요청
+        requestStoragePermission()
+
         val imageView: ImageView = binding.imgQuiz
         Glide.with(this@ImageQuizUpdateActivity)
             .load(intent.getStringExtra("imgUrl"))
@@ -68,9 +72,6 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
         imageView.visibility = View.VISIBLE
 
         binding.imgQuiz.setOnClickListener {
-            //갤러리 호출
-            requestStoragePermission()
-
             openGallery()
         }
 
@@ -143,26 +144,10 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
     }
 
     //결과 가져오기
-    private val activityResult: ActivityResultLauncher<Intent> = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()){
-
-        //결과 코드 OK , 결가값 null 아니면
-        if(it.resultCode == RESULT_OK && it.data != null){
-            //값 담기
-            val uri  = it.data!!.data
-
-            //화면에 보여주기
-            Glide.with(this)
-                .load(uri) //이미지
-                .into(binding.imgQuiz) //보여줄 위치
-        }
-    }
-
-    //결과 가져오기
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == ImageQuizUpdateActivity.REQUEST_IMAGE_PICK && resultCode == Activity.RESULT_OK && data != null) {
+        if (requestCode == REQUEST_IMAGE_PICK && resultCode == Activity.RESULT_OK && data != null) {
             val imageUri = data.data
             binding.imgQuiz.setImageURI(imageUri)
             selectedImagePath = imageUri?.let { getImagePath(it) }
@@ -193,17 +178,13 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
             MultipartBody.Part.createFormData("s3Url", "", emptyRequestBody)
         }
 
-        if (binding.tvCategory.equals("식물")) {
-            category = "PLANT"
-        }
-
         val quizData = """
         {
-            "title": ${binding.tvTitle.text},
-            "answer": ${binding.tvCorrect.text},
-            "category": $category
+            "title": "${binding.tvTitle.text}",
+            "answer": "${binding.tvCorrect.text}",
+            "quizCategory": "$category"
         }
-        """.trimIndent().toRequestBody("application/json".toMediaTypeOrNull())
+        """.trimIndent().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
         val imageQuizController = retrofit.create(ImageQuizController::class.java)
         if (fileUpdate != null) {
@@ -219,6 +200,10 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
 
                         Toast.makeText(this@ImageQuizUpdateActivity, "수정이 완료되었습니다.", Toast.LENGTH_SHORT)
                             .show()
+
+                        // 통신이 성공하면 Activity를 종료
+                        finish()
+
                     } else {
                         // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
                         Log.d("post", "onResponse 실패 + ${response.code()} + ${quizData}")
@@ -226,7 +211,9 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
                             .show()
                     }
 
-                    finish()
+                    // MyQuizActivity로 이동
+                    val intent = Intent(this@ImageQuizUpdateActivity, MyQuizActivity::class.java)
+                    startActivity(intent)
                 }
 
                 override fun onFailure(call: Call<ResponseTemplate<Void>>, t: Throwable) {
@@ -238,6 +225,8 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
             // 파일이 선택되지 않았을 때 처리할 로직 추가 가능
             Toast.makeText(this@ImageQuizUpdateActivity, "이미지를 선택해주세요.", Toast.LENGTH_SHORT).show()
         }
+
+        finish()
     }
 
     override fun onRestart() {
@@ -248,12 +237,17 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
         super.onResume()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
     private fun categorySetting() {
         // 스피너에 표시될 데이터 생성
         val categories: MutableList<String> = ArrayList()
         categories.add("없음")
         categories.add("동물")
         categories.add("식물")
+        categories.add("사물")
         categories.add("음식")
 
         // 어댑터 생성 및 데이터 설정

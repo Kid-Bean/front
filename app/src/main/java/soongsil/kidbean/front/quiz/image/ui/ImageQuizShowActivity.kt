@@ -65,10 +65,11 @@ class ImageQuizShowActivity : AppCompatActivity() {
                 }
                 setPositiveButton("삭제") { _, _ ->
                     postDelete()
-                    finish()
 
                     val intent = Intent(this@ImageQuizShowActivity, MyQuizActivity::class.java)
                     startActivity(intent)
+
+                    finish()
                 }
             }.create().show()
         }
@@ -136,8 +137,8 @@ class ImageQuizShowActivity : AppCompatActivity() {
                     else if (category.equals("PLANT")) {
                         category = "식물"
                     }
-                    else if (category.equals("FOOD")) {
-                        category = "음식"
+                    else if (category.equals("OBJECT")) {
+                        category = "사물"
                     }
                     binding.tvCategoryAnswer.text = category
 
@@ -170,6 +171,9 @@ class ImageQuizShowActivity : AppCompatActivity() {
                     // 정상적으로 통신이 성공된 경우
                     Log.d("post", "onResponse 성공: " + response.body().toString())
                     Toast.makeText(this@ImageQuizShowActivity, "삭제가 완료되었습니다.", Toast.LENGTH_SHORT).show()
+
+                    // 통신이 성공하면 Activity를 종료
+                    finish()
                 } else {
                     // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
                     Log.d("post", "onResponse 실패 + ${response.code()}")
@@ -185,11 +189,9 @@ class ImageQuizShowActivity : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
-        loadInfo()
     }
 
     override fun onResume() {
         super.onResume()
-        loadInfo()
     }
 }
