@@ -29,7 +29,7 @@
             android:enableOnBackInvokedCallback="true"
             android:fullBackupContent="@xml/backup_rules"
             android:icon="@drawable/kidbean"
-            android:label="Kid@Bean"
+            android:label="키드콩"
             android:requestLegacyExternalStorage="true"
             android:roundIcon="@drawable/kidbean"
             android:supportsRtl="true"
