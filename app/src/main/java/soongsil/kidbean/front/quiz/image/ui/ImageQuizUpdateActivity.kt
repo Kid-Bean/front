@@ -41,7 +41,7 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
     private val PERMISSION_REQUEST_CODE = 1
     private var selectedImagePath: String? = null
 
-    private var category: String = "ANIMAL"
+    private var category: String = "NONE"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityImageQuizUpdateBinding.inflate(layoutInflater)

@@ -15,8 +15,10 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
@@ -67,12 +69,12 @@ class ImageQuizUploadActivity : AppCompatActivity() {
                     Toast.makeText(this@ImageQuizUploadActivity, "등록을 취소하였습니다.", Toast.LENGTH_SHORT)
                         .show()
                 }
-                setPositiveButton("삭제") { _, _ ->
+                setPositiveButton("등록") { _, _ ->
                     loadInfo()
                 }
             }.create().show()
 
-            finish()
+
         }
 
         bottomSetting()
@@ -152,22 +154,19 @@ class ImageQuizUploadActivity : AppCompatActivity() {
         val fileUpdate: MultipartBody.Part? = if (!selectedImagePath.isNullOrEmpty()) {
             val imageFile = File(selectedImagePath)
             val fileBody = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
-            MultipartBody.Part.createFormData("image", imageFile.name, fileBody)
+            MultipartBody.Part.createFormData("s3Url", imageFile.name, fileBody)
         } else {
             null
         }
 
-        if (binding.tvCategory.equals("식물")) {
-            category = "PLANT"
-        }
-
         val quizData = """
         {
-            "title": ${binding.tvTitle.text},
-            "answer": ${binding.tvCorrect.text},
-            "category": ${category}
+            "title": "${binding.tvTitle.text}",
+            "answer": "${binding.tvCorrect.text}",
+            "quizCategory": "$category"
         }
-        """.trimIndent().toRequestBody("application/json".toMediaTypeOrNull())
+        """.trimIndent().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+
 
         val imageQuizController = retrofit.create(ImageQuizController::class.java)
         if (fileUpdate != null) {
@@ -185,8 +184,14 @@ class ImageQuizUploadActivity : AppCompatActivity() {
 
                     } else {
                         // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
+                        Toast.makeText(this@ImageQuizUploadActivity, "등록이 실패하였습니다.", Toast.LENGTH_SHORT)
+                            .show()
                         Log.d("post", "onResponse 실패 + ${response.code()}")
                     }
+
+                    // MyQuizActivity로 이동
+                    val intent = Intent(this@ImageQuizUploadActivity, MyQuizActivity::class.java)
+                    startActivity(intent)
 
                     finish()
                 }
@@ -204,12 +209,14 @@ class ImageQuizUploadActivity : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
-        loadInfo()
     }
 
     override fun onResume() {
         super.onResume()
-        loadInfo()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
     private fun categorySetting() {
