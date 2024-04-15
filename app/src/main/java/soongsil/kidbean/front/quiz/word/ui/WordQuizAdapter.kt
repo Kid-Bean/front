@@ -1,15 +1,11 @@
 package soongsil.kidbean.front.quiz.word.ui;
 
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import soongsil.kidbean.front.databinding.ItemQuizBinding
-
-import soongsil.kidbean.front.quiz.word.dto.response.WordQuizMemberResponse;
+import soongsil.kidbean.front.quiz.word.dto.response.WordQuizMemberResponse
 
 class WordQuizAdapter(private val dataList: List<WordQuizMemberResponse>) :
         RecyclerView.Adapter<WordQuizAdapter.ViewHolder>() {
@@ -31,15 +27,15 @@ class WordQuizAdapter(private val dataList: List<WordQuizMemberResponse>) :
                 return ViewHolder(viewBinding)
         }
 
-        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: WordQuizAdapter.ViewHolder, position: Int) {
+                val currentQuiz = dataList[position]
                 holder.bind(position)
 
-                holder.itemView.setOnClickListener(View.OnClickListener { v ->
-                        var intent = Intent(v.context, WordQuizShowActivity::class.java)
-                        intent.putExtra("quizId", quizId)
-                        Log.d("wordquiz", quizId.toString())
-                        v.context.startActivity(intent)
-                })
+                holder.itemView.setOnClickListener {
+                        val intent = Intent(it.context, WordQuizShowActivity::class.java)
+                        intent.putExtra("quizId", currentQuiz.quizId)
+                        it.context.startActivity(intent)
+                }
         }
 
         override fun getItemCount(): Int = dataList.size

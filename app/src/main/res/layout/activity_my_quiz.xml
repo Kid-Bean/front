@@ -65,6 +65,7 @@ tools:context=".quiz.MyQuizActivity">
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="5dp"
+            android:gravity="center_horizontal"
             android:text="어떤 카테고리를 선택할까요?"
             android:textColor="@color/black"
             android:textSize="20dp"
@@ -92,12 +93,12 @@ tools:context=".quiz.MyQuizActivity">
             android:layout_gravity="center_vertical">
     </Button>
     <Button
-            android:id="@+id/btn_sentence"
+            android:id="@+id/btn_word"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginBottom="20dp"
             style="@style/AndroidH2"
-            android:text="문장 만들기"
+            android:text="단어 맞추기"
             android:background="@drawable/shape_round_box"
             android:layout_gravity="center_vertical">
     </Button>
@@ -163,6 +164,7 @@ tools:context=".quiz.MyQuizActivity">
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:background="@drawable/ic_quiz"
+                android:backgroundTint="@color/gray600"
                 android:layout_gravity="center_horizontal">
         </Button>
 
@@ -171,7 +173,7 @@ tools:context=".quiz.MyQuizActivity">
                 android:includeFontPadding="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
+                android:textColor="@color/gray600"
                 android:text="문제 풀기"
                 android:layout_gravity="center_horizontal">
 
@@ -216,7 +218,6 @@ tools:context=".quiz.MyQuizActivity">
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:background="@drawable/ic_mypage"
-                android:backgroundTint="@color/gray600"
                 android:layout_gravity="center_horizontal">
         </Button>
 
@@ -225,7 +226,7 @@ tools:context=".quiz.MyQuizActivity">
                 android:includeFontPadding="false"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/gray600"
+                android:textColor="@color/black"
                 android:text="마이페이지"
                 android:layout_gravity="center_horizontal">
 

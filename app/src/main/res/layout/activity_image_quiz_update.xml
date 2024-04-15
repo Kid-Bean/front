@@ -213,6 +213,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@drawable/ic_quiz"
+                    android:backgroundTint="@color/gray600"
                     android:layout_gravity="center_horizontal">
             </Button>
 
@@ -221,7 +222,7 @@
                     android:includeFontPadding="false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
+                    android:textColor="@color/gray600"
                     android:text="문제 풀기"
                     android:layout_gravity="center_horizontal">
 
@@ -266,7 +267,6 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@drawable/ic_mypage"
-                    android:backgroundTint="@color/gray600"
                     android:layout_gravity="center_horizontal">
             </Button>
 
@@ -275,7 +275,7 @@
                     android:includeFontPadding="false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/gray600"
+                    android:textColor="@color/black"
                     android:text="마이페이지"
                     android:layout_gravity="center_horizontal">
 

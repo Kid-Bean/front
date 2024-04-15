@@ -4,34 +4,31 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import soongsil.kidbean.front.MainActivity
-import soongsil.kidbean.front.databinding.ActivityMyQuizBinding
-import soongsil.kidbean.front.quiz.image.ui.ImageQuizListActivity
-import soongsil.kidbean.front.quiz.word.ui.WordQuizListActivity
+import soongsil.kidbean.front.databinding.ActivityQuizListBinding
+import soongsil.kidbean.front.quiz.image.ui.ImageQuizSolveActivity
 
-class MyQuizActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityMyQuizBinding
+class QuizListActivity : AppCompatActivity() {
+    private lateinit var binding : ActivityQuizListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityMyQuizBinding.inflate(layoutInflater)
+        binding = ActivityQuizListBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         binding.btnBack.setOnClickListener {
-            // 홈 화면으로 이동
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
         binding.btnImage.setOnClickListener {
-            // 홈 화면으로 이동
-            val intent = Intent(this, ImageQuizListActivity::class.java)
+            val intent = Intent(this, ImageQuizSolveActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
 
         binding.btnWord.setOnClickListener {
-            // 홈 화면으로 이동
-            val intent = Intent(this, WordQuizListActivity::class.java)
-            startActivity(intent)
+            /*val intent = Intent(this, WordQuizSolveActivity::class.java)
+            startActivity(intent)*/
         }
 
         bottomSetting()

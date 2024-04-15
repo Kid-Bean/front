@@ -17,6 +17,7 @@ import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityImageQuizShowBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.quiz.MyQuizActivity
+import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberDetailResponse
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
 
@@ -36,11 +37,11 @@ class ImageQuizShowActivity : AppCompatActivity() {
 
         binding.btnBack.setOnClickListener {
             // 그림 문제 목록 화면으로 이동
-            //val intent = Intent(this, ImageQuizListActivity::class.java)
+            val intent = Intent(this, ImageQuizListActivity::class.java)
             startActivity(intent)
         }
 
-        quizId = intent.getLongExtra("quizId", 6)
+        quizId = intent.getLongExtra("quizId", 7)
 
         loadInfo()
 
@@ -65,10 +66,11 @@ class ImageQuizShowActivity : AppCompatActivity() {
                 }
                 setPositiveButton("삭제") { _, _ ->
                     postDelete()
-                    finish()
 
                     val intent = Intent(this@ImageQuizShowActivity, MyQuizActivity::class.java)
                     startActivity(intent)
+
+                    finish()
                 }
             }.create().show()
         }
@@ -84,7 +86,7 @@ class ImageQuizShowActivity : AppCompatActivity() {
 
         // 문제 풀기 화면으로 변경하기!
         binding.btnQuiz.setOnClickListener {
-            val intent = Intent(this, MyQuizActivity::class.java)
+            val intent = Intent(this, QuizListActivity::class.java)
             startActivity(intent)
         }
 
@@ -136,8 +138,8 @@ class ImageQuizShowActivity : AppCompatActivity() {
                     else if (category.equals("PLANT")) {
                         category = "식물"
                     }
-                    else if (category.equals("FOOD")) {
-                        category = "음식"
+                    else if (category.equals("OBJECT")) {
+                        category = "사물"
                     }
                     binding.tvCategoryAnswer.text = category
 
@@ -170,6 +172,9 @@ class ImageQuizShowActivity : AppCompatActivity() {
                     // 정상적으로 통신이 성공된 경우
                     Log.d("post", "onResponse 성공: " + response.body().toString())
                     Toast.makeText(this@ImageQuizShowActivity, "삭제가 완료되었습니다.", Toast.LENGTH_SHORT).show()
+
+                    // 통신이 성공하면 Activity를 종료
+                    finish()
                 } else {
                     // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
                     Log.d("post", "onResponse 실패 + ${response.code()}")
@@ -185,11 +190,9 @@ class ImageQuizShowActivity : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
-        loadInfo()
     }
 
     override fun onResume() {
         super.onResume()
-        loadInfo()
     }
 }

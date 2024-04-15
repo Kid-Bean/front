@@ -5,7 +5,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp"
-        tools:context=".quiz.word.ui.WordQuizShowActivity">
+        tools:context=".quiz.word.ui.WordQuizUploadActivity">
+
 <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -50,152 +51,140 @@
     </ImageButton>
 </LinearLayout>
 
-    <TextView
-            android:id="@+id/tv_title"
-            style="@style/AndroidSubtitle1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="제목"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="@id/layout_back"
-            app:layout_constraintStart_toStartOf="@id/layout_back"
-            app:layout_constraintTop_toBottomOf="@id/linearLayout"
-            tools:ignore="NotSibling" />
+<EditText
+        android:id="@+id/tv_title"
+        style="@style/AndroidSubtitle1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="제목"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="@id/layout_back"
+        app:layout_constraintStart_toStartOf="@id/layout_back"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout"
+        tools:ignore="NotSibling" />
 
-    <LinearLayout
-            android:id="@+id/list_words"
+<LinearLayout
+        android:id="@+id/list_words"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintTop_toBottomOf="@id/tv_title"
-            app:layout_constraintStart_toStartOf="@id/linearLayout"
-            app:layout_constraintEnd_toEndOf="@id/linearLayout"
-            app:layout_constraintBottom_toTopOf="@id/btn_two">
+        app:layout_constraintStart_toStartOf="@id/linearLayout"
+        app:layout_constraintEnd_toEndOf="@id/linearLayout"
+        app:layout_constraintBottom_toTopOf="@id/enroll_layout">
+
+    <EditText
+            android:id="@+id/tv_word1"
+            style="@style/AndroidBody1"
+            android:textColor="@color/black"
+            android:hint="단어1"
+            android:textColorHint="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:background="@drawable/shape_edittext_small_gray"
+            android:inputType="text"
+            android:maxLines="1" />
+    <EditText
+            android:id="@+id/tv_word2"
+            style="@style/AndroidBody1"
+            android:textColor="@color/black"
+            android:hint="단어2"
+            android:textColorHint="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:background="@drawable/shape_edittext_small_gray"
+            android:inputType="text"
+            android:maxLines="1" />
+    <EditText
+            android:id="@+id/tv_word3"
+            style="@style/AndroidBody1"
+            android:textColor="@color/black"
+            android:hint="단어3"
+            android:textColorHint="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:background="@drawable/shape_edittext_small_gray"
+            android:inputType="text"
+            android:maxLines="1" />
+    <EditText
+            android:id="@+id/tv_word4"
+            style="@style/AndroidBody1"
+            android:textColor="@color/black"
+            android:hint="단어4"
+            android:textColorHint="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:background="@drawable/shape_edittext_small_gray"
+            android:inputType="text"
+            android:maxLines="1" />
+
+    <LinearLayout
+            android:id="@+id/tv_answer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="4"
+            android:paddingTop="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/list_words">
 
         <TextView
-                android:id="@+id/tv_word1"
                 style="@style/AndroidBody1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="정답"
+                android:layout_weight="1"
                 android:textColor="@color/black"
-                android:text="단어1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:background="@drawable/shape_edittext_small_gray"
-                android:inputType="text"
-                android:maxLines="1" />
-        <TextView
-                android:id="@+id/tv_word2"
-                style="@style/AndroidBody1"
-                android:textColor="@color/black"
-                android:text="단어2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center_horizontal"
-                android:background="@drawable/shape_edittext_small_gray"
-                android:inputType="text"
-                android:maxLines="1" />
-        <TextView
-                android:id="@+id/tv_word3"
-                style="@style/AndroidBody1"
-                android:textColor="@color/black"
-                android:text="단어3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center_horizontal"
-                android:background="@drawable/shape_edittext_small_gray"
-                android:inputType="text"
-                android:maxLines="1" />
-        <TextView
-                android:id="@+id/tv_word4"
-                style="@style/AndroidBody1"
-                android:textColor="@color/black"
-                android:text="단어4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center_horizontal"
-                android:background="@drawable/shape_edittext_small_gray"
-                android:inputType="text"
-                android:maxLines="1" />
-
-        <LinearLayout
-                android:id="@+id/tv_answer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="4"
-                android:paddingTop="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/list_words">
+                app:layout_constraintTop_toBottomOf="@+id/tv_ch_nickname"/>
 
-            <TextView
-                    style="@style/AndroidBody1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="정답"
-                    android:layout_weight="1"
-                    android:textColor="@color/black"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_ch_nickname"/>
-
-            <TextView
-                    android:id="@+id/tv_correct"
-                    style="@style/AndroidBody3"
-                    android:textColor="@color/black"
-                    android:text="정답"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3"
-                    android:gravity="center_horizontal"
-                    android:background="@drawable/shape_edittext_small_gray"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    />
-        </LinearLayout>
-
+        <EditText
+                android:id="@+id/tv_correct"
+                style="@style/AndroidBody3"
+                android:textColor="@color/black"
+                android:hint="정답"
+                android:textColorHint="@color/black"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:gravity="center_horizontal"
+                android:background="@drawable/shape_edittext_small_gray"
+                android:inputType="text"
+                android:maxLines="1"
+                />
     </LinearLayout>
+
+</LinearLayout>
 
 
 
 
 <LinearLayout
-        android:id="@+id/btn_two"
+        android:id="@+id/enroll_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bottom">
 
     <Button
-            android:id="@+id/btn_edit"
+            android:id="@+id/btn_enroll"
             style="@style/AndroidButton1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginRight="10dp"
             android:background="@drawable/shape_btn"
             android:backgroundTint="@color/green"
             android:includeFontPadding="false"
-            android:text="수정"
-            android:textColor="@color/white"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
-
-    <Button
-            android:id="@+id/btn_delete"
-            style="@style/AndroidButton1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/shape_btn"
-            android:backgroundTint="@color/red"
-            android:includeFontPadding="false"
-            android:text="삭제"
+            android:text="문제 등록하기"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

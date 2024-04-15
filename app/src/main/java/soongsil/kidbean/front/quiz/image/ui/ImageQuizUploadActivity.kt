@@ -26,6 +26,7 @@ import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityImageQuizUploadBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.quiz.MyQuizActivity
+import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
 import java.io.File
 
@@ -35,7 +36,7 @@ class ImageQuizUploadActivity : AppCompatActivity() {
     private val PERMISSION_REQUEST_CODE = 1
     private var selectedImagePath: String? = null
 
-    private var category: String = "ANIMAL"
+    private var category: String = "NONE"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityImageQuizUploadBinding.inflate(layoutInflater)
@@ -46,6 +47,7 @@ class ImageQuizUploadActivity : AppCompatActivity() {
             // 그림 문제 목록 화면으로 이동
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         // 외부 저장소에 대한 런타임 퍼미션 요청
@@ -67,12 +69,12 @@ class ImageQuizUploadActivity : AppCompatActivity() {
                     Toast.makeText(this@ImageQuizUploadActivity, "등록을 취소하였습니다.", Toast.LENGTH_SHORT)
                         .show()
                 }
-                setPositiveButton("삭제") { _, _ ->
+                setPositiveButton("등록") { _, _ ->
                     loadInfo()
                 }
             }.create().show()
 
-            finish()
+
         }
 
         bottomSetting()
@@ -86,7 +88,7 @@ class ImageQuizUploadActivity : AppCompatActivity() {
 
         // 문제 풀기 화면으로 변경하기!
         binding.btnQuiz.setOnClickListener {
-            val intent = Intent(this, MyQuizActivity::class.java)
+            val intent = Intent(this, QuizListActivity::class.java)
             startActivity(intent)
         }
 
@@ -120,7 +122,6 @@ class ImageQuizUploadActivity : AppCompatActivity() {
 
     private fun openGallery() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        Log.d("opengallery", intent.toString())
         startActivityForResult(intent, REQUEST_IMAGE_PICK)
     }
 
@@ -152,22 +153,19 @@ class ImageQuizUploadActivity : AppCompatActivity() {
         val fileUpdate: MultipartBody.Part? = if (!selectedImagePath.isNullOrEmpty()) {
             val imageFile = File(selectedImagePath)
             val fileBody = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
-            MultipartBody.Part.createFormData("image", imageFile.name, fileBody)
+            MultipartBody.Part.createFormData("s3Url", imageFile.name, fileBody)
         } else {
             null
         }
 
-        if (binding.tvCategory.equals("식물")) {
-            category = "PLANT"
-        }
-
         val quizData = """
         {
-            "title": ${binding.tvTitle.text},
-            "answer": ${binding.tvCorrect.text},
-            "category": ${category}
+            "title": "${binding.tvTitle.text}",
+            "answer": "${binding.tvCorrect.text}",
+            "quizCategory": "$category"
         }
-        """.trimIndent().toRequestBody("application/json".toMediaTypeOrNull())
+        """.trimIndent().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+
 
         val imageQuizController = retrofit.create(ImageQuizController::class.java)
         if (fileUpdate != null) {
@@ -183,10 +181,19 @@ class ImageQuizUploadActivity : AppCompatActivity() {
                         Toast.makeText(this@ImageQuizUploadActivity, "등록이 완료되었습니다.", Toast.LENGTH_SHORT)
                             .show()
 
+                        // 통신이 성공하면 Activity를 종료
+                        finish()
+
                     } else {
                         // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
+                        Toast.makeText(this@ImageQuizUploadActivity, "등록이 실패하였습니다.", Toast.LENGTH_SHORT)
+                            .show()
                         Log.d("post", "onResponse 실패 + ${response.code()}")
                     }
+
+                    // MyQuizActivity로 이동
+                    val intent = Intent(this@ImageQuizUploadActivity, MyQuizActivity::class.java)
+                    startActivity(intent)
 
                     finish()
                 }
@@ -200,16 +207,20 @@ class ImageQuizUploadActivity : AppCompatActivity() {
             // 파일이 선택되지 않았을 때 처리할 로직 추가 가능
             Toast.makeText(this@ImageQuizUploadActivity, "이미지를 선택해주세요.", Toast.LENGTH_SHORT).show()
         }
+
+        finish()
     }
 
     override fun onRestart() {
         super.onRestart()
-        loadInfo()
     }
 
     override fun onResume() {
         super.onResume()
-        loadInfo()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
     }
 
     private fun categorySetting() {
@@ -218,6 +229,7 @@ class ImageQuizUploadActivity : AppCompatActivity() {
         categories.add("없음")
         categories.add("동물")
         categories.add("식물")
+        categories.add("사물")
         categories.add("음식")
 
         // 어댑터 생성 및 데이터 설정

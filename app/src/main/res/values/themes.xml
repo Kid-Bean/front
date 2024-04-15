@@ -4,11 +4,12 @@
         <item name="colorPrimary">@color/green</item>
         <item name="colorPrimaryVariant">@color/gray600</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="windowNoTitle">true</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/green</item>
         <item name="colorSecondaryVariant">@color/gray200</item>
         <item name="colorOnSecondary">@color/black</item>
-        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
     </style>
 
     <style name="Theme.Front" parent="Base.Theme.Front" />
