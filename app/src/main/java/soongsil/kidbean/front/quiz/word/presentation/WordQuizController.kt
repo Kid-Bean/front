@@ -8,11 +8,15 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.quiz.image.dto.request.ImageQuizSolveListRequest
+import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveScoreResponse
+import soongsil.kidbean.front.quiz.word.dto.request.WordQuizSolveListRequest
 import soongsil.kidbean.front.quiz.word.dto.request.WordQuizUpdateRequest
 import soongsil.kidbean.front.quiz.word.dto.request.WordQuizUploadRequest
 import soongsil.kidbean.front.quiz.word.dto.response.WordQuizMemberDetailResponse
 import soongsil.kidbean.front.quiz.word.dto.response.WordQuizMemberResponse
 import soongsil.kidbean.front.quiz.word.dto.response.WordQuizSolveResponse
+import soongsil.kidbean.front.quiz.word.dto.response.WordQuizSolveScoreResponse
 
 interface WordQuizController {
 
@@ -46,9 +50,14 @@ interface WordQuizController {
         @Path("quizId") quizId: Long
     ) :Call<ResponseTemplate<Void>>
 
-
     @GET("quiz/word/{memberId}")
     fun getRandomWordQuizByMember(
         @Path("memberId") memberId: Long
     ): Call<ResponseTemplate<WordQuizSolveResponse>>
+
+    @POST("quiz/word/{memberId}")
+    fun solveWordQuiz(
+        @Path("memberId") memberId: Long,
+        @Body request: WordQuizSolveListRequest
+    ) :Call<ResponseTemplate<WordQuizSolveScoreResponse>>
 }
