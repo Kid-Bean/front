@@ -168,7 +168,7 @@
             app:layout_constraintBottom_toTopOf="@id/bottom">
 
         <Button
-                android:id="@+id/btn_edit"
+                android:id="@+id/btnAnswer"
                 style="@style/AndroidButton1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -177,8 +177,9 @@
                 android:background="@drawable/shape_btn"
                 android:backgroundTint="@color/green"
                 android:includeFontPadding="false"
-                android:text="녹음 시작"
+                android:text="정답"
                 android:textColor="@color/white"
+                android:visibility="invisible"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
 
