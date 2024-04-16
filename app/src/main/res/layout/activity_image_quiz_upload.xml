@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="제목"
+            android:hint="제목"
             android:textColor="@color/gray600"
             app:layout_constraintEnd_toEndOf="@id/layout_back"
             app:layout_constraintStart_toStartOf="@id/layout_back"
@@ -131,7 +131,7 @@
         <EditText
                 android:id="@+id/tv_correct"
                 style="@style/AndroidBody3"
-                android:text="정답"
+                android:hint="정답"
                 android:textColor="@color/gray600"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"

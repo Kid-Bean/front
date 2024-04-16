@@ -161,10 +161,10 @@ class AnswerQuizSolveActivity : AppCompatActivity() {
         when (msg.what) {
             R.id.clientReady -> {
                 // Now an user can speak.
-                writer = AudioWriterPCM(
-                    Environment.getExternalStorageDirectory().absolutePath + "/NaverSpeechTest"
-                )
-                writer!!.open("Test")
+                writer = AudioWriterPCM(this, "Test")
+
+                Log.d("file path", "/NaverSpeechTest")
+                Log.d("file path", Environment.getExternalStorageDirectory().absolutePath + "/NaverSpeechTest")
             }
 
             R.id.audioRecording -> writer!!.write((msg.obj as ShortArray))

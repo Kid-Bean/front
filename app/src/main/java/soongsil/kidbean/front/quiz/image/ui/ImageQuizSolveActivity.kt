@@ -6,7 +6,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
@@ -191,10 +190,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
             R.id.clientReady -> {
                 // Now an user can speak.
                 txtResult!!.text = "Connected"
-                writer = AudioWriterPCM(
-                    Environment.getExternalStorageDirectory().absolutePath + "/NaverSpeechTest"
-                )
-                writer!!.open("Test")
+                writer = AudioWriterPCM(this, "Test")
             }
 
             R.id.audioRecording -> writer!!.write((msg.obj as ShortArray))
