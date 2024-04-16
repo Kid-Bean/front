@@ -41,7 +41,7 @@ class ImageQuizShowActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        quizId = intent.getLongExtra("quizId", 7)
+        quizId = intent.getLongExtra("quizId", -1L)
 
         loadInfo()
 
@@ -141,6 +141,13 @@ class ImageQuizShowActivity : AppCompatActivity() {
                     else if (category.equals("OBJECT")) {
                         category = "사물"
                     }
+                    else if (category.equals("FOOD")) {
+                        category = "음식"
+                    }
+                    else if (category.equals("NONE")) {
+                        category = "없음"
+                    }
+
                     binding.tvCategoryAnswer.text = category
 
                     // API로 가져온 정답 넣기
@@ -173,8 +180,10 @@ class ImageQuizShowActivity : AppCompatActivity() {
                     Log.d("post", "onResponse 성공: " + response.body().toString())
                     Toast.makeText(this@ImageQuizShowActivity, "삭제가 완료되었습니다.", Toast.LENGTH_SHORT).show()
 
-                    // 통신이 성공하면 Activity를 종료
-                    finish()
+                    // MyQuizActivity로 이동
+                    val intent = Intent(this@ImageQuizShowActivity, MyQuizActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
                 } else {
                     // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
                     Log.d("post", "onResponse 실패 + ${response.code()}")

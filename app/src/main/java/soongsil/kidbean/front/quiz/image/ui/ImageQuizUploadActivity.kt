@@ -193,6 +193,7 @@ class ImageQuizUploadActivity : AppCompatActivity() {
 
                     // MyQuizActivity로 이동
                     val intent = Intent(this@ImageQuizUploadActivity, MyQuizActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
 
                     finish()
@@ -250,13 +251,18 @@ class ImageQuizUploadActivity : AppCompatActivity() {
             ) {
                 // 선택된 아이템의 텍스트 가져오기
                 val selectedCategory = parent.getItemAtPosition(position).toString()
-                // 선택된 아이템에 대한 작업 수행 (예: 토스트 메시지 표시)
-                Toast.makeText(
-                    this@ImageQuizUploadActivity,
-                    "선택된 카테고리: $selectedCategory",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
+
+                if (selectedCategory.equals("없음")) {
+                    category = "NONE"
+                } else if (selectedCategory.equals("동물")) {
+                    category = "ANIMAL"
+                } else if (selectedCategory.equals("식물")) {
+                    category = "PLANT"
+                } else if (selectedCategory.equals("사물")) {
+                    category = "OBJECT"
+                } else if (selectedCategory.equals("음식")) {
+                    category = "FOOD"
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
