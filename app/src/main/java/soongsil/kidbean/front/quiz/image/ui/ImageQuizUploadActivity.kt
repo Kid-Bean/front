@@ -181,9 +181,6 @@ class ImageQuizUploadActivity : AppCompatActivity() {
                         Toast.makeText(this@ImageQuizUploadActivity, "등록이 완료되었습니다.", Toast.LENGTH_SHORT)
                             .show()
 
-                        // 통신이 성공하면 Activity를 종료
-                        finish()
-
                     } else {
                         // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
                         Toast.makeText(this@ImageQuizUploadActivity, "등록이 실패하였습니다.", Toast.LENGTH_SHORT)

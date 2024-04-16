@@ -179,15 +179,17 @@ class ImageQuizShowActivity : AppCompatActivity() {
                     // 정상적으로 통신이 성공된 경우
                     Log.d("post", "onResponse 성공: " + response.body().toString())
                     Toast.makeText(this@ImageQuizShowActivity, "삭제가 완료되었습니다.", Toast.LENGTH_SHORT).show()
-
-                    // MyQuizActivity로 이동
-                    val intent = Intent(this@ImageQuizShowActivity, MyQuizActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    startActivity(intent)
                 } else {
                     // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
                     Log.d("post", "onResponse 실패 + ${response.code()}")
                 }
+
+                // MyQuizActivity로 이동
+                val intent = Intent(this@ImageQuizShowActivity, MyQuizActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+
+                finish()
             }
 
             override fun onFailure(call: Call<ResponseTemplate<Void>>, t: Throwable) {
