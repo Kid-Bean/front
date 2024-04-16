@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityQuizListBinding
+import soongsil.kidbean.front.quiz.answer.ui.AnswerQuizSolveActivity
 import soongsil.kidbean.front.quiz.image.ui.ImageQuizSolveActivity
 import soongsil.kidbean.front.quiz.word.ui.WordQuizSolveActivity
 
@@ -29,6 +30,11 @@ class QuizListActivity : AppCompatActivity() {
 
         binding.btnWord.setOnClickListener {
             val intent = Intent(this, WordQuizSolveActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnAnswer.setOnClickListener {
+            val intent = Intent(this, AnswerQuizSolveActivity::class.java)
             startActivity(intent)
         }
 

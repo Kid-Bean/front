@@ -40,6 +40,9 @@
             tools:replace="android:usesCleartextTraffic"
             tools:targetApi="33">
         <activity
+                android:name=".quiz.answer.ui.AnswerQuizSolveActivity"
+                android:exported="false" />
+        <activity
                 android:name=".quiz.word.ui.WordQuizSolveActivity"
                 android:exported="false" />
         <activity
@@ -54,7 +57,7 @@
         <activity
                 android:name=".quiz.image.ui.ImageQuizSolveActivity"
                 android:exported="false"
-                android:screenOrientation="portrait"></activity>
+                android:screenOrientation="portrait" />
         <activity
                 android:name=".quiz.word.ui.WordQuizUploadActivity"
                 android:exported="false" />

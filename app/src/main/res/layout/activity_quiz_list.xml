@@ -103,7 +103,7 @@
             android:layout_gravity="center_vertical">
     </Button>
     <Button
-            android:id="@+id/btn_voice"
+            android:id="@+id/btn_answer"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             style="@style/AndroidH2"
