@@ -64,4 +64,5 @@ interface ImageQuizController {
         @Path("memberId") memberId: Long,
         @Body request: ImageQuizSolveListRequest
     ) :Call<ResponseTemplate<ImageQuizSolveScoreResponse>>
+
 }
