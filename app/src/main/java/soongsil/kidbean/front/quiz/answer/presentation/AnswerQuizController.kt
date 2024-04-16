@@ -1,7 +1,10 @@
 package soongsil.kidbean.front.quiz.answer.presentation
 
+import com.google.gson.Gson
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Multipart
@@ -23,7 +26,7 @@ interface AnswerQuizController {
     @POST("quiz/answer/{memberId}")
     fun solveAnswerQuiz(
         @Path("memberId") memberId: Long,
-        @Part record: MultipartBody.Part?,
-        @Part("answerQuizSolvedRequest") request: RequestBody
+        @Part record: MultipartBody.Part,
+        @Part answerQuizSolvedRequest: MultipartBody.Part
     ) :Call<ResponseTemplate<AnswerQuizSolveScoreResponse>>
 }

@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat
 import com.naver.speech.clientapi.SpeechRecognitionResult
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
@@ -55,6 +56,8 @@ class AnswerQuizSolveActivity : AppCompatActivity() {
     private var btnStart: Button? = null
     private var mResult: String? = null
     private var writer: AudioWriterPCM? = null
+
+    private var sessionId: String = "Test"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -161,7 +164,7 @@ class AnswerQuizSolveActivity : AppCompatActivity() {
         when (msg.what) {
             R.id.clientReady -> {
                 // Now an user can speak.
-                writer = AudioWriterPCM(this, "Test")
+                writer = AudioWriterPCM(this, sessionId)
 
                 Log.d("file path", "/NaverSpeechTest")
                 Log.d("file path", Environment.getExternalStorageDirectory().absolutePath + "/NaverSpeechTest")
@@ -227,23 +230,21 @@ class AnswerQuizSolveActivity : AppCompatActivity() {
     // 녹음이 끝나면 AlertDialog 표시
     private fun showRecordingStoppedAlertDialog() {
 
-        val fileUpdate: MultipartBody.Part? = if (!selectedImagePath.isNullOrEmpty()) {
-            val imageFile = File(selectedImagePath)
-            val fileBody = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
-            MultipartBody.Part.createFormData("s3Url", imageFile.name, fileBody)
-        } else {
-            null
-        }
+        val file = File(this.filesDir, "$sessionId.pcm")
+        val requestFile = RequestBody.create("audio/pcm".toMediaTypeOrNull(), file)
+        val recordPart = MultipartBody.Part.createFormData("record", file.name, requestFile)
 
         val quizData = """
-        {
-            "quizId": "${quizId}",
-            "answer": "${mResult.toString()}"
-        }
-        """.trimIndent().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+            {
+                "quizId": "${quizId}",
+                "answer": "${mResult.toString()}"
+            }
+            """.trimIndent().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+
+        val quizDataPart = MultipartBody.Part.createFormData("answerQuizSolvedRequest", "", quizData)
 
         val answerQuizController = retrofit.create(AnswerQuizController::class.java)
-        answerQuizController.solveAnswerQuiz(memberId, fileUpdate, quizData).enqueue(object :
+        answerQuizController.solveAnswerQuiz(memberId, recordPart, quizDataPart).enqueue(object :
             Callback<ResponseTemplate<AnswerQuizSolveScoreResponse>> {
             @SuppressLint("SetTextI18n")
             override fun onResponse(
