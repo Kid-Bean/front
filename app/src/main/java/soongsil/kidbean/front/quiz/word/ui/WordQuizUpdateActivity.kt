@@ -13,7 +13,6 @@ import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityWordQuizUpdateBinding
 import soongsil.kidbean.front.global.ResponseTemplate
-import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.word.dto.request.WordQuizUpdateRequest
 import soongsil.kidbean.front.quiz.word.presentation.WordQuizController
@@ -109,10 +108,17 @@ class WordQuizUpdateActivity : AppCompatActivity() {
         word3 = binding.tvWord3.text.toString()
         word4 = binding.tvWord4.text.toString()
 
-        val words = mutableListOf<String>(word1, word2, word3, word4)
+        // Words 객체 리스트 생성
+        val wordList = listOf(
+            WordQuizUpdateRequest.Words(word1),
+            WordQuizUpdateRequest.Words(word2),
+            WordQuizUpdateRequest.Words(word3),
+            WordQuizUpdateRequest.Words(word4)
+        )
+
 
         val wordQuizController = retrofit.create(WordQuizController::class.java)
-        wordQuizController.updateWordQuiz(1, quizId, WordQuizUpdateRequest(title, answer, words)).enqueue(object :
+        wordQuizController.updateWordQuiz(1, quizId, WordQuizUpdateRequest(title, answer, wordList)).enqueue(object :
             Callback<ResponseTemplate<Void>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<Void>>,
