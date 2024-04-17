@@ -9,12 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
-import android.os.Looper
 import android.os.Message
 import android.util.Log
-import android.view.View
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -23,7 +20,6 @@ import com.naver.speech.clientapi.SpeechRecognitionResult
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -46,9 +42,9 @@ class AnswerQuizSolveActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityAnswerQuizSolveBinding
     private var quizId: Long = -1L
+    private lateinit var title: String
     private var memberId:Long = 4L
     private var score:Long = -1L
-    private var selectedImagePath: String? = null
 
     private val CLIENT_ID = BuildConfig.CLOVA_CLIENT_ID
     private var handler: RecognitionHandler? = null
@@ -144,8 +140,11 @@ class AnswerQuizSolveActivity : AppCompatActivity() {
                     // API로 가져온 이미지 넣기
                     binding.tvQuiz.text = body?.question
 
+                    // API로 가져온 제목
+                    title = body?.title!!
+
                     // API로 가져온 정답 넣기
-                    quizId = body?.quizId!!
+                    quizId = body.quizId
 
                 } else {
                     // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
@@ -185,11 +184,7 @@ class AnswerQuizSolveActivity : AppCompatActivity() {
                 strBuf.append(result)
                 mResult = strBuf.toString()
 
-                // Handler와 Runnable을 사용해서 1.5초 뒤에 작업을 실행
-                Handler(Looper.getMainLooper()).postDelayed({
-                    showRecordingStoppedAlertDialog()
-                }, 1500) // 1500 밀리초 == 1.5초
-
+                showRecordingStoppedAlertDialog()
             }
 
             R.id.recognitionError -> {
@@ -208,8 +203,6 @@ class AnswerQuizSolveActivity : AppCompatActivity() {
 
                 btnStart?.isClickable = false
                 btnStart?.isFocusable = false
-                // 시각적으로 비활성화된 것처럼 보이게 하기 위해
-                btnStart?.visibility = View.INVISIBLE
             }
         }
     }

@@ -2,5 +2,6 @@ package soongsil.kidbean.front.quiz.answer.dto.response
 
 data class AnswerQuizSolveResponse(
     val quizId: Long,
-    val question: String
+    val question: String,
+    val title: String
 )
