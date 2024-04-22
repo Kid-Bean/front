@@ -40,6 +40,9 @@
             tools:replace="android:usesCleartextTraffic"
             tools:targetApi="33">
         <activity
+                android:name=".quiz.answer.ui.AnswerQuizUpdateActivity"
+                android:exported="false" />
+        <activity
                 android:name=".quiz.answer.ui.AnswerQuizShowActivity"
                 android:exported="false" />
         <activity
@@ -47,8 +50,7 @@
                 android:exported="false" />
         <activity
                 android:name=".quiz.QuizListActivity"
-                android:exported="false">
-        </activity>
+                android:exported="false"></activity>
         <activity
                 android:name=".quiz.image.ui.ImageQuizSolveActivity"
                 android:exported="false"
