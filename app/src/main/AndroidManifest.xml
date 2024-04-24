@@ -26,12 +26,14 @@
             android:required="true" />
 
     <application
+            android:name=".global.GlobalApplication"
             android:allowBackup="true"
             android:dataExtractionRules="@xml/data_extraction_rules"
             android:enableOnBackInvokedCallback="true"
             android:fullBackupContent="@xml/backup_rules"
             android:icon="@drawable/kidbean"
             android:label="키드콩"
+            android:networkSecurityConfig="@xml/network_security_config"
             android:requestLegacyExternalStorage="true"
             android:roundIcon="@drawable/kidbean"
             android:supportsRtl="true"
@@ -40,8 +42,9 @@
             tools:replace="android:usesCleartextTraffic"
             tools:targetApi="33">
         <activity
-                android:name=".quiz.QuizListActivity"
-                android:exported="true" >
+                android:name=".login.ui.LoginActivity"
+                android:exported="true"
+                >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -49,10 +52,28 @@
             </intent-filter>
         </activity>
         <activity
+                android:name=".quiz.QuizListActivity"
+                android:exported="true">
+        </activity>
+        <!-- 카카오 로그인, 인가코드를 받기 위한 액티비티 -->
+        <activity
+                android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                        android:host="oauth"
+                        android:scheme="kakao${KAKAO_NATIVE_APP_KEY}" />
+            </intent-filter>
+        </activity>
+        <activity
                 android:name=".quiz.image.ui.ImageQuizSolveActivity"
                 android:exported="false"
-                android:screenOrientation="portrait">
-        </activity>
+                android:screenOrientation="portrait"></activity>
         <activity
                 android:name=".quiz.word.ui.WordQuizUploadActivity"
                 android:exported="false" />
@@ -61,22 +82,17 @@
                 android:exported="false" />
         <activity
                 android:name=".quiz.word.ui.WordQuizListActivity"
-                android:exported="false"></activity>
+                android:exported="false" />
         <activity
                 android:name=".quiz.word.ui.WordQuizShowActivity"
-                android:exported="false"></activity>
+                android:exported="false" />
         <activity
                 android:name=".quiz.MyQuizActivity"
                 android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
                 android:name=".quiz.image.ui.ImageQuizListActivity"
-                android:exported="false"></activity>
+                android:exported="false" />
         <activity
                 android:name=".quiz.image.ui.ImageQuizUploadActivity"
                 android:exported="false" />
@@ -85,10 +101,10 @@
                 android:exported="false" />
         <activity
                 android:name=".quiz.image.ui.ImageQuizShowActivity"
-                android:exported="false"></activity>
+                android:exported="false" />
         <activity
                 android:name=".MainActivity"
-                android:exported="false"></activity>
+                android:exported="false" />
     </application>
 
 </manifest>
