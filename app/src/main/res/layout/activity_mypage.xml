@@ -132,7 +132,7 @@
                 android:layout_height="100dp"
                 android:layout_marginBottom="20dp"
                 style="@style/AndroidH2"
-                android:text="단어 맞추기"
+                android:text="문제 풀이 결과"
                 android:background="@drawable/shape_round_box"
                 android:layout_gravity="center_vertical" />
 

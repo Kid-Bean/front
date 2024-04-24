@@ -39,9 +39,9 @@ class MypageActivity : AppCompatActivity() {
         }
 
         binding.btnSolvedInfo.setOnClickListener {
-            //푼제 풀이 창으로 이동
-//            val intent = Intent(this, MyQuizActivity::class.java)
-//            startActivity(intent)
+            //문제 풀이 결과 창으로 이동
+            val intent = Intent(this, MySolvedQuizActivity::class.java)
+            startActivity(intent)
         }
 
         binding.btnMyQuiz.setOnClickListener {
@@ -75,7 +75,8 @@ class MypageActivity : AppCompatActivity() {
             }
 
             override fun onFailure(
-                call: Call<ResponseTemplate<MemberInfoResponse>>, t: Throwable) {
+                call: Call<ResponseTemplate<MemberInfoResponse>>, t: Throwable
+            ) {
                 Log.d("post", "onResponse 실패 + ${t.message}")
             }
 
@@ -109,7 +110,7 @@ class MypageActivity : AppCompatActivity() {
         }
 
         // 마이페이지 화면으로 변경하기!
-        binding.btnProgram.setOnClickListener {
+        binding.btnMypage.setOnClickListener {
             val intent = Intent(this, MypageActivity::class.java)
             startActivity(intent)
         }

@@ -86,6 +86,9 @@
         <activity
                 android:name=".mypage.MypageActivity"
                 android:exported="false" />
+        <activity
+                android:name=".mypage.MySolvedQuizActivity"
+                android:exported="false" />
     </application>
 
 </manifest>
