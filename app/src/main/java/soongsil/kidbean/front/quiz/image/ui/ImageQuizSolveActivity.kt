@@ -150,7 +150,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
     private fun loadInfo() {
         //아래처럼 ApiClient.getApiClient()으로 retrofit 뽑아야지 자동으로 header에 토큰 줌
         val imageQuizController = ApiClient.getApiClient().create(ImageQuizController::class.java)
-        imageQuizController.getRandomImageQuizByMember(memberId).enqueue(object :
+        imageQuizController.getRandomImageQuizByMember().enqueue(object :
             Callback<ResponseTemplate<ImageQuizSolveResponse>> {
             @SuppressLint("SetTextI18n")
             override fun onResponse(
@@ -304,8 +304,8 @@ class ImageQuizSolveActivity : AppCompatActivity() {
 
                     val request = ImageQuizSolveListRequest(quizSolvedRequestList = quizSolveRequestList)
 
-                    val imageQuizController = retrofit.create(ImageQuizController::class.java)
-                    imageQuizController.solveImageQuiz(memberId, request).enqueue(object :
+                    val imageQuizController = ApiClient.getApiClient().create(ImageQuizController::class.java)
+                    imageQuizController.solveImageQuiz(request).enqueue(object :
                         Callback<ResponseTemplate<ImageQuizSolveScoreResponse>> {
                         @SuppressLint("SetTextI18n")
                         override fun onResponse(
