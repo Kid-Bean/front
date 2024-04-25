@@ -17,19 +17,6 @@ class QuizListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        // 인텐트에서 액세스 토큰을 추출합니다.
-        val accessToken = intent.getStringExtra("ACCESS_TOKEN")
-        if (accessToken != null) {
-            // 여기에서 토큰을 사용한 로직을 구현합니다.
-            Log.i(TAG, "받은 액세스 토큰: $accessToken")
-        }
-        // 인텐트에서 액세스 토큰을 추출합니다.
-        val refreshToken = intent.getStringExtra("REFRESH_TOKEN")
-        if (refreshToken != null) {
-            // 여기에서 토큰을 사용한 로직을 구현합니다.
-            Log.i(TAG, "받은 액세스 토큰: $refreshToken")
-        }
-
         binding.btnBack.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)

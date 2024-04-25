@@ -37,6 +37,7 @@ import soongsil.kidbean.front.quiz.image.dto.request.ImageQuizSolveRequest
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveResponse
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveScoreResponse
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
+import soongsil.kidbean.front.util.ApiClient
 import java.io.Serializable
 import java.lang.ref.WeakReference
 
@@ -68,6 +69,9 @@ class ImageQuizSolveActivity : AppCompatActivity() {
         binding = ActivityImageQuizSolveBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        //이거 있어야 token sharedPreference에서 뽑을 수 있음
+        ApiClient.init(this)
 
         // 오디오 녹음 권한 요청
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
@@ -144,7 +148,8 @@ class ImageQuizSolveActivity : AppCompatActivity() {
     }
 
     private fun loadInfo() {
-        val imageQuizController = retrofit.create(ImageQuizController::class.java)
+        //아래처럼 ApiClient.getApiClient()으로 retrofit 뽑아야지 자동으로 header에 토큰 줌
+        val imageQuizController = ApiClient.getApiClient().create(ImageQuizController::class.java)
         imageQuizController.getRandomImageQuizByMember(memberId).enqueue(object :
             Callback<ResponseTemplate<ImageQuizSolveResponse>> {
             @SuppressLint("SetTextI18n")

@@ -4,31 +4,36 @@ import RetrofitImpl.retrofit
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
-import com.kakao.sdk.user.UserApiClient
-import soongsil.kidbean.front.databinding.ActivityLoginBinding
-import soongsil.kidbean.front.quiz.QuizListActivity
 import com.kakao.sdk.common.util.Utility
+import com.kakao.sdk.user.UserApiClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import soongsil.kidbean.front.databinding.ActivityLoginBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.login.dto.request.LoginRequest
 import soongsil.kidbean.front.login.dto.response.LoginResponse
 import soongsil.kidbean.front.login.presentation.LoginController
+import soongsil.kidbean.front.quiz.QuizListActivity
+
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
+    private var preferences: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        preferences = getSharedPreferences("token", MODE_PRIVATE)
         Log.d("hash", Utility.getKeyHash(this))
 
         setOnClickListener()
@@ -102,12 +107,17 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("customAccessToken", customAccessToken)
                     Log.d("customRefreshToken", customRefreshToken)
 
-                    //Main 으로 나중에 바꿔주기
-                    val intent = Intent(this@LoginActivity, QuizListActivity::class.java).apply {
-                        putExtra("ACCESS_TOKEN", customAccessToken)
-                        putExtra("REFRESH_TOKEN", customRefreshToken)
-                    }
+                    //Editor를 preferences에 쓰겠다고 연결
+                    val editor = preferences!!.edit()
+                    //putString(KEY,VALUE)
+                    //putString(KEY,VALUE)
+                    editor.putString("accessToken", customAccessToken)
+                    editor.putString("refreshToken", customRefreshToken)
+                    //항상 commit & apply 를 해주어야 저장이 된다.
+                    editor.apply()
 
+                    //Main 으로 나중에 바꿔주기
+                    val intent = Intent(this@LoginActivity, QuizListActivity::class.java)
                     startActivity(intent)
                 } else {
                     // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
