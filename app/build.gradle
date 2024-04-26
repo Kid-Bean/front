@@ -84,4 +84,7 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.1"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
+
+    //꺾은선 그래프
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }
