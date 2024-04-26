@@ -1,6 +1,5 @@
-package soongsil.kidbean.front.mypage.dto.response
+package soongsil.kidbean.front.mypage.main.dto.response
 
-import java.time.LocalDate
 
 data class MemberInfoResponse(
     val memberId: Long,

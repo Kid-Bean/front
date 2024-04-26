@@ -12,8 +12,8 @@ import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityMypageBinding
 import soongsil.kidbean.front.global.ResponseTemplate
-import soongsil.kidbean.front.mypage.dto.response.MemberInfoResponse
-import soongsil.kidbean.front.mypage.presentation.MyPageController
+import soongsil.kidbean.front.mypage.main.dto.response.MemberInfoResponse
+import soongsil.kidbean.front.mypage.main.presentation.MyPageController
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 
