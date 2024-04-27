@@ -70,7 +70,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        //이거 있어야 token sharedPreference에서 뽑을 수 있음
+        //이거 있어야 token sharedPreference에서 뽑을 수 있음 - 통신 시
         ApiClient.init(this)
 
         // 오디오 녹음 권한 요청

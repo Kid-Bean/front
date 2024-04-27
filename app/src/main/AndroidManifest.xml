@@ -45,15 +45,16 @@
                 android:name=".login.ui.LoginActivity"
                 android:exported="true"
                 >
+        </activity>
+        <activity
+                android:name=".quiz.QuizListActivity"
+                android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-                android:name=".quiz.QuizListActivity"
-                android:exported="true">
         </activity>
         <!-- 카카오 로그인, 인가코드를 받기 위한 액티비티 -->
         <activity
