@@ -13,10 +13,12 @@ import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityWordQuizShowBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.word.dto.response.WordQuizMemberDetailResponse
 import soongsil.kidbean.front.quiz.word.presentation.WordQuizController
+import soongsil.kidbean.front.util.ApiClient
 
 class WordQuizShowActivity : AppCompatActivity() {
     private lateinit var binding : ActivityWordQuizShowBinding
@@ -32,6 +34,8 @@ class WordQuizShowActivity : AppCompatActivity() {
         binding = ActivityWordQuizShowBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        ApiClient.init(this)
 
         binding.btnBack.setOnClickListener {
             val intent = Intent(this, WordQuizListActivity::class.java)
@@ -93,14 +97,14 @@ class WordQuizShowActivity : AppCompatActivity() {
 
         // 마이페이지 화면으로 변경하기!
         binding.btnProgram.setOnClickListener {
-            /*val intent = Intent(this, MypageActivity::class.java)
-            startActivity(intent)*/
+            val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)
         }
     }
 
     private fun loadInfo() {
-        val wordQuizController = retrofit.create(WordQuizController::class.java)
-        wordQuizController.getAnswerQuizById(1, quizId).enqueue(object :
+        val wordQuizController = ApiClient.getApiClient().create(WordQuizController::class.java)
+        wordQuizController.getAnswerQuizById(quizId).enqueue(object :
             Callback<ResponseTemplate<WordQuizMemberDetailResponse>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<WordQuizMemberDetailResponse>>,
@@ -145,8 +149,8 @@ class WordQuizShowActivity : AppCompatActivity() {
     }
 
     private fun postDelete() {
-        val wordQuizController = retrofit.create(WordQuizController::class.java)
-        wordQuizController.deleteWordQuiz(1, quizId).enqueue(object :
+        val wordQuizController = ApiClient.getApiClient().create(WordQuizController::class.java)
+        wordQuizController.deleteWordQuiz(quizId).enqueue(object :
             Callback<ResponseTemplate<Void>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<Void>>,

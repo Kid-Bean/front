@@ -12,10 +12,12 @@ import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityWordQuizListBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.word.dto.response.WordQuizMemberResponse
 import soongsil.kidbean.front.quiz.word.presentation.WordQuizController
+import soongsil.kidbean.front.util.ApiClient
 
 class WordQuizListActivity : AppCompatActivity() {
     private lateinit var binding : ActivityWordQuizListBinding
@@ -24,6 +26,8 @@ class WordQuizListActivity : AppCompatActivity() {
         binding = ActivityWordQuizListBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        ApiClient.init(this)
 
         binding.btnBack.setOnClickListener {
             // 홈 화면으로 이동
@@ -62,8 +66,8 @@ class WordQuizListActivity : AppCompatActivity() {
 
         // 마이페이지 화면으로 변경하기!
         binding.btnProgram.setOnClickListener {
-            /*val intent = Intent(this, MypageActivity::class.java)
-            startActivity(intent)*/
+            val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -77,8 +81,8 @@ class WordQuizListActivity : AppCompatActivity() {
     }
 
     private fun loadQuizList() {
-        val wordQuizController = retrofit.create(WordQuizController::class.java)
-        wordQuizController.getAllWordQuizByMember(1).enqueue(object :
+        val wordQuizController = ApiClient.getApiClient().create(WordQuizController::class.java)
+        wordQuizController.getAllWordQuizByMember().enqueue(object :
             Callback<ResponseTemplate<List<WordQuizMemberResponse>>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<List<WordQuizMemberResponse>>>,

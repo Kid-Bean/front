@@ -13,10 +13,12 @@ import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityWordQuizUploadBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.word.dto.request.WordQuizUploadRequest
 import soongsil.kidbean.front.quiz.word.presentation.WordQuizController
+import soongsil.kidbean.front.util.ApiClient
 
 class WordQuizUploadActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWordQuizUploadBinding
@@ -25,6 +27,8 @@ class WordQuizUploadActivity : AppCompatActivity() {
         binding = ActivityWordQuizUploadBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        ApiClient.init(this)
 
         binding.btnBack.setOnClickListener {
             val intent = Intent(this, WordQuizListActivity::class.java)
@@ -70,8 +74,8 @@ class WordQuizUploadActivity : AppCompatActivity() {
 
         // 마이페이지 화면으로 변경하기!
         binding.btnProgram.setOnClickListener {
-            /*val intent = Intent(this, MypageActivity::class.java)
-            startActivity(intent)*/
+            val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -92,8 +96,8 @@ class WordQuizUploadActivity : AppCompatActivity() {
         )
 
 
-        val wordQuizController = retrofit.create(WordQuizController::class.java)
-        wordQuizController.uploadWordQuiz(1, WordQuizUploadRequest(title, answer, wordList)).enqueue(object :
+        val wordQuizController = ApiClient.getApiClient().create(WordQuizController::class.java)
+        wordQuizController.uploadWordQuiz(WordQuizUploadRequest(title, answer, wordList)).enqueue(object :
             Callback<ResponseTemplate<Void>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<Void>>,
