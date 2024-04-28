@@ -25,9 +25,11 @@ import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityImageQuizUploadBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
+import soongsil.kidbean.front.util.ApiClient
 import java.io.File
 
 class ImageQuizUploadActivity : AppCompatActivity() {
@@ -99,9 +101,9 @@ class ImageQuizUploadActivity : AppCompatActivity() {
         }
 
         // 마이페이지 화면으로 변경하기!
-        binding.btnProgram.setOnClickListener {
-            /*val intent = Intent(this, MypageActivity::class.java)
-            startActivity(intent)*/
+        binding.btnMypage.setOnClickListener {
+            val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -167,9 +169,9 @@ class ImageQuizUploadActivity : AppCompatActivity() {
         """.trimIndent().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
 
-        val imageQuizController = retrofit.create(ImageQuizController::class.java)
+        val imageQuizController = ApiClient.getApiClient().create(ImageQuizController::class.java)
         if (fileUpdate != null) {
-            imageQuizController.uploadImageQuiz(1, fileUpdate, quizData).enqueue(object :
+            imageQuizController.uploadImageQuiz(fileUpdate, quizData).enqueue(object :
                 Callback<ResponseTemplate<Void>> {
                 override fun onResponse(
                     call: Call<ResponseTemplate<Void>>,

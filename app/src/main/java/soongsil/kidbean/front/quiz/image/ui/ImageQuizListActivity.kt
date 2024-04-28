@@ -12,10 +12,12 @@ import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityImageQuizListBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberResponse
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
+import soongsil.kidbean.front.util.ApiClient
 
 class ImageQuizListActivity : AppCompatActivity() {
     private lateinit var binding : ActivityImageQuizListBinding
@@ -24,6 +26,8 @@ class ImageQuizListActivity : AppCompatActivity() {
         binding = ActivityImageQuizListBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        ApiClient.init(this)
 
         binding.btnBack.setOnClickListener {
             // 홈 화면으로 이동
@@ -70,15 +74,15 @@ class ImageQuizListActivity : AppCompatActivity() {
         }
 
         // 마이페이지 화면으로 변경하기!
-        binding.btnProgram.setOnClickListener {
-            /*val intent = Intent(this, MypageActivity::class.java)
-            startActivity(intent)*/
+        binding.btnMypage.setOnClickListener {
+            val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)
         }
     }
 
     private fun loadQuizList() {
-        val imageQuizController = retrofit.create(ImageQuizController::class.java)
-        imageQuizController.getAllImageQuizByMember(1).enqueue(object :
+        val imageQuizController = ApiClient.getApiClient().create(ImageQuizController::class.java)
+        imageQuizController.getAllImageQuizByMember().enqueue(object :
             Callback<ResponseTemplate<List<ImageQuizMemberResponse>>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<List<ImageQuizMemberResponse>>>,

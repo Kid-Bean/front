@@ -10,6 +10,7 @@ import soongsil.kidbean.front.quiz.answer.ui.AnswerQuizListActivity
 import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.quiz.image.ui.ImageQuizListActivity
 import soongsil.kidbean.front.quiz.word.ui.WordQuizListActivity
+import soongsil.kidbean.front.util.ApiClient
 
 class MyQuizActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMyQuizBinding
@@ -18,6 +19,8 @@ class MyQuizActivity : AppCompatActivity() {
         binding = ActivityMyQuizBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        ApiClient.init(this)
 
         binding.btnBack.setOnClickListener {
             // 홈 화면으로 이동

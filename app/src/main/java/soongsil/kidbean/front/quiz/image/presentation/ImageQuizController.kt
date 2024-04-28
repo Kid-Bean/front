@@ -17,41 +17,35 @@ import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberDetailRespo
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberResponse
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveResponse
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveScoreResponse
-import soongsil.kidbean.front.quiz.word.dto.response.WordQuizSolveScoreResponse
 
 interface ImageQuizController {
 
-    @GET("quiz/image/member/{memberId}/{quizId}")
+    @GET("quiz/image/member/{quizId}")
     fun getImageQuizById(
-        @Path("memberId") memberId: Long,
         @Path("quizId") quizId: Long
         ): Call<ResponseTemplate<ImageQuizMemberDetailResponse>>
 
-    @GET("quiz/image/member/{memberId}")
+    @GET("quiz/image/member")
     fun getAllImageQuizByMember(
-        @Path("memberId") memberId: Long
     ): Call<ResponseTemplate<List<ImageQuizMemberResponse>>>
 
     @Multipart
-    @PUT("quiz/image/member/{memberId}/{quizId}")
+    @PUT("quiz/image/member/{quizId}")
     fun updateImageQuiz(
-        @Path("memberId") memberId: Long,
         @Path("quizId") quizId: Long,
         @Part s3Url: MultipartBody.Part,
         @Part("imageQuizUpdateRequest") request: RequestBody
     ): Call<ResponseTemplate<Void>>
 
     @Multipart
-    @POST("quiz/image/member/{memberId}")
+    @POST("quiz/image/member")
     fun uploadImageQuiz(
-        @Path("memberId") memberId: Long,
         @Part s3Url: MultipartBody.Part,
         @Part("imageQuizUploadRequest") request: RequestBody
     ): Call<ResponseTemplate<Void>>
 
-    @DELETE("quiz/image/member/{memberId}/{quizId}")
+    @DELETE("quiz/image/member/{quizId}")
     fun deleteImageQuiz(
-        @Path("memberId") memberId: Long,
         @Path("quizId") quizId: Long
     ) :Call<ResponseTemplate<Void>>
 

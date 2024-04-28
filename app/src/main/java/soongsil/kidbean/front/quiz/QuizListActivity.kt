@@ -22,6 +22,7 @@ import soongsil.kidbean.front.login.dto.response.LoginResponse
 import soongsil.kidbean.front.login.dto.response.ReissueResponse
 import soongsil.kidbean.front.login.presentation.LoginController
 import soongsil.kidbean.front.login.ui.LoginActivity
+import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.util.ApiClient
 import java.nio.charset.Charset
 import soongsil.kidbean.front.quiz.answer.ui.AnswerQuizSolveActivity
@@ -135,14 +136,14 @@ class QuizListActivity : AppCompatActivity() {
 
         // 프로그램 화면으로 변경하기!
         binding.btnProgram.setOnClickListener {
-            /*val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)*/
+            val intent = Intent(this, MyQuizActivity::class.java)
+            startActivity(intent)
         }
 
         // 마이페이지 화면으로 변경하기!
-        binding.btnProgram.setOnClickListener {
-            /*val intent = Intent(this, MypageActivity::class.java)
-            startActivity(intent)*/
+        binding.btnMypage.setOnClickListener {
+            val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)
         }
     }
 

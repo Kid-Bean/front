@@ -26,9 +26,11 @@ import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityImageQuizUpdateBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
+import soongsil.kidbean.front.util.ApiClient
 import java.io.File
 
 class ImageQuizUpdateActivity : AppCompatActivity() {
@@ -46,6 +48,8 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
         binding = ActivityImageQuizUpdateBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        ApiClient.init(this)
 
         binding.btnBack.setOnClickListener {
             // 그림 문제 목록 화면으로 이동
@@ -115,9 +119,9 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
         }
 
         // 마이페이지 화면으로 변경하기!
-        binding.btnProgram.setOnClickListener {
-            /*val intent = Intent(this, MypageActivity::class.java)
-            startActivity(intent)*/
+        binding.btnMypage.setOnClickListener {
+            val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -185,9 +189,9 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
         }
         """.trimIndent().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
-        val imageQuizController = retrofit.create(ImageQuizController::class.java)
+        val imageQuizController = ApiClient.getApiClient().create(ImageQuizController::class.java)
         if (fileUpdate != null) {
-            imageQuizController.updateImageQuiz(1, quizId, fileUpdate, quizData).enqueue(object :
+            imageQuizController.updateImageQuiz(quizId, fileUpdate, quizData).enqueue(object :
                 Callback<ResponseTemplate<Void>> {
                 override fun onResponse(
                     call: Call<ResponseTemplate<Void>>,
