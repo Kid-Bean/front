@@ -26,6 +26,7 @@
             android:required="true" />
 
     <application
+            android:name=".global.GlobalApplication"
             android:allowBackup="true"
             android:dataExtractionRules="@xml/data_extraction_rules"
             android:enableOnBackInvokedCallback="true"
@@ -40,19 +41,25 @@
             tools:replace="android:usesCleartextTraffic"
             tools:targetApi="33">
         <activity
+                android:name=".login.ui.LoginActivity"
+                android:exported="true" />
+        <activity
                 android:name=".quiz.QuizListActivity"
                 android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
                 android:name=".quiz.image.ui.ImageQuizSolveActivity"
-                android:exported="false"
-                android:screenOrientation="portrait">
-        </activity>
+                android:exported="false"/>
+        <activity
+                android:name=".quiz.answer.ui.AnswerQuizSolveActivity"
+                android:exported="false" />
+        <activity
+                android:name=".quiz.word.ui.WordQuizSolveActivity"
+                android:exported="false" />
         <activity
                 android:name=".quiz.word.ui.WordQuizUploadActivity"
                 android:exported="false" />
@@ -61,22 +68,16 @@
                 android:exported="false" />
         <activity
                 android:name=".quiz.word.ui.WordQuizListActivity"
-                android:exported="false"></activity>
+                android:exported="false" />
         <activity
                 android:name=".quiz.word.ui.WordQuizShowActivity"
-                android:exported="false"></activity>
+                android:exported="false" />
         <activity
                 android:name=".quiz.MyQuizActivity"
-                android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+                android:exported="true" />
         <activity
                 android:name=".quiz.image.ui.ImageQuizListActivity"
-                android:exported="false"></activity>
+                android:exported="false" />
         <activity
                 android:name=".quiz.image.ui.ImageQuizUploadActivity"
                 android:exported="false" />
@@ -85,10 +86,10 @@
                 android:exported="false" />
         <activity
                 android:name=".quiz.image.ui.ImageQuizShowActivity"
-                android:exported="false"></activity>
+                android:exported="false" />
         <activity
                 android:name=".MainActivity"
-                android:exported="false"></activity>
+                android:exported="false" />
     </application>
 
 </manifest>

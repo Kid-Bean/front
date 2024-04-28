@@ -57,7 +57,6 @@ interface ImageQuizController {
 
     @GET("quiz/image/solve")
     fun getRandomImageQuizByMember(
-
     ): Call<ResponseTemplate<ImageQuizSolveResponse>>
 
     @POST("quiz/image/solve")
