@@ -28,6 +28,7 @@ import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.R
 import soongsil.kidbean.front.databinding.ActivityAnswerQuizSolveBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.answer.dto.response.AnswerQuizSolveResponse
 import soongsil.kidbean.front.quiz.answer.dto.response.AnswerQuizSolveScoreResponse
@@ -117,8 +118,8 @@ class AnswerQuizSolveActivity : AppCompatActivity() {
 
         // 마이페이지 화면으로 변경하기!
         binding.btnProgram.setOnClickListener {
-            /*val intent = Intent(this, MypageActivity::class.java)
-            startActivity(intent)*/
+            val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)
         }
     }
 
