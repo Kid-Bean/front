@@ -55,10 +55,12 @@
                 android:exported="false" />
         <activity
                 android:name=".quiz.word.ui.WordQuizListActivity"
-                android:exported="false" />
+                android:exported="false">
+        </activity>
         <activity
                 android:name=".quiz.word.ui.WordQuizShowActivity"
-                android:exported="false" />
+                android:exported="false">
+        </activity>
         <activity
                 android:name=".quiz.MyQuizActivity"
                 android:exported="true">
@@ -70,7 +72,8 @@
         </activity>
         <activity
                 android:name=".quiz.image.ui.ImageQuizListActivity"
-                android:exported="false" />
+                android:exported="false">
+        </activity>
         <activity
                 android:name=".quiz.image.ui.ImageQuizUploadActivity"
                 android:exported="false" />
@@ -92,7 +95,6 @@
         <activity
                 android:name=".mypage.SolvedImageQuizMainActivity"
                 android:exported="false" />
-
     </application>
 
 </manifest>
