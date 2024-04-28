@@ -13,13 +13,8 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission
-            android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-            android:maxSdkVersion="32"
-            tools:ignore="ScopedStorage" />
-    <uses-permission
-            android:name="android.permission.READ_EXTERNAL_STORAGE"
-            android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <uses-feature
             android:name="android.hardware.camera"
@@ -40,14 +35,18 @@
             tools:replace="android:usesCleartextTraffic"
             tools:targetApi="33">
         <activity
+                android:name=".quiz.answer.ui.AnswerQuizSolveActivity"
+                android:exported="false" />
+        <activity
+                android:name=".quiz.word.ui.WordQuizSolveActivity"
+                android:exported="false" />
+        <activity
                 android:name=".quiz.QuizListActivity"
-                android:exported="false" >
-        </activity>
+                android:exported="true"></activity>
         <activity
                 android:name=".quiz.image.ui.ImageQuizSolveActivity"
                 android:exported="false"
-                android:screenOrientation="portrait">
-        </activity>
+                android:screenOrientation="portrait" />
         <activity
                 android:name=".quiz.word.ui.WordQuizUploadActivity"
                 android:exported="false" />
@@ -83,12 +82,19 @@
                 android:exported="false" />
         <activity
                 android:name=".quiz.image.ui.ImageQuizShowActivity"
-                android:exported="false">
-        </activity>
+                android:exported="false" />
         <activity
                 android:name=".MainActivity"
-                android:exported="false">
-        </activity>
+                android:exported="false" />
+        <activity
+                android:name=".mypage.MypageActivity"
+                android:exported="false" />
+        <activity
+                android:name=".mypage.MySolvedQuizActivity"
+                android:exported="false" />
+        <activity
+                android:name=".mypage.SolvedImageQuizMainActivity"
+                android:exported="false" />
     </application>
 
 </manifest>
