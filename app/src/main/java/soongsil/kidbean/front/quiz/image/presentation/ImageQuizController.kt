@@ -17,6 +17,7 @@ import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberDetailRespo
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberResponse
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveResponse
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveScoreResponse
+import soongsil.kidbean.front.quiz.word.dto.response.WordQuizSolveScoreResponse
 
 interface ImageQuizController {
 
@@ -63,4 +64,5 @@ interface ImageQuizController {
     fun solveImageQuiz(
         @Body request: ImageQuizSolveListRequest
     ) :Call<ResponseTemplate<ImageQuizSolveScoreResponse>>
+
 }

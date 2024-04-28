@@ -91,4 +91,7 @@ dependencies {
 
     //카카오 관련 모듈
     implementation "com.kakao.sdk:v2-user:2.20.1" // 카카오 로그인
+
+    //꺾은선 그래프
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }

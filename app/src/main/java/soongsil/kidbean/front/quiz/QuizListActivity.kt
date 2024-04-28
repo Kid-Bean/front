@@ -22,9 +22,11 @@ import soongsil.kidbean.front.login.dto.response.LoginResponse
 import soongsil.kidbean.front.login.dto.response.ReissueResponse
 import soongsil.kidbean.front.login.presentation.LoginController
 import soongsil.kidbean.front.login.ui.LoginActivity
-import soongsil.kidbean.front.quiz.image.ui.ImageQuizSolveActivity
 import soongsil.kidbean.front.util.ApiClient
 import java.nio.charset.Charset
+import soongsil.kidbean.front.quiz.answer.ui.AnswerQuizSolveActivity
+import soongsil.kidbean.front.quiz.image.ui.ImageQuizSolveActivity
+import soongsil.kidbean.front.quiz.word.ui.WordQuizSolveActivity
 
 class QuizListActivity : AppCompatActivity() {
     private lateinit var binding : ActivityQuizListBinding
@@ -107,8 +109,13 @@ class QuizListActivity : AppCompatActivity() {
         }
 
         binding.btnWord.setOnClickListener {
-            /*val intent = Intent(this, WordQuizSolveActivity::class.java)
-            startActivity(intent)*/
+            val intent = Intent(this, WordQuizSolveActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnAnswer.setOnClickListener {
+            val intent = Intent(this, AnswerQuizSolveActivity::class.java)
+            startActivity(intent)
         }
 
         bottomSetting()

@@ -1,12 +1,10 @@
 package soongsil.kidbean.front.quiz.image.ui
 
-import RetrofitImpl.retrofit
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
@@ -50,8 +48,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
     private lateinit var answer : String
     private var quizId: Long = -1L
     private var quizCount: Long = 1L
-    private var memberId:Long = 1L
-    private var score:Long = 1L
+    private var score:Long = -1L
 
     private val CLIENT_ID = BuildConfig.CLOVA_CLIENT_ID
 
@@ -114,8 +111,6 @@ class ImageQuizSolveActivity : AppCompatActivity() {
             val intent = Intent(this, QuizListActivity::class.java)
             startActivity(intent)
         }
-
-        quizId = intent.getLongExtra("quizId", 1)
 
         loadInfo()
         bottomSetting()
@@ -198,10 +193,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
             R.id.clientReady -> {
                 // Now an user can speak.
                 txtResult!!.text = "Connected"
-                writer = AudioWriterPCM(
-                    Environment.getExternalStorageDirectory().absolutePath + "/NaverSpeechTest"
-                )
-                writer!!.open("Test")
+                writer = AudioWriterPCM(this, "Test")
             }
 
             R.id.audioRecording -> writer!!.write((msg.obj as ShortArray))
@@ -270,79 +262,91 @@ class ImageQuizSolveActivity : AppCompatActivity() {
 
     // 녹음이 끝나면 AlertDialog 표시
     private fun showRecordingStoppedAlertDialog() {
-        AlertDialog.Builder(this@ImageQuizSolveActivity).apply {
-            setTitle("문제 풀기 완료")
-            setMessage("다음 문제로 넘어가시겠어요?\n입력한 정답 : " + mResult.toString())
 
-            Log.d("answer", txtResult?.text.toString())
+        // 이전에 풀었던 문제들
+        // Intent에서 Serializable 데이터를 받아오고, 이를 안전하게 MutableList<Pair<Long, String>>로 캐스팅
+        // 만약 null이면 빈 MutableList를 생성
+        val originalList = intent.getSerializableExtra("listData") as? MutableList<Pair<Long, String>> ?: mutableListOf()
 
-            setPositiveButton("다음 문제로") { _, _ ->
-                binding.btnStart.setText(R.string.str_start)
-                binding.txtResult.text = answer
-                finish()
+        // 이번에 푼 문제 정보 추가
+        originalList.add(Pair(quizId, mResult.toString()))
 
-                Log.d("final answer", mResult.toString())
+        // listData의 모든 키와 값을 로그로 출력
+        originalList.forEach { (key, value) ->
+            Log.d("ListData", "Key: $key, Value: $value")
+        }
 
-                // 이전에 풀었던 문제들
-                // Intent에서 Serializable 데이터를 받아오고, 이를 안전하게 MutableList<Pair<Long, String>>로 캐스팅
-                // 만약 null이면 빈 MutableList를 생성
-                val originalList = intent.getSerializableExtra("listData") as? MutableList<Pair<Long, String>> ?: mutableListOf()
+        //5번째 문제 - 푼 문제들을 전부 제출
+        if (quizCount == 5L) {
+            val quizSolveRequestList = originalList.map { (key, value) ->
+                ImageQuizSolveRequest(quizId = key, answer = value)
+            }
 
-                // 이번에 푼 문제 정보 추가
-                originalList.add(Pair(quizId, mResult.toString()))
+            val request = ImageQuizSolveListRequest(quizSolvedRequestList = quizSolveRequestList)
 
-                // listData의 모든 키와 값을 로그로 출력
-                originalList.forEach { (key, value) ->
-                    Log.d("ListData", "Key: $key, Value: $value")
+            val imageQuizController = ApiClient.getApiClient().create(ImageQuizController::class.java)
+            imageQuizController.solveImageQuiz(request).enqueue(object :
+                Callback<ResponseTemplate<ImageQuizSolveScoreResponse>> {
+                @SuppressLint("SetTextI18n")
+                override fun onResponse(
+                    call: Call<ResponseTemplate<ImageQuizSolveScoreResponse>>,
+                    response: Response<ResponseTemplate<ImageQuizSolveScoreResponse>>,
+                ) {
+                    if (response.isSuccessful) {
+                        // 정상적으로 통신이 성공된 경우
+                        Log.d("post", "onResponse 성공: " + response.body().toString())
+
+                        val body = response.body()?.results
+
+                        // API로 가져온 정답 넣기
+                        score = body?.score!!
+
+                        Log.d("score", score.toString())
+
+                        AlertDialog.Builder(this@ImageQuizSolveActivity).apply {
+                            setTitle("문제 풀기 완료")
+                            setMessage("5문제를 전부 풀었습니다!\n얻은 점수 : $score")
+                            Log.d("score", score.toString())
+
+                            Log.d("answer", txtResult?.text.toString())
+
+                            setPositiveButton("홈 화면으로") { _, _ ->
+                                binding.btnStart.setText(R.string.str_start)
+                                binding.txtResult.text = answer
+                                finish()
+
+                                //점수를 가지고 Home 화면으로 이동
+                                val intent = Intent(this@ImageQuizSolveActivity, QuizListActivity::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                intent.putExtra("score", score)
+                                startActivity(intent)
+                                finish()
+                                naverRecognizer!!.speechRecognizer!!.release()
+                            }
+                        }.create().show()
+                    } else {
+                        // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
+                        Log.d("post", "onResponse 실패 + ${response.code()}")
+                    }
                 }
 
-                //5번째 문제 - 푼 문제들을 전부 제출
-                if (quizCount == 5L) {
-                    val quizSolveRequestList = originalList.map { (key, value) ->
-                        ImageQuizSolveRequest(quizId = key, answer = value)
-                    }
+                override fun onFailure(call: Call<ResponseTemplate<ImageQuizSolveScoreResponse>>, t: Throwable) {
+                    // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
+                    Log.d("post", "onFailure 에러: " + t.message.toString())
+                }
+            })
+        } else {    //다음 문제 풀기 시작
+            AlertDialog.Builder(this@ImageQuizSolveActivity).apply {
+                setTitle("문제 풀기 완료")
+                setMessage("다음 문제로 넘어가시겠어요?\n입력한 정답 : " + mResult.toString())
 
-                    val request = ImageQuizSolveListRequest(quizSolvedRequestList = quizSolveRequestList)
+                Log.d("answer", txtResult?.text.toString())
 
-                    val imageQuizController = ApiClient.getApiClient().create(ImageQuizController::class.java)
-                    imageQuizController.solveImageQuiz(request).enqueue(object :
-                        Callback<ResponseTemplate<ImageQuizSolveScoreResponse>> {
-                        @SuppressLint("SetTextI18n")
-                        override fun onResponse(
-                            call: Call<ResponseTemplate<ImageQuizSolveScoreResponse>>,
-                            response: Response<ResponseTemplate<ImageQuizSolveScoreResponse>>,
-                        ) {
-                            if (response.isSuccessful) {
-                                // 정상적으로 통신이 성공된 경우
-                                Log.d("post", "onResponse 성공: " + response.body().toString())
-
-                                val body = response.body()?.results
-
-                                // API로 가져온 정답 넣기
-                                score = body?.score!!
-
-                                Log.d("score", score.toString())
-                            } else {
-                                // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
-                                Log.d("post", "onResponse 실패 + ${response.code()}")
-                            }
-                        }
-
-                        override fun onFailure(call: Call<ResponseTemplate<ImageQuizSolveScoreResponse>>, t: Throwable) {
-                            // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
-                            Log.d("post", "onFailure 에러: " + t.message.toString())
-                        }
-                    })
-
-                    //점수를 가지고 Home 화면으로 이동
-                    val intent = Intent(this@ImageQuizSolveActivity, QuizListActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                    intent.putExtra("score", score)
-                    startActivity(intent)
+                setPositiveButton("다음 문제로") { _, _ ->
+                    binding.btnStart.setText(R.string.str_start)
+                    binding.txtResult.text = answer
                     finish()
-                    naverRecognizer!!.speechRecognizer!!.release()
 
-                } else {    //다음 문제 풀기 시작
                     naverRecognizer!!.speechRecognizer!!.release()
                     Log.d("recognizer die", "true")
 
@@ -356,8 +360,8 @@ class ImageQuizSolveActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 }
-            }
-        }.create().show()
+            }.create().show()
+        }
     }
 
     // 사용자가 권한 요청에 대한 응답을 받을 때 호출되는 메서드
