@@ -50,15 +50,13 @@ interface AnswerQuizController {
         @Path("quizId") quizId: Long
     ) :Call<ResponseTemplate<Void>>
   
-   @GET("quiz/answer/{memberId}")
+   @GET("quiz/answer/solve")
     fun getRandomAnswerQuizByMember(
-        @Path("memberId") memberId: Long
     ): Call<ResponseTemplate<AnswerQuizSolveResponse>>
 
     @Multipart
-    @POST("quiz/answer/{memberId}")
+    @POST("quiz/answer/solve")
     fun solveAnswerQuiz(
-        @Path("memberId") memberId: Long,
         @Part record: MultipartBody.Part,
         @Part answerQuizSolvedRequest: MultipartBody.Part
     ) :Call<ResponseTemplate<AnswerQuizSolveScoreResponse>>

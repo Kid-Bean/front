@@ -1,6 +1,5 @@
 package soongsil.kidbean.front.quiz.word.ui
 
-import RetrofitImpl.retrofit
 import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -20,12 +19,12 @@ import soongsil.kidbean.front.R
 import soongsil.kidbean.front.databinding.ActivityWordQuizSolveBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.quiz.QuizListActivity
-import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveScoreResponse
 import soongsil.kidbean.front.quiz.word.dto.request.WordQuizSolveListRequest
 import soongsil.kidbean.front.quiz.word.dto.request.WordQuizSolveRequest
 import soongsil.kidbean.front.quiz.word.dto.response.WordQuizSolveResponse
 import soongsil.kidbean.front.quiz.word.dto.response.WordQuizSolveScoreResponse
 import soongsil.kidbean.front.quiz.word.presentation.WordQuizController
+import soongsil.kidbean.front.util.ApiClient
 import java.io.Serializable
 
 class WordQuizSolveActivity : AppCompatActivity() {
@@ -41,13 +40,14 @@ class WordQuizSolveActivity : AppCompatActivity() {
 
     private var quizId: Long = -1L
     private var quizCount: Long = -1L
-    private var memberId: Long = 1L
     private var score: Long = -1L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityWordQuizSolveBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        ApiClient.init(this)
 
         quizCount = intent.getLongExtra("quizCount", 1)
 
@@ -87,8 +87,8 @@ class WordQuizSolveActivity : AppCompatActivity() {
     }
 
     private fun loadInfo() {
-        val wordQuizController = retrofit.create(WordQuizController::class.java)
-        wordQuizController.getRandomWordQuizByMember(1).enqueue(object :
+        val wordQuizController = ApiClient.getApiClient().create(WordQuizController::class.java)
+        wordQuizController.getRandomWordQuizByMember().enqueue(object :
             Callback<ResponseTemplate<WordQuizSolveResponse>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<WordQuizSolveResponse>>,
@@ -199,9 +199,9 @@ class WordQuizSolveActivity : AppCompatActivity() {
 
             val request = WordQuizSolveListRequest(quizSolvedRequestList = quizSolvedRequestList)
 
-            val wordQuizController = retrofit.create(WordQuizController::class.java)
+            val wordQuizController = ApiClient.getApiClient().create(WordQuizController::class.java)
 
-            wordQuizController.solveWordQuiz(memberId, request).enqueue(object :
+            wordQuizController.solveWordQuiz(request).enqueue(object :
                 Callback<ResponseTemplate<WordQuizSolveScoreResponse>> {
                 @SuppressLint("SetTextI18n")
                 override fun onResponse(

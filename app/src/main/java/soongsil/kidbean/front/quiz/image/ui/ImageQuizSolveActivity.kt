@@ -1,6 +1,5 @@
 package soongsil.kidbean.front.quiz.image.ui
 
-import RetrofitImpl.retrofit
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -36,6 +35,7 @@ import soongsil.kidbean.front.quiz.image.dto.request.ImageQuizSolveRequest
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveResponse
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveScoreResponse
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
+import soongsil.kidbean.front.util.ApiClient
 import java.io.Serializable
 import java.lang.ref.WeakReference
 
@@ -48,7 +48,6 @@ class ImageQuizSolveActivity : AppCompatActivity() {
     private lateinit var answer : String
     private var quizId: Long = -1L
     private var quizCount: Long = 1L
-    private var memberId:Long = 4L
     private var score:Long = -1L
 
     private val CLIENT_ID = BuildConfig.CLOVA_CLIENT_ID
@@ -67,6 +66,9 @@ class ImageQuizSolveActivity : AppCompatActivity() {
         binding = ActivityImageQuizSolveBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        //이거 있어야 token sharedPreference에서 뽑을 수 있음 - 통신 시
+        ApiClient.init(this)
 
         // 오디오 녹음 권한 요청
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
@@ -141,8 +143,9 @@ class ImageQuizSolveActivity : AppCompatActivity() {
     }
 
     private fun loadInfo() {
-        val imageQuizController = retrofit.create(ImageQuizController::class.java)
-        imageQuizController.getRandomImageQuizByMember(memberId).enqueue(object :
+        //아래처럼 ApiClient.getApiClient()으로 retrofit 뽑아야지 자동으로 header에 토큰 줌
+        val imageQuizController = ApiClient.getApiClient().create(ImageQuizController::class.java)
+        imageQuizController.getRandomImageQuizByMember().enqueue(object :
             Callback<ResponseTemplate<ImageQuizSolveResponse>> {
             @SuppressLint("SetTextI18n")
             override fun onResponse(
@@ -281,8 +284,8 @@ class ImageQuizSolveActivity : AppCompatActivity() {
 
             val request = ImageQuizSolveListRequest(quizSolvedRequestList = quizSolveRequestList)
 
-            val imageQuizController = retrofit.create(ImageQuizController::class.java)
-            imageQuizController.solveImageQuiz(memberId, request).enqueue(object :
+            val imageQuizController = ApiClient.getApiClient().create(ImageQuizController::class.java)
+            imageQuizController.solveImageQuiz(request).enqueue(object :
                 Callback<ResponseTemplate<ImageQuizSolveScoreResponse>> {
                 @SuppressLint("SetTextI18n")
                 override fun onResponse(
