@@ -1,49 +1,47 @@
 package soongsil.kidbean.front.quiz.image.application
 
+import android.content.Context
 import java.io.File
-import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
+class AudioWriterPCM(private val context: Context, var sessionId: String) {
+    private var filename: String? = null
+    private var speechFile: FileOutputStream? = null
 
-class AudioWriterPCM(var path: String) {
-    var filename: String? = null
-    var speechFile: FileOutputStream? = null
-    fun open(sessionId: String) {
-        val directory = File(path)
-        if (!directory.exists()) {
-            directory.mkdirs()
-        }
-        filename = "$directory/$sessionId.pcm"
+    init {
+        open(sessionId)
+    }
+
+    private fun open(sessionId: String) {
+        // 내부 저장소의 앱 전용 디렉토리를 사용
+        val file = File(context.filesDir, "$sessionId.pcm")
+        filename = file.absolutePath
         speechFile = try {
-            FileOutputStream(File(filename))
-        } catch (e: FileNotFoundException) {
+            FileOutputStream(file)
+        } catch (e: IOException) {
             System.err.println("Can't open file : $filename")
             null
         }
     }
 
     fun close() {
-        if (speechFile == null) return
         try {
-            speechFile!!.close()
+            speechFile?.close()
         } catch (e: IOException) {
             System.err.println("Can't close file : $filename")
         }
     }
 
     fun write(data: ShortArray) {
-        if (speechFile == null) return
-        val buffer = ByteBuffer.allocate(data.size * 2)
-        buffer.order(ByteOrder.LITTLE_ENDIAN)
-        for (i in data.indices) {
-            buffer.putShort(data[i])
+        val buffer = ByteBuffer.allocate(data.size * 2).apply {
+            order(ByteOrder.LITTLE_ENDIAN)
+            data.forEach { putShort(it) }
         }
-        buffer.flip()
         try {
-            speechFile!!.write(buffer.array())
+            speechFile?.write(buffer.array())
         } catch (e: IOException) {
             System.err.println("Can't write file : $filename")
         }

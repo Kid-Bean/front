@@ -54,7 +54,7 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
             finish()
         }
 
-        quizId = intent.getLongExtra("quizId", 7)
+        quizId = intent.getLongExtra("quizId", -1L)
         title = intent.getStringExtra("title").toString()
         answer = intent.getStringExtra("answer").toString()
 
@@ -200,9 +200,6 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
                         Toast.makeText(this@ImageQuizUpdateActivity, "수정이 완료되었습니다.", Toast.LENGTH_SHORT)
                             .show()
 
-                        // 통신이 성공하면 Activity를 종료
-                        finish()
-
                     } else {
                         // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
                         Log.d("post", "onResponse 실패 + ${response.code()} + ${quizData}")
@@ -211,8 +208,11 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
                     }
 
                     // MyQuizActivity로 이동
-                    val intent = Intent(this@ImageQuizUpdateActivity, MyQuizActivity::class.java)
+                    val intent = Intent(this@ImageQuizUpdateActivity, ImageQuizListActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
+
+                    finish()
                 }
 
                 override fun onFailure(call: Call<ResponseTemplate<Void>>, t: Throwable) {
@@ -267,13 +267,18 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
             ) {
                 // 선택된 아이템의 텍스트 가져오기
                 val selectedCategory = parent.getItemAtPosition(position).toString()
-                // 선택된 아이템에 대한 작업 수행 (예: 토스트 메시지 표시)
-                Toast.makeText(
-                    this@ImageQuizUpdateActivity,
-                    "선택된 카테고리: $selectedCategory",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
+
+                if (selectedCategory.equals("없음")) {
+                    category = "NONE"
+                } else if (selectedCategory.equals("동물")) {
+                    category = "ANIMAL"
+                } else if (selectedCategory.equals("식물")) {
+                    category = "PLANT"
+                } else if (selectedCategory.equals("사물")) {
+                    category = "OBJECT"
+                } else if (selectedCategory.equals("음식")) {
+                    category = "FOOD"
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {

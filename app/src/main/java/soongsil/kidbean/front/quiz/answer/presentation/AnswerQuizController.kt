@@ -1,5 +1,7 @@
 package soongsil.kidbean.front.quiz.answer.presentation
 
+import okhttp3.MultipartBody
+import retrofit2.http.Multipart
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
@@ -7,11 +9,14 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Part
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.quiz.answer.dto.request.AnswerQuizUpdateRequest
 import soongsil.kidbean.front.quiz.answer.dto.request.AnswerQuizUploadRequest
 import soongsil.kidbean.front.quiz.answer.dto.response.AnswerQuizMemberDetailResponse
 import soongsil.kidbean.front.quiz.answer.dto.response.AnswerQuizMemberResponse
+import soongsil.kidbean.front.quiz.answer.dto.response.AnswerQuizSolveResponse
+import soongsil.kidbean.front.quiz.answer.dto.response.AnswerQuizSolveScoreResponse
 
 interface AnswerQuizController {
 
@@ -44,6 +49,17 @@ interface AnswerQuizController {
         @Path("memberId") memberId: Long,
         @Path("quizId") quizId: Long
     ) :Call<ResponseTemplate<Void>>
+  
+   @GET("quiz/answer/{memberId}")
+    fun getRandomAnswerQuizByMember(
+        @Path("memberId") memberId: Long
+    ): Call<ResponseTemplate<AnswerQuizSolveResponse>>
 
-
+    @Multipart
+    @POST("quiz/answer/{memberId}")
+    fun solveAnswerQuiz(
+        @Path("memberId") memberId: Long,
+        @Part record: MultipartBody.Part,
+        @Part answerQuizSolvedRequest: MultipartBody.Part
+    ) :Call<ResponseTemplate<AnswerQuizSolveScoreResponse>>
 }

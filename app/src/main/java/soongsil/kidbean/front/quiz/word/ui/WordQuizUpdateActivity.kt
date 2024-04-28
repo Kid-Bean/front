@@ -13,7 +13,6 @@ import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityWordQuizUpdateBinding
 import soongsil.kidbean.front.global.ResponseTemplate
-import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.word.dto.request.WordQuizUpdateRequest
 import soongsil.kidbean.front.quiz.word.presentation.WordQuizController
@@ -52,7 +51,6 @@ class WordQuizUpdateActivity : AppCompatActivity() {
                 }
                 setPositiveButton("수정") { _, _ ->
                     loadInfo()
-                    finish()
                 }
             }.create().show()
         }
@@ -110,10 +108,17 @@ class WordQuizUpdateActivity : AppCompatActivity() {
         word3 = binding.tvWord3.text.toString()
         word4 = binding.tvWord4.text.toString()
 
-        val words = mutableListOf<String>(word1, word2, word3, word4)
+        // Words 객체 리스트 생성
+        val wordList = listOf(
+            WordQuizUpdateRequest.Words(word1),
+            WordQuizUpdateRequest.Words(word2),
+            WordQuizUpdateRequest.Words(word3),
+            WordQuizUpdateRequest.Words(word4)
+        )
+
 
         val wordQuizController = retrofit.create(WordQuizController::class.java)
-        wordQuizController.updateWordQuiz(1, quizId, WordQuizUpdateRequest(title, answer, words)).enqueue(object :
+        wordQuizController.updateWordQuiz(1, quizId, WordQuizUpdateRequest(title, answer, wordList)).enqueue(object :
             Callback<ResponseTemplate<Void>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<Void>>,
@@ -126,9 +131,6 @@ class WordQuizUpdateActivity : AppCompatActivity() {
                     Toast.makeText(this@WordQuizUpdateActivity, "수정이 완료되었습니다.", Toast.LENGTH_SHORT)
                         .show()
 
-                    // 통신이 성공하면 Activity를 종료
-                    finish()
-
                 } else {
                     // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
                     Log.d("post", "onResponse 실패 + ${response.code()}")
@@ -137,8 +139,11 @@ class WordQuizUpdateActivity : AppCompatActivity() {
                 }
 
                 // MyQuizActivity로 이동
-                val intent = Intent(this@WordQuizUpdateActivity, MyQuizActivity::class.java)
+                val intent = Intent(this@WordQuizUpdateActivity, WordQuizListActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
+
+                finish()
             }
 
             override fun onFailure(call: Call<ResponseTemplate<Void>>, t: Throwable) {
