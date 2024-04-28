@@ -1,22 +1,22 @@
 package soongsil.kidbean.front.quiz.word.presentation
 
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
-import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.PUT
-import retrofit2.http.Part
 import retrofit2.http.Path
 import soongsil.kidbean.front.global.ResponseTemplate
-import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberResponse
+import soongsil.kidbean.front.quiz.image.dto.request.ImageQuizSolveListRequest
+import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveScoreResponse
+import soongsil.kidbean.front.quiz.word.dto.request.WordQuizSolveListRequest
 import soongsil.kidbean.front.quiz.word.dto.request.WordQuizUpdateRequest
 import soongsil.kidbean.front.quiz.word.dto.request.WordQuizUploadRequest
 import soongsil.kidbean.front.quiz.word.dto.response.WordQuizMemberDetailResponse
 import soongsil.kidbean.front.quiz.word.dto.response.WordQuizMemberResponse
+import soongsil.kidbean.front.quiz.word.dto.response.WordQuizSolveResponse
+import soongsil.kidbean.front.quiz.word.dto.response.WordQuizSolveScoreResponse
 
 interface WordQuizController {
 
@@ -49,4 +49,15 @@ interface WordQuizController {
         @Path("memberId") memberId: Long,
         @Path("quizId") quizId: Long
     ) :Call<ResponseTemplate<Void>>
+
+    @GET("quiz/word/{memberId}")
+    fun getRandomWordQuizByMember(
+        @Path("memberId") memberId: Long
+    ): Call<ResponseTemplate<WordQuizSolveResponse>>
+
+    @POST("quiz/word/{memberId}")
+    fun solveWordQuiz(
+        @Path("memberId") memberId: Long,
+        @Body request: WordQuizSolveListRequest
+    ) :Call<ResponseTemplate<WordQuizSolveScoreResponse>>
 }

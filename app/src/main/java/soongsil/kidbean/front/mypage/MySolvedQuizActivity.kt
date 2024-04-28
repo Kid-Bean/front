@@ -1,44 +1,47 @@
-package soongsil.kidbean.front.quiz
+package soongsil.kidbean.front.mypage
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import soongsil.kidbean.front.MainActivity
-import soongsil.kidbean.front.databinding.ActivityQuizListBinding
-import soongsil.kidbean.front.quiz.answer.ui.AnswerQuizSolveActivity
-import soongsil.kidbean.front.quiz.image.ui.ImageQuizSolveActivity
-import soongsil.kidbean.front.quiz.word.ui.WordQuizSolveActivity
+import soongsil.kidbean.front.databinding.ActivityMySolvedQuizMainBinding
+import soongsil.kidbean.front.quiz.MyQuizActivity
+import soongsil.kidbean.front.quiz.QuizListActivity
 
-class QuizListActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityQuizListBinding
+class MySolvedQuizActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMySolvedQuizMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityQuizListBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
+        binding = ActivityMySolvedQuizMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        bottomSetting()
+
         binding.btnBack.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            // 홈 화면으로 이동
+            val intent = Intent(this, MyQuizActivity::class.java)
             startActivity(intent)
         }
 
         binding.btnImage.setOnClickListener {
-            val intent = Intent(this, ImageQuizSolveActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            // 이미지 퀴즈 메인
+            val intent = Intent(this, SolvedImageQuizMainActivity::class.java)
             startActivity(intent)
         }
 
         binding.btnWord.setOnClickListener {
-            val intent = Intent(this, WordQuizSolveActivity::class.java)
-            startActivity(intent)
+            //단어 퀴즈 메인
+//            val intent = Intent(this, MySolvedQuizActivity::class.java)
+//            startActivity(intent)
         }
 
-        binding.btnAnswer.setOnClickListener {
-            val intent = Intent(this, AnswerQuizSolveActivity::class.java)
-            startActivity(intent)
+        binding.btnVoice.setOnClickListener {
+            //음성 퀴즈 메인
+//            val intent = Intent(this, MyQuizActivity::class.java)
+//            startActivity(intent)
         }
-
-        bottomSetting()
     }
 
     private fun bottomSetting() {
@@ -60,9 +63,10 @@ class QuizListActivity : AppCompatActivity() {
         }
 
         // 마이페이지 화면으로 변경하기!
-        binding.btnProgram.setOnClickListener {
-            /*val intent = Intent(this, MypageActivity::class.java)
-            startActivity(intent)*/
+        binding.btnMypage.setOnClickListener {
+            val intent = Intent(this, MySolvedQuizActivity::class.java)
+            startActivity(intent)
         }
     }
+
 }

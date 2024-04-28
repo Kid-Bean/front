@@ -5,7 +5,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp"
-        tools:context=".quiz.image.ui.ImageQuizUploadActivity">
+        tools:context=".quiz.answer.ui.AnswerQuizSolveActivity">
+
 
     <LinearLayout
             android:id="@+id/linearLayout"
@@ -15,18 +16,19 @@
             tools:ignore="MissingConstraints">
 
         <TextView
-                android:id="@+id/tv_image_quiz_add"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_image_quiz_solve"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
                 style="@style/AndroidH1"
                 android:textColor="@color/black"
-                android:text="그림 맞추기"
+                android:text="질문 대답하기"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -34,8 +36,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@id/linearLayout"
+            app:layout_constraintStart_toStartOf="@id/linearLayout"
             app:layout_constraintBottom_toBottomOf="@id/linearLayout"
-            tools:ignore="MissingConstraints,NotSibling">
+            app:layout_constraintEnd_toEndOf="@id/linearLayout"
+            tools:ignore="MissingConstraints,NotSibling"
+            tools:layout_editor_absoluteX="16dp">
 
         <ImageButton
                 android:id="@+id/btn_back"
@@ -47,110 +52,47 @@
                 android:src="@drawable/ic_left"
                 android:scaleType="fitCenter"
                 tools:ignore="MissingConstraints"
-                android:contentDescription="TODO">
-        </ImageButton>
+                android:contentDescription="TODO"></ImageButton>
     </LinearLayout>
 
-    <EditText
-            android:id="@+id/tv_title"
+    <TextView
+            android:id="@+id/tv_script"
             style="@style/AndroidSubtitle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:hint="제목"
-            android:textColor="@color/gray600"
-            app:layout_constraintEnd_toEndOf="@id/layout_back"
-            app:layout_constraintStart_toStartOf="@id/layout_back"
-            app:layout_constraintTop_toBottomOf="@id/linearLayout"
-            tools:ignore="NotSibling" />
+            android:layout_marginTop="8dp"
+            android:text="주어진 질문에 대답해봐요!"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@id/linearLayout"
+            app:layout_constraintStart_toStartOf="@id/linearLayout"
+            app:layout_constraintTop_toBottomOf="@id/linearLayout"/>
 
-    <ImageView
-            android:id="@+id/img_quiz"
+    <TextView
+            android:id="@+id/tv_quiz"
+            style="@style/AndroidH1"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="400dp"
             android:background="@drawable/shape_edittext_big"
-            android:gravity="top"
+            android:gravity="center"
+            android:text="질문"
+            android:layout_marginTop="10dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-    <LinearLayout
-            android:id="@+id/tv_category_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="4"
-            android:paddingTop="15dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/img_quiz">
-
-        <TextView
-                style="@style/AndroidBody1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="카테고리"
-                android:textColor="@color/black"
-                android:layout_weight="1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_ch_nickname"/>
-
-        <Spinner
-                android:id="@+id/tv_category"
-                android:layout_width="0dp"
-                android:layout_weight="3"
-                android:layout_height="50dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_quiz"
-                android:layout_centerInParent="true"/>
-    </LinearLayout>
-
-    <LinearLayout
-            android:id="@+id/ll_my_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="4"
-            android:paddingTop="15dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_category_layout">
-
-        <TextView
-                style="@style/AndroidBody1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="정답"
-                android:layout_weight="1"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_ch_nickname"/>
-
-        <EditText
-                android:id="@+id/tv_correct"
-                style="@style/AndroidBody3"
-                android:hint="정답"
-                android:textColor="@color/gray600"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:gravity="center_horizontal"
-                android:background="@drawable/shape_edittext_small_gray"
-                android:inputType="text"
-                android:maxLines="1"
-                />
-    </LinearLayout>
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/tv_script" />
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/bottom">
+            app:layout_constraintBottom_toTopOf="@id/bottom"
+            android:id="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent">
 
         <Button
-                android:id="@+id/btn_enroll"
+                android:id="@+id/btn_start"
                 style="@style/AndroidButton1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -158,12 +100,11 @@
                 android:background="@drawable/shape_btn"
                 android:backgroundTint="@color/green"
                 android:includeFontPadding="false"
-                android:text="문제 등록"
+                android:text="녹음 시작"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -252,7 +193,6 @@
                     android:text="프로그램"
                     android:textColor="@color/gray600"
                     android:layout_gravity="center_horizontal">
-
             </TextView>
         </LinearLayout>
 
