@@ -1,7 +1,9 @@
 package soongsil.kidbean.front.quiz
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityQuizListBinding
