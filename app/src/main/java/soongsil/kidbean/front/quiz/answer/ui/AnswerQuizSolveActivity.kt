@@ -1,6 +1,5 @@
 package soongsil.kidbean.front.quiz.answer.ui
 
-import RetrofitImpl.retrofit
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -19,7 +18,7 @@ import androidx.core.content.ContextCompat
 import com.naver.speech.clientapi.SpeechRecognitionResult
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -35,6 +34,7 @@ import soongsil.kidbean.front.quiz.answer.dto.response.AnswerQuizSolveScoreRespo
 import soongsil.kidbean.front.quiz.answer.presentation.AnswerQuizController
 import soongsil.kidbean.front.quiz.image.application.AudioWriterPCM
 import soongsil.kidbean.front.quiz.image.application.NaverRecognizer
+import soongsil.kidbean.front.util.ApiClient
 import java.io.File
 import java.lang.ref.WeakReference
 
@@ -43,7 +43,6 @@ class AnswerQuizSolveActivity : AppCompatActivity() {
     private lateinit var binding : ActivityAnswerQuizSolveBinding
     private var quizId: Long = -1L
     private lateinit var title: String
-    private var memberId:Long = 4L
     private var score:Long = -1L
 
     private val CLIENT_ID = BuildConfig.CLOVA_CLIENT_ID
@@ -61,6 +60,7 @@ class AnswerQuizSolveActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        ApiClient.init(this)
 
         // 오디오 녹음 권한 요청
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)
@@ -70,7 +70,7 @@ class AnswerQuizSolveActivity : AppCompatActivity() {
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.RECORD_AUDIO),
-                AnswerQuizSolveActivity.RECORD_AUDIO_PERMISSION_REQUEST_CODE
+                RECORD_AUDIO_PERMISSION_REQUEST_CODE
             )
         }
 
@@ -123,8 +123,8 @@ class AnswerQuizSolveActivity : AppCompatActivity() {
     }
 
     private fun loadInfo() {
-        val imageQuizController = retrofit.create(AnswerQuizController::class.java)
-        imageQuizController.getRandomAnswerQuizByMember(memberId).enqueue(object :
+        val imageQuizController = ApiClient.getApiClient().create(AnswerQuizController::class.java)
+        imageQuizController.getRandomAnswerQuizByMember().enqueue(object :
             Callback<ResponseTemplate<AnswerQuizSolveResponse>> {
             @SuppressLint("SetTextI18n")
             override fun onResponse(
@@ -224,20 +224,20 @@ class AnswerQuizSolveActivity : AppCompatActivity() {
     private fun showRecordingStoppedAlertDialog() {
 
         val file = File(this.filesDir, "$sessionId.pcm")
-        val requestFile = RequestBody.create("audio/pcm".toMediaTypeOrNull(), file)
+        val requestFile = file.asRequestBody("audio/pcm".toMediaTypeOrNull())
         val recordPart = MultipartBody.Part.createFormData("record", file.name, requestFile)
 
         val quizData = """
             {
-                "quizId": "${quizId}",
+                "quizId": "$quizId",
                 "answer": "${mResult.toString()}"
             }
             """.trimIndent().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
         val quizDataPart = MultipartBody.Part.createFormData("answerQuizSolvedRequest", "", quizData)
 
-        val answerQuizController = retrofit.create(AnswerQuizController::class.java)
-        answerQuizController.solveAnswerQuiz(memberId, recordPart, quizDataPart).enqueue(object :
+        val answerQuizController = ApiClient.getApiClient().create(AnswerQuizController::class.java)
+        answerQuizController.solveAnswerQuiz(recordPart, quizDataPart).enqueue(object :
             Callback<ResponseTemplate<AnswerQuizSolveScoreResponse>> {
             @SuppressLint("SetTextI18n")
             override fun onResponse(
@@ -290,7 +290,7 @@ class AnswerQuizSolveActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == AnswerQuizSolveActivity.RECORD_AUDIO_PERMISSION_REQUEST_CODE) {
+        if (requestCode == RECORD_AUDIO_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // 사용자가 권한을 승인한 경우 다음 작업 수행
                 // 예: 오디오 녹음 시작

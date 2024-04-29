@@ -50,14 +50,12 @@ interface WordQuizController {
         @Path("quizId") quizId: Long
     ) :Call<ResponseTemplate<Void>>
 
-    @GET("quiz/word/{memberId}")
+    @GET("quiz/word/solve")
     fun getRandomWordQuizByMember(
-        @Path("memberId") memberId: Long
     ): Call<ResponseTemplate<WordQuizSolveResponse>>
 
-    @POST("quiz/word/{memberId}")
+    @POST("quiz/word/solve")
     fun solveWordQuiz(
-        @Path("memberId") memberId: Long,
         @Body request: WordQuizSolveListRequest
     ) :Call<ResponseTemplate<WordQuizSolveScoreResponse>>
 }

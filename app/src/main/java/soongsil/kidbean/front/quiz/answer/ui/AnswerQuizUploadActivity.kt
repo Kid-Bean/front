@@ -1,4 +1,4 @@
-package soongsil.kidbean.front.quiz.word.ui
+package soongsil.kidbean.front.quiz.answer.ui
 
 import RetrofitImpl.retrofit
 import android.content.Intent
@@ -11,23 +11,23 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
-import soongsil.kidbean.front.databinding.ActivityWordQuizUploadBinding
+import soongsil.kidbean.front.databinding.ActivityAnswerQuizUploadBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
-import soongsil.kidbean.front.quiz.word.dto.request.WordQuizUploadRequest
-import soongsil.kidbean.front.quiz.word.presentation.WordQuizController
+import soongsil.kidbean.front.quiz.answer.dto.request.AnswerQuizUploadRequest
+import soongsil.kidbean.front.quiz.answer.presentation.AnswerQuizController
 
-class WordQuizUploadActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityWordQuizUploadBinding
+class AnswerQuizUploadActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityAnswerQuizUploadBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityWordQuizUploadBinding.inflate(layoutInflater)
+        binding = ActivityAnswerQuizUploadBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         binding.btnBack.setOnClickListener {
-            val intent = Intent(this, WordQuizListActivity::class.java)
+            val intent = Intent(this, AnswerQuizListActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -38,11 +38,12 @@ class WordQuizUploadActivity : AppCompatActivity() {
                 setTitle("단어 문제 등록")
                 setMessage("문제를 등록하시겠습니까?")
                 setNegativeButton("취소") { _, _ ->
-                    Toast.makeText(this@WordQuizUploadActivity, "등록을 취소하였습니다.", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@AnswerQuizUploadActivity, "등록을 취소하였습니다.", Toast.LENGTH_SHORT)
                         .show()
                 }
                 setPositiveButton("등록") { _, _ ->
                     loadInfo()
+                    finish()
                 }
             }.create().show()
         }
@@ -77,23 +78,10 @@ class WordQuizUploadActivity : AppCompatActivity() {
 
     private fun loadInfo() {
         val title = binding.tvTitle.text.toString()
-        val answer = binding.tvCorrect.text.toString()
-        val word1 = binding.tvWord1.text.toString()
-        val word2 = binding.tvWord2.text.toString()
-        val word3 = binding.tvWord3.text.toString()
-        val word4 = binding.tvWord4.text.toString()
+        val question = binding.tvQuestion.text.toString()
 
-        // Words 객체 리스트 생성
-        val wordList = listOf(
-            WordQuizUploadRequest.Words(word1),
-            WordQuizUploadRequest.Words(word2),
-            WordQuizUploadRequest.Words(word3),
-            WordQuizUploadRequest.Words(word4)
-        )
-
-
-        val wordQuizController = retrofit.create(WordQuizController::class.java)
-        wordQuizController.uploadWordQuiz(1, WordQuizUploadRequest(title, answer, wordList)).enqueue(object :
+        val answerQuizController = retrofit.create(AnswerQuizController::class.java)
+        answerQuizController.uploadAnswerQuiz(1, AnswerQuizUploadRequest(title, question)).enqueue(object :
             Callback<ResponseTemplate<Void>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<Void>>,
@@ -103,22 +91,22 @@ class WordQuizUploadActivity : AppCompatActivity() {
                     // 정상적으로 통신이 성공된 경우
                     Log.d("post", "onResponse 성공: " + response.body().toString())
 
-                    Toast.makeText(this@WordQuizUploadActivity, "등록이 완료되었습니다.", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@AnswerQuizUploadActivity, "등록이 완료되었습니다.", Toast.LENGTH_SHORT)
                         .show()
+
+                    // 통신이 성공하면 Activity를 종료
+                    finish()
 
                 } else {
                     // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
                     Log.d("post", "onResponse 실패 + ${response.code()}")
-                    Toast.makeText(this@WordQuizUploadActivity, "등록이 실패하였습니다.", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@AnswerQuizUploadActivity, "등록이 실패하였습니다.", Toast.LENGTH_SHORT)
                         .show()
                 }
 
                 // MyQuizActivity로 이동
-                val intent = Intent(this@WordQuizUploadActivity, MyQuizActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                val intent = Intent(this@AnswerQuizUploadActivity, MyQuizActivity::class.java)
                 startActivity(intent)
-
-                finish()
             }
 
             override fun onFailure(call: Call<ResponseTemplate<Void>>, t: Throwable) {

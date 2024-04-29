@@ -13,14 +13,20 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+            android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+            android:maxSdkVersion="32"
+            tools:ignore="ScopedStorage" />
+    <uses-permission
+            android:name="android.permission.READ_EXTERNAL_STORAGE"
+            android:maxSdkVersion="32" />
 
     <uses-feature
             android:name="android.hardware.camera"
             android:required="true" />
 
     <application
+            android:name=".global.GlobalApplication"
             android:allowBackup="true"
             android:dataExtractionRules="@xml/data_extraction_rules"
             android:enableOnBackInvokedCallback="true"
@@ -35,18 +41,40 @@
             tools:replace="android:usesCleartextTraffic"
             tools:targetApi="33">
         <activity
+                android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                        android:host="oauth"
+                        android:scheme="kakao${KAKAO_NATIVE_APP_KEY}" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+                android:name=".login.ui.LoginActivity"
+                android:exported="true" />
+        <activity
+                android:name=".quiz.QuizListActivity"
+                android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+                android:name=".quiz.image.ui.ImageQuizSolveActivity"
+                android:exported="false"/>
+        <activity
                 android:name=".quiz.answer.ui.AnswerQuizSolveActivity"
                 android:exported="false" />
         <activity
                 android:name=".quiz.word.ui.WordQuizSolveActivity"
                 android:exported="false" />
-        <activity
-                android:name=".quiz.QuizListActivity"
-                android:exported="true"></activity>
-        <activity
-                android:name=".quiz.image.ui.ImageQuizSolveActivity"
-                android:exported="false"
-                android:screenOrientation="portrait" />
         <activity
                 android:name=".quiz.word.ui.WordQuizUploadActivity"
                 android:exported="false" />
@@ -61,13 +89,7 @@
                 android:exported="false" />
         <activity
                 android:name=".quiz.MyQuizActivity"
-                android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+                android:exported="true" />
         <activity
                 android:name=".quiz.image.ui.ImageQuizListActivity"
                 android:exported="false" />
@@ -83,16 +105,6 @@
         <activity
                 android:name=".MainActivity"
                 android:exported="false" />
-        <activity
-                android:name=".mypage.MypageActivity"
-                android:exported="false" />
-        <activity
-                android:name=".mypage.MySolvedQuizActivity"
-                android:exported="false" />
-        <activity
-                android:name=".mypage.SolvedImageQuizMainActivity"
-                android:exported="false" />
-
     </application>
 
 </manifest>

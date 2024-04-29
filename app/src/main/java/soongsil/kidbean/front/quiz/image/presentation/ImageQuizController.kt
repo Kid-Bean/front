@@ -55,14 +55,12 @@ interface ImageQuizController {
         @Path("quizId") quizId: Long
     ) :Call<ResponseTemplate<Void>>
 
-    @GET("quiz/image/{memberId}")
+    @GET("quiz/image/solve")
     fun getRandomImageQuizByMember(
-        @Path("memberId") memberId: Long
     ): Call<ResponseTemplate<ImageQuizSolveResponse>>
 
-    @POST("quiz/image/{memberId}")
+    @POST("quiz/image/solve")
     fun solveImageQuiz(
-        @Path("memberId") memberId: Long,
         @Body request: ImageQuizSolveListRequest
     ) :Call<ResponseTemplate<ImageQuizSolveScoreResponse>>
 
