@@ -105,6 +105,15 @@
         <activity
                 android:name=".MainActivity"
                 android:exported="false" />
+        <activity
+                android:name=".mypage.MypageActivity"
+                android:exported="false" />
+        <activity
+                android:name=".mypage.MySolvedQuizActivity"
+                android:exported="false" />
+        <activity
+                android:name=".mypage.SolvedImageQuizMainActivity"
+                android:exported="false" />
     </application>
 
 </manifest>
