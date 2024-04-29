@@ -1,9 +1,11 @@
 package soongsil.kidbean.front.mypage
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.components.XAxis
@@ -15,6 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
+import soongsil.kidbean.front.R
 import soongsil.kidbean.front.databinding.ActivityMyImageQuizSolvedMainBinding
 import soongsil.kidbean.front.databinding.ActivityRightImageQuizSolvedListBinding
 import soongsil.kidbean.front.databinding.ActivityWrongImageQuizSolvedListBinding
@@ -33,12 +36,19 @@ import soongsil.kidbean.front.util.ApiClient
 class WrongQuizListActivity : AppCompatActivity(){
     private lateinit var binding: ActivityWrongImageQuizSolvedListBinding
 
+    private lateinit var quizList : List<SolvedImageListResponse.SolvedListInfo>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWrongImageQuizSolvedListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         ApiClient.init(this)
+
+        binding.btnAnimal.setOnClickListener { loadQuizListFilter("ANIMAL") }
+        binding.btnPlant.setOnClickListener { loadQuizListFilter("PLANT") }
+        binding.btnObject.setOnClickListener { loadQuizListFilter("OBJECT") }
+        binding.btnOther.setOnClickListener { loadQuizListFilter("NONE") }
 
         loadQuizList()
         bottomSetting()
@@ -51,14 +61,40 @@ class WrongQuizListActivity : AppCompatActivity(){
 
     }
 
-    private fun setAdapter(quizList: List<SolvedImageListResponse.SolvedListInfo>) {
+    private fun setAdapter(quizList: List<SolvedImageListResponse.SolvedListInfo>, category: String) {
         val listAdapter = QuizListAdapter(quizList)
         val linearLayoutManager = LinearLayoutManager(this)
 
         binding.rvQuiz.adapter = listAdapter
         binding.rvQuiz.layoutManager = linearLayoutManager
         binding.rvQuiz.setHasFixedSize(true)
+
+        changeButtonColor(category)
     }
+
+    private fun changeButtonColor(category: String) {
+        val btnAnimal = findViewById<Button>(R.id.btn_animal)
+        val btnPlant = findViewById<Button>(R.id.btn_plant)
+        val btnObject = findViewById<Button>(R.id.btn_object)
+        val btnOther = findViewById<Button>(R.id.btn_other)
+
+        if (category == "all") {
+            btnAnimal.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#69F0AE"))
+            btnPlant.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#69F0AE"))
+            btnObject.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#69F0AE"))
+            btnOther.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#69F0AE"))
+        }
+        btnAnimal.backgroundTintList = if (category == "ANIMAL") ColorStateList.valueOf(Color.parseColor("#4CAF50")) else ColorStateList.valueOf(Color.parseColor("#69F0AE"))
+        btnPlant.backgroundTintList = if (category == "PLANT") ColorStateList.valueOf(Color.parseColor("#4CAF50")) else ColorStateList.valueOf(Color.parseColor("#69F0AE"))
+        btnObject.backgroundTintList = if (category == "OBJECT") ColorStateList.valueOf(Color.parseColor("#4CAF50")) else ColorStateList.valueOf(Color.parseColor("#69F0AE"))
+        btnOther.backgroundTintList = if (category == "NONE") ColorStateList.valueOf(Color.parseColor("#4CAF50")) else ColorStateList.valueOf(Color.parseColor("#69F0AE"))
+    }
+
+    private fun loadQuizListFilter(category: String) {
+        val filteredList = quizList.filter { it.quizCategory == category }
+        setAdapter(filteredList, category)
+    }
+
 
     private fun loadQuizList() {
         val myPageImageController =
@@ -73,8 +109,8 @@ class WrongQuizListActivity : AppCompatActivity(){
                     Log.d("post", "onResponse 성공: " + response.body().toString())
                     val body = response.body()?.results
                         ?: throw IllegalStateException("Response body is null")
-
-                    setAdapter(body.solvedList)
+                    quizList = body.solvedList
+                    setAdapter(body.solvedList, "all")
                 } else {
                     // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
                     Log.d("post", "onResponse 실패 + ${response.code()}")
