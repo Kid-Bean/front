@@ -1,11 +1,11 @@
 package soongsil.kidbean.front.mypage
 
-import RetrofitImpl.retrofit
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
@@ -16,25 +16,30 @@ import retrofit2.Callback
 import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityMyImageQuizSolvedMainBinding
+import soongsil.kidbean.front.databinding.ActivityRightImageQuizSolvedListBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.mypage.image.dto.response.MyPageImageScoreResponse
+import soongsil.kidbean.front.mypage.image.dto.response.SolvedImageListResponse
 import soongsil.kidbean.front.mypage.image.presentation.MypageImageController
+import soongsil.kidbean.front.mypage.image.ui.QuizListAdapter
 import soongsil.kidbean.front.mypage.main.dto.QuizCategory
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
+import soongsil.kidbean.front.quiz.answer.dto.response.AnswerQuizMemberResponse
+import soongsil.kidbean.front.quiz.answer.ui.AnswerQuizAdapter
 import soongsil.kidbean.front.util.ApiClient
 
-class SolvedImageQuizMainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMyImageQuizSolvedMainBinding
+class RightQuizListActivity : AppCompatActivity(){
+    private lateinit var binding: ActivityRightImageQuizSolvedListBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMyImageQuizSolvedMainBinding.inflate(layoutInflater)
+        binding = ActivityRightImageQuizSolvedListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         ApiClient.init(this)
 
-        makeScoreChart()
+        loadQuizList()
         bottomSetting()
 
         binding.btnBack.setOnClickListener {
@@ -43,32 +48,32 @@ class SolvedImageQuizMainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.btnRightQuiz.setOnClickListener{
-            val intent = Intent(this, RightQuizListActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.btnWrongQuiz.setOnClickListener{
-            val intent = Intent(this, WrongQuizListActivity::class.java)
-            startActivity(intent)
-        }
     }
 
-    private fun makeScoreChart() {
+    private fun setAdapter(quizList: List<SolvedImageListResponse.SolvedListInfo>) {
+        val listAdapter = QuizListAdapter(quizList)
+        val linearLayoutManager = LinearLayoutManager(this)
+
+        binding.rvQuiz.adapter = listAdapter
+        binding.rvQuiz.layoutManager = linearLayoutManager
+        binding.rvQuiz.setHasFixedSize(true)
+    }
+
+    private fun loadQuizList() {
         val myPageImageController =
             ApiClient.getApiClient().create(MypageImageController::class.java)
-        myPageImageController.getImageScoreResult().enqueue(object :
-            Callback<ResponseTemplate<MyPageImageScoreResponse>> {
+        myPageImageController.getImageQuizList(true).enqueue(object :
+            Callback<ResponseTemplate<SolvedImageListResponse>> {
             override fun onResponse(
-                call: Call<ResponseTemplate<MyPageImageScoreResponse>>,
-                response: Response<ResponseTemplate<MyPageImageScoreResponse>>
+                call: Call<ResponseTemplate<SolvedImageListResponse>>,
+                response: Response<ResponseTemplate<SolvedImageListResponse>>
             ) {
                 if (response.isSuccessful) {
                     Log.d("post", "onResponse 성공: " + response.body().toString())
                     val body = response.body()?.results
                         ?: throw IllegalStateException("Response body is null")
 
-                    setScoreChart(body)
+                    setAdapter(body.solvedList)
                 } else {
                     // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
                     Log.d("post", "onResponse 실패 + ${response.code()}")
@@ -76,60 +81,14 @@ class SolvedImageQuizMainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(
-                call: Call<ResponseTemplate<MyPageImageScoreResponse>>, t: Throwable
+                call: Call<ResponseTemplate<SolvedImageListResponse>>,
+                t: Throwable
             ) {
                 Log.d("post", "onResponse 실패 + ${t.message}")
             }
 
         })
     }
-
-    private fun setScoreChart(body: MyPageImageScoreResponse) {
-        val myScoreChartEntry = ArrayList<Entry>()
-        val ageScoreChartEntry = ArrayList<Entry>()
-
-        body.myScoreInfo.forEach { myScoreInfo ->
-            myScoreChartEntry.add(
-                Entry(
-                    getCategoryCode(myScoreInfo.quizCategory),
-                    myScoreInfo.score.toFloat()
-                )
-            )
-        }
-
-        body.ageScoreInfo.forEach { ageScoreInfo ->
-            ageScoreChartEntry.add(
-                Entry(
-                    getCategoryCode(ageScoreInfo.quizCategory),
-                    (ageScoreInfo.score.toFloat() / ageScoreInfo.memberCount)
-                )
-            )
-        }
-
-        val myScoreLineDataSet = LineDataSet(myScoreChartEntry, "내 아이 점수")
-        val ageScoreLineDataSet = LineDataSet(ageScoreChartEntry, "평균 아이 점수")
-        myScoreLineDataSet.color = Color.GREEN
-        ageScoreLineDataSet.color = Color.RED
-
-        binding.imageScoreChart.apply {
-            data = LineData(myScoreLineDataSet, ageScoreLineDataSet)
-            description.isEnabled = false
-            xAxis.position = XAxis.XAxisPosition.BOTTOM
-            xAxis.labelCount = 4
-            xAxis.setDrawGridLines(false)
-            xAxis.valueFormatter = object : IndexAxisValueFormatter() {
-                override fun getFormattedValue(value: Float): String {
-                    val values = QuizCategory.values()
-                    Log.d("hello", value.toString())
-                    return QuizCategory.values()[value.toInt()].getCategoryName()
-                }
-            }
-            invalidate()
-        }
-    }
-
-    private fun getCategoryCode(quizCategory: String) =
-        (QuizCategory.valueOf(quizCategory).getCategoryCode())
 
     private fun bottomSetting() {
         binding.btnHome.setOnClickListener {
@@ -155,4 +114,5 @@ class SolvedImageQuizMainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
 }
