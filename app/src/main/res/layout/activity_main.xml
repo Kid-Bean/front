@@ -4,15 +4,262 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".MainActivity">
 
+<LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        tools:ignore="MissingConstraints">
+
     <TextView
+            android:id="@+id/tv_image_quiz_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:textSize="25dp"
+            android:fontFamily="@font/noto_bold"
+            android:textColor="@color/green"
+            android:text="키드콩"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/kidbean">
+
+    </ImageView>
+</LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/linear_kid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="right"
+            android:background="@drawable/shape_round_corners"
+            app:layout_constraintTop_toBottomOf="@id/linearLayout"
+            app:layout_constraintEnd_toEndOf="@id/linearLayout">
+
+        <TextView
+                android:id="@+id/tv_kid_name"
+                style="@style/AndroidCaption1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:text="김금쪽"
+                android:textColor="@color/black"
+                tools:ignore="NotSibling" />
+        <TextView
+                android:id="@+id/tv_kid_normal"
+                style="@style/AndroidCaption3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text=" 함께한지 "
+                android:textColor="@color/black"
+                tools:ignore="NotSibling" />
+        <TextView
+                android:id="@+id/tv_kid_date"
+                style="@style/AndroidCaption1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="100"
+                android:textColor="@color/black"
+                tools:ignore="NotSibling" />
+        <TextView
+                android:id="@+id/tv_kid_normal2"
+                style="@style/AndroidCaption3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:layout_gravity="center"
+                android:text=" 일째"
+                android:textColor="@color/black"
+                tools:ignore="NotSibling" />
+
+    </LinearLayout>
+
+<TextView
+        android:id="@+id/tv_title"
+        style="@style/AndroidSubtitle1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="오늘도 같이 콩나무를 키워볼까요?"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="@id/linearLayout"
+        app:layout_constraintStart_toStartOf="@id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@id/linear_kid"
+        tools:ignore="NotSibling" />
+
+<ImageView
+        android:id="@+id/tv_question"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/shape_edittext_big"
+        style="@style/AndroidH2"
+        android:textColor="@color/black"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
+
+    <LinearLayout
+            android:id="@+id/layout_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bottom">
+
+        <Button
+                android:id="@+id/btn_enroll"
+                style="@style/AndroidButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/shape_btn"
+                android:backgroundTint="@color/green"
+                android:includeFontPadding="false"
+                android:text="콩나무 키우러 가기"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+    </LinearLayout>
+
+<LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:weightSum="4"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+    <LinearLayout
+            android:id="@+id/btn_home"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+        <Button
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_home"
+                android:backgroundTint="@color/black"
+                android:layout_gravity="center_horizontal">
+        </Button>
+
+        <TextView
+                style="@style/AndroidCaption2"
+                android:includeFontPadding="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="홈"
+                android:layout_gravity="center_horizontal">
+
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/btn_quiz"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+        <Button
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_quiz"
+                android:backgroundTint="@color/gray600"
+                android:layout_gravity="center_horizontal">
+        </Button>
+
+        <TextView
+                style="@style/AndroidCaption2"
+                android:includeFontPadding="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray600"
+                android:text="문제 풀기"
+                android:layout_gravity="center_horizontal">
+
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/btn_program"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+        <Button
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_program"
+                android:backgroundTint="@color/gray600"
+                android:layout_gravity="center_horizontal">
+        </Button>
+
+        <TextView
+                style="@style/AndroidCaption2"
+                android:includeFontPadding="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="프로그램"
+                android:textColor="@color/gray600"
+                android:layout_gravity="center_horizontal">
+
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/btn_mypage"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+        <Button
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_mypage"
+                android:backgroundTint="@color/gray600"
+                android:layout_gravity="center_horizontal">
+        </Button>
+
+        <TextView
+                style="@style/AndroidCaption2"
+                android:includeFontPadding="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray600"
+                android:text="마이페이지"
+                android:layout_gravity="center_horizontal">
+
+        </TextView>
+    </LinearLayout>
+
+</LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

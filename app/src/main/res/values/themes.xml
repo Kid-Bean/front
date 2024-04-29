@@ -70,6 +70,12 @@
 
     <style name="AndroidCaption3">
         <item name="android:fontFamily">@font/noto_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineSpacingExtra">18sp</item>
+    </style>
+
+    <style name="AndroidCaption4">
+        <item name="android:fontFamily">@font/noto_regular</item>
         <item name="android:textSize">10sp</item>
         <item name="android:lineSpacingExtra">12sp</item>
     </style>
