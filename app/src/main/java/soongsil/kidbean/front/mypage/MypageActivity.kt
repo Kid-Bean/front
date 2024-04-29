@@ -1,6 +1,5 @@
 package soongsil.kidbean.front.mypage
 
-import RetrofitImpl.retrofit
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -12,8 +11,8 @@ import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityMypageBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.member.presentation.MemberController
 import soongsil.kidbean.front.mypage.main.dto.response.MemberInfoResponse
-import soongsil.kidbean.front.mypage.main.presentation.MyPageController
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.util.ApiClient
@@ -58,7 +57,7 @@ class MypageActivity : AppCompatActivity() {
     }
 
     private fun loadMemberInfo() {
-        val myPageController = ApiClient.getApiClient().create(MyPageController::class.java)
+        val myPageController = ApiClient.getApiClient().create(MemberController::class.java)
         myPageController.getImageQuizById().enqueue(object :
             Callback<ResponseTemplate<MemberInfoResponse>> {
             override fun onResponse(
