@@ -114,6 +114,12 @@
         <activity
                 android:name=".mypage.SolvedImageQuizMainActivity"
                 android:exported="false" />
+        <activity
+                android:name=".mypage.RightQuizListActivity"
+                android:exported="false" />
+        <activity
+                android:name=".mypage.WrongQuizListActivity"
+                android:exported="false" />
     </application>
 
 </manifest>
