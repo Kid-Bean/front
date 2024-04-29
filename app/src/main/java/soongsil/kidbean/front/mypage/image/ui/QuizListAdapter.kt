@@ -26,6 +26,12 @@ class QuizListAdapter(private val dataList: List<SolvedImageListResponse.SolvedL
                 binding.tvDate.text = originalDateTime.format(DateTimeFormatter.ofPattern("MM-dd HH:mm"))
                 binding.tvAnswer.text = dataList[position].answer
                 solvedId = dataList[position].solvedId
+
+                binding.btnDetail.setOnClickListener {
+                    val intent = Intent(binding.root.context, ImageQuizSolvedDetailActivity::class.java)
+                    intent.putExtra("solvedId", dataList[position].solvedId)
+                    binding.root.context.startActivity(intent)
+                }
             }
         }
 
@@ -37,14 +43,7 @@ class QuizListAdapter(private val dataList: List<SolvedImageListResponse.SolvedL
 
         @RequiresApi(Build.VERSION_CODES.O)
         override fun onBindViewHolder(holder: QuizListAdapter.ViewHolder, position: Int) {
-            val currentSolvedQuiz = dataList[position]
             holder.bind(position)
-
-            holder.itemView.setOnClickListener {
-                val intent = Intent(it.context, ImageQuizSolvedDetailActivity::class.java)
-                intent.putExtra("solvedId", currentSolvedQuiz.solvedId)
-                it.context.startActivity(intent)
-            }
         }
 
         override fun getItemCount(): Int = dataList.size
