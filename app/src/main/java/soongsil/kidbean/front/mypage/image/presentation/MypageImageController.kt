@@ -8,8 +8,6 @@ import soongsil.kidbean.front.mypage.image.dto.response.MyPageImageScoreResponse
 
 interface MypageImageController {
 
-    @GET("mypage/solved/image/result/{memberId}")
-    fun getImageScoreResult(
-        @Path("memberId") memberId: Long,
-    ): Call<ResponseTemplate<MyPageImageScoreResponse>>
+    @GET("mypage/solved/image/result")
+    fun getImageScoreResult(): Call<ResponseTemplate<MyPageImageScoreResponse>>
 }

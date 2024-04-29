@@ -45,8 +45,9 @@ class SolvedImageQuizMainActivity : AppCompatActivity() {
     }
 
     private fun makeScoreChart() {
-        val myPageImageController = retrofit.create(MypageImageController::class.java)
-        myPageImageController.getImageScoreResult(1L).enqueue(object :
+        val myPageImageController =
+            ApiClient.getApiClient().create(MypageImageController::class.java)
+        myPageImageController.getImageScoreResult().enqueue(object :
             Callback<ResponseTemplate<MyPageImageScoreResponse>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<MyPageImageScoreResponse>>,
