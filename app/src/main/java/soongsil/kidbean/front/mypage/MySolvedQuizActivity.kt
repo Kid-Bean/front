@@ -7,6 +7,7 @@ import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityMySolvedQuizMainBinding
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
+import soongsil.kidbean.front.util.ApiClient
 
 class MySolvedQuizActivity : AppCompatActivity() {
 
@@ -16,6 +17,8 @@ class MySolvedQuizActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMySolvedQuizMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ApiClient.init(this)
 
         bottomSetting()
 
