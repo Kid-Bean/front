@@ -1,12 +1,9 @@
 package soongsil.kidbean.front.quiz
 
-import RetrofitImpl.retrofit
-import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson

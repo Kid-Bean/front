@@ -59,6 +59,11 @@
             android:background="@android:color/transparent"
             app:layout_constraintTop_toBottomOf="@id/linearLayout"
             android:orientation="horizontal">
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/image_score_chart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+        </com.github.mikephil.charting.charts.LineChart>
     </LinearLayout>
 
     <LinearLayout
