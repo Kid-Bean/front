@@ -16,6 +16,7 @@ import soongsil.kidbean.front.mypage.main.dto.response.MemberInfoResponse
 import soongsil.kidbean.front.mypage.main.presentation.MyPageController
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
+import soongsil.kidbean.front.util.ApiClient
 
 class MypageActivity : AppCompatActivity() {
 
@@ -25,6 +26,8 @@ class MypageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMypageBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ApiClient.init(this)
 
         binding.btnBack.setOnClickListener {
             // 홈 화면으로 이동
@@ -55,8 +58,8 @@ class MypageActivity : AppCompatActivity() {
     }
 
     private fun loadMemberInfo() {
-        val myPageController = retrofit.create(MyPageController::class.java)
-        myPageController.getImageQuizById(1).enqueue(object :
+        val myPageController = ApiClient.getApiClient().create(MyPageController::class.java)
+        myPageController.getImageQuizById().enqueue(object :
             Callback<ResponseTemplate<MemberInfoResponse>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<MemberInfoResponse>>,

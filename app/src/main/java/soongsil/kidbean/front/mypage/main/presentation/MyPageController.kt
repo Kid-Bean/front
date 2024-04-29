@@ -9,9 +9,8 @@ import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberDetailRespo
 
 interface MyPageController {
 
-    @GET("member/info/{memberId}")
+    @GET("member/info")
     fun getImageQuizById(
-        @Path("memberId") memberId: Long,
         ): Call<ResponseTemplate<MemberInfoResponse>>
 
 }
