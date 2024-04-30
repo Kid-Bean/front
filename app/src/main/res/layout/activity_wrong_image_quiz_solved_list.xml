@@ -99,6 +99,19 @@
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
+        <Button
+                android:id="@+id/btn_food"
+                style="@style/AndroidButton1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/shape_btn"
+                android:backgroundTint="#69F0AE"
+                android:text="음식"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
         <!-- 기타 버튼 -->
         <Button
                 android:id="@+id/btn_other"

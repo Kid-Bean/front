@@ -4,8 +4,8 @@ enum class QuizCategory(private val categoryName: String, private val categoryCo
     ANIMAL("동물", 0),
     PLANT("식물", 1),
     OBJECT("사물", 2),
-    NONE("없음", 3),
-    FOOD("음식", 4)
+    FOOD("음식", 3),
+    NONE("없음", 4),
     ;
 
     fun getCategoryCode(): Float {

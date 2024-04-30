@@ -90,13 +90,11 @@ class SolvedImageQuizMainActivity : AppCompatActivity() {
         val myScoreChartEntry = ArrayList<Entry>()
         val ageScoreChartEntry = ArrayList<Entry>()
 
-        body.myScoreInfo.forEach { myScoreInfo ->
-            myScoreChartEntry.add(
-                Entry(
-                    getCategoryCode(myScoreInfo.quizCategory),
-                    myScoreInfo.score.toFloat()
-                )
-            )
+        val categories = QuizCategory.values()
+        categories.forEach { category ->
+            val matchingMyScoreInfo = body.myScoreInfo.find { it.quizCategory == category.toString() }
+            val score = matchingMyScoreInfo?.score?.toFloat() ?: 0f
+            myScoreChartEntry.add(Entry(getCategoryCode(category.toString()), score))
         }
 
         body.ageScoreInfo.forEach { ageScoreInfo ->
@@ -126,7 +124,7 @@ class SolvedImageQuizMainActivity : AppCompatActivity() {
             xAxis.granularity = 1f
             xAxis.setDrawGridLines(false)
 
-            val xLabels = listOf(0f to "동물", 1f to "식물", 2f to "사물", 3f to "기타", 4f to "음식")
+            val xLabels = listOf(0f to "동물", 1f to "식물", 2f to "사물", 3f to "음식", 4f to "기타")
             xAxis.valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float): String {
                     val label = xLabels.find { it.first == value }
