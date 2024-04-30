@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".MainActivity">
+    tools:context=".home.ui.MainActivity">
 
 <LinearLayout
         android:id="@+id/linearLayout"
@@ -105,7 +105,7 @@
         tools:ignore="NotSibling" />
 
 <ImageView
-        android:id="@+id/tv_question"
+        android:id="@+id/img_view"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_marginTop="10dp"
@@ -117,6 +117,21 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:progress="70"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintStart_toStartOf="@id/layout_button"
+        app:layout_constraintEnd_toEndOf="@id/layout_button"
+        app:layout_constraintBottom_toTopOf="@id/layout_button"
+        android:progressDrawable="@drawable/custom_progress_bar"
+        android:max="100"
+        android:padding="8dp"
+    />
 
     <LinearLayout
             android:id="@+id/layout_button"
