@@ -11,6 +11,8 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
+import com.google.android.material.slider.LabelFormatter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -116,12 +118,14 @@ class SolvedImageQuizMainActivity : AppCompatActivity() {
             description.isEnabled = false
             xAxis.position = XAxis.XAxisPosition.BOTTOM
             xAxis.labelCount = 4
+            xAxis.granularity = 1f
             xAxis.setDrawGridLines(false)
-            xAxis.valueFormatter = object : IndexAxisValueFormatter() {
+
+            val xLabels = listOf(0f to "동물", 1f to "식물", 2f to "사물", 3f to "기타")
+            xAxis.valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float): String {
-                    val values = QuizCategory.values()
-                    Log.d("hello", value.toString())
-                    return QuizCategory.values()[value.toInt()].getCategoryName()
+                    val label = xLabels.find { it.first == value }
+                    return label?.second ?: ""
                 }
             }
             invalidate()
