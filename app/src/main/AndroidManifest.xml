@@ -120,6 +120,9 @@
         <activity
                 android:name=".mypage.WrongQuizListActivity"
                 android:exported="false" />
+        <activity
+                android:name=".mypage.ImageQuizSolvedDetailActivity"
+                android:exported="false" />
     </application>
 
 </manifest>
