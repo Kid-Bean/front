@@ -1,9 +1,11 @@
 package soongsil.kidbean.front.mypage
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.mikephil.charting.components.XAxis
@@ -15,6 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
+import soongsil.kidbean.front.R
 import soongsil.kidbean.front.databinding.ActivityMyImageQuizSolvedMainBinding
 import soongsil.kidbean.front.databinding.ActivityRightImageQuizSolvedListBinding
 import soongsil.kidbean.front.global.ResponseTemplate
@@ -29,8 +32,12 @@ import soongsil.kidbean.front.quiz.answer.dto.response.AnswerQuizMemberResponse
 import soongsil.kidbean.front.quiz.answer.ui.AnswerQuizAdapter
 import soongsil.kidbean.front.util.ApiClient
 
-class RightQuizListActivity : AppCompatActivity(){
+class RightQuizListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRightImageQuizSolvedListBinding
+
+    private lateinit var quizList: List<SolvedImageListResponse.SolvedListInfo>
+
+    private var selectCategory = "all"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +45,11 @@ class RightQuizListActivity : AppCompatActivity(){
         setContentView(binding.root)
 
         ApiClient.init(this)
+
+        binding.btnAnimal.setOnClickListener { loadQuizListFilter("ANIMAL") }
+        binding.btnPlant.setOnClickListener { loadQuizListFilter("PLANT") }
+        binding.btnObject.setOnClickListener { loadQuizListFilter("OBJECT") }
+        binding.btnOther.setOnClickListener { loadQuizListFilter("NONE") }
 
         loadQuizList()
         bottomSetting()
@@ -50,13 +62,49 @@ class RightQuizListActivity : AppCompatActivity(){
 
     }
 
-    private fun setAdapter(quizList: List<SolvedImageListResponse.SolvedListInfo>) {
+    private fun setAdapter(
+        quizList: List<SolvedImageListResponse.SolvedListInfo>,
+    ) {
         val listAdapter = QuizListAdapter(quizList)
         val linearLayoutManager = LinearLayoutManager(this)
 
         binding.rvQuiz.adapter = listAdapter
         binding.rvQuiz.layoutManager = linearLayoutManager
         binding.rvQuiz.setHasFixedSize(true)
+
+        changeButtonColor()
+    }
+
+    private fun changeButtonColor() {
+        val buttonIds = mapOf(
+            "ANIMAL" to R.id.btn_animal,
+            "PLANT" to R.id.btn_plant,
+            "OBJECT" to R.id.btn_object,
+            "NONE" to R.id.btn_other
+        )
+
+        val selectedColor = Color.parseColor("#4CAF50")
+        val defaultColor = Color.parseColor("#69F0AE")
+
+        buttonIds.forEach { (categoryName, buttonId) ->
+            val button = findViewById<Button>(buttonId)
+            button.backgroundTintList = if (categoryName == selectCategory) {
+                ColorStateList.valueOf(selectedColor)
+            } else {
+                ColorStateList.valueOf(defaultColor)
+            }
+        }
+    }
+
+    private fun loadQuizListFilter(category: String) {
+        if (category == selectCategory) {
+            selectCategory = "all"
+            setAdapter(quizList)
+        } else {
+            selectCategory = category
+            val filteredList = quizList.filter { it.quizCategory == category }
+            setAdapter(filteredList)
+        }
     }
 
     private fun loadQuizList() {
@@ -72,7 +120,7 @@ class RightQuizListActivity : AppCompatActivity(){
                     Log.d("post", "onResponse 성공: " + response.body().toString())
                     val body = response.body()?.results
                         ?: throw IllegalStateException("Response body is null")
-
+                    quizList = body.solvedList
                     setAdapter(body.solvedList)
                 } else {
                     // 통신이 실패한 경우(응답코드 3xx, 4xx 등)

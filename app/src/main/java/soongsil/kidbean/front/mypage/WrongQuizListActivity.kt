@@ -38,6 +38,8 @@ class WrongQuizListActivity : AppCompatActivity(){
 
     private lateinit var quizList : List<SolvedImageListResponse.SolvedListInfo>
 
+    private var selectCategory = "all"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityWrongImageQuizSolvedListBinding.inflate(layoutInflater)
@@ -61,7 +63,7 @@ class WrongQuizListActivity : AppCompatActivity(){
 
     }
 
-    private fun setAdapter(quizList: List<SolvedImageListResponse.SolvedListInfo>, category: String) {
+    private fun setAdapter(quizList: List<SolvedImageListResponse.SolvedListInfo>) {
         val listAdapter = QuizListAdapter(quizList)
         val linearLayoutManager = LinearLayoutManager(this)
 
@@ -69,30 +71,39 @@ class WrongQuizListActivity : AppCompatActivity(){
         binding.rvQuiz.layoutManager = linearLayoutManager
         binding.rvQuiz.setHasFixedSize(true)
 
-        changeButtonColor(category)
+        changeButtonColor()
     }
 
-    private fun changeButtonColor(category: String) {
-        val btnAnimal = findViewById<Button>(R.id.btn_animal)
-        val btnPlant = findViewById<Button>(R.id.btn_plant)
-        val btnObject = findViewById<Button>(R.id.btn_object)
-        val btnOther = findViewById<Button>(R.id.btn_other)
+    private fun changeButtonColor() {
+        val buttonIds = mapOf(
+            "ANIMAL" to R.id.btn_animal,
+            "PLANT" to R.id.btn_plant,
+            "OBJECT" to R.id.btn_object,
+            "NONE" to R.id.btn_other
+        )
 
-        if (category == "all") {
-            btnAnimal.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#69F0AE"))
-            btnPlant.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#69F0AE"))
-            btnObject.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#69F0AE"))
-            btnOther.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#69F0AE"))
+        val selectedColor = Color.parseColor("#4CAF50")
+        val defaultColor = Color.parseColor("#69F0AE")
+
+        buttonIds.forEach { (categoryName, buttonId) ->
+            val button = findViewById<Button>(buttonId)
+            button.backgroundTintList = if (categoryName == selectCategory) {
+                ColorStateList.valueOf(selectedColor)
+            } else {
+                ColorStateList.valueOf(defaultColor)
+            }
         }
-        btnAnimal.backgroundTintList = if (category == "ANIMAL") ColorStateList.valueOf(Color.parseColor("#4CAF50")) else ColorStateList.valueOf(Color.parseColor("#69F0AE"))
-        btnPlant.backgroundTintList = if (category == "PLANT") ColorStateList.valueOf(Color.parseColor("#4CAF50")) else ColorStateList.valueOf(Color.parseColor("#69F0AE"))
-        btnObject.backgroundTintList = if (category == "OBJECT") ColorStateList.valueOf(Color.parseColor("#4CAF50")) else ColorStateList.valueOf(Color.parseColor("#69F0AE"))
-        btnOther.backgroundTintList = if (category == "NONE") ColorStateList.valueOf(Color.parseColor("#4CAF50")) else ColorStateList.valueOf(Color.parseColor("#69F0AE"))
     }
 
     private fun loadQuizListFilter(category: String) {
-        val filteredList = quizList.filter { it.quizCategory == category }
-        setAdapter(filteredList, category)
+        if (category == selectCategory) {
+            selectCategory = "all"
+            setAdapter(quizList)
+        } else {
+            selectCategory = category
+            val filteredList = quizList.filter { it.quizCategory == category }
+            setAdapter(filteredList)
+        }
     }
 
 
@@ -110,7 +121,7 @@ class WrongQuizListActivity : AppCompatActivity(){
                     val body = response.body()?.results
                         ?: throw IllegalStateException("Response body is null")
                     quizList = body.solvedList
-                    setAdapter(body.solvedList, "all")
+                    setAdapter(body.solvedList)
                 } else {
                     // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
                     Log.d("post", "onResponse 실패 + ${response.code()}")

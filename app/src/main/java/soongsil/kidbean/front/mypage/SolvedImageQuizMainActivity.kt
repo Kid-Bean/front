@@ -100,10 +100,15 @@ class SolvedImageQuizMainActivity : AppCompatActivity() {
         }
 
         body.ageScoreInfo.forEach { ageScoreInfo ->
+            val averageScore = if (ageScoreInfo.memberCount == 0L) {
+                0f
+            } else {
+                ageScoreInfo.score.toFloat() / ageScoreInfo.memberCount
+            }
             ageScoreChartEntry.add(
                 Entry(
                     getCategoryCode(ageScoreInfo.quizCategory),
-                    (ageScoreInfo.score.toFloat() / ageScoreInfo.memberCount)
+                    averageScore
                 )
             )
         }
@@ -121,7 +126,7 @@ class SolvedImageQuizMainActivity : AppCompatActivity() {
             xAxis.granularity = 1f
             xAxis.setDrawGridLines(false)
 
-            val xLabels = listOf(0f to "동물", 1f to "식물", 2f to "사물", 3f to "기타")
+            val xLabels = listOf(0f to "동물", 1f to "식물", 2f to "사물", 3f to "기타", 4f to "음식")
             xAxis.valueFormatter = object : ValueFormatter() {
                 override fun getFormattedValue(value: Float): String {
                     val label = xLabels.find { it.first == value }
