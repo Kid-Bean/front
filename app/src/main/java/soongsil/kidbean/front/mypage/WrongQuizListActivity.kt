@@ -51,6 +51,7 @@ class WrongQuizListActivity : AppCompatActivity(){
         binding.btnPlant.setOnClickListener { loadQuizListFilter("PLANT") }
         binding.btnObject.setOnClickListener { loadQuizListFilter("OBJECT") }
         binding.btnOther.setOnClickListener { loadQuizListFilter("NONE") }
+        binding.btnFood.setOnClickListener { loadQuizListFilter("FOOD") }
 
         loadQuizList()
         bottomSetting()
@@ -79,7 +80,8 @@ class WrongQuizListActivity : AppCompatActivity(){
             "ANIMAL" to R.id.btn_animal,
             "PLANT" to R.id.btn_plant,
             "OBJECT" to R.id.btn_object,
-            "NONE" to R.id.btn_other
+            "NONE" to R.id.btn_other,
+            "FOOD" to R.id.btn_food
         )
 
         val selectedColor = Color.parseColor("#4CAF50")
