@@ -2,7 +2,6 @@ package soongsil.kidbean.front.quiz
 
 import RetrofitImpl.retrofit
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -13,17 +12,14 @@ import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import soongsil.kidbean.front.MainActivity
+import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.databinding.ActivityQuizListBinding
 import soongsil.kidbean.front.global.ResponseTemplate
-import soongsil.kidbean.front.login.dto.request.LoginRequest
 import soongsil.kidbean.front.login.dto.request.ReissueRequest
-import soongsil.kidbean.front.login.dto.response.LoginResponse
 import soongsil.kidbean.front.login.dto.response.ReissueResponse
 import soongsil.kidbean.front.login.presentation.LoginController
 import soongsil.kidbean.front.login.ui.LoginActivity
 import soongsil.kidbean.front.mypage.MypageActivity
-import soongsil.kidbean.front.util.ApiClient
 import java.nio.charset.Charset
 import soongsil.kidbean.front.quiz.answer.ui.AnswerQuizSolveActivity
 import soongsil.kidbean.front.quiz.image.ui.ImageQuizSolveActivity

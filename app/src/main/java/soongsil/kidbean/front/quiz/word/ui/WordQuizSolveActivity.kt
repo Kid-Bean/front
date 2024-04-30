@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import soongsil.kidbean.front.MainActivity
+import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.R
 import soongsil.kidbean.front.databinding.ActivityWordQuizSolveBinding
 import soongsil.kidbean.front.global.ResponseTemplate

@@ -1,6 +1,5 @@
 package soongsil.kidbean.front.quiz.image.ui
 
-import RetrofitImpl.retrofit
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -23,11 +22,10 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import soongsil.kidbean.front.MainActivity
+import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.databinding.ActivityImageQuizUpdateBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.mypage.MypageActivity
-import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
 import soongsil.kidbean.front.util.ApiClient

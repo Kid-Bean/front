@@ -24,7 +24,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import soongsil.kidbean.front.BuildConfig
-import soongsil.kidbean.front.MainActivity
+import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.R
 import soongsil.kidbean.front.databinding.ActivityAnswerQuizSolveBinding
 import soongsil.kidbean.front.global.ResponseTemplate

@@ -1,6 +1,5 @@
 package soongsil.kidbean.front.quiz.answer.ui
 
-import RetrofitImpl.retrofit
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import soongsil.kidbean.front.MainActivity
+import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.databinding.ActivityAnswerQuizListBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.mypage.MypageActivity
@@ -17,8 +16,6 @@ import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.answer.dto.response.AnswerQuizMemberResponse
 import soongsil.kidbean.front.quiz.answer.presentation.AnswerQuizController
-import soongsil.kidbean.front.quiz.word.dto.response.WordQuizMemberResponse
-import soongsil.kidbean.front.quiz.word.presentation.WordQuizController
 import soongsil.kidbean.front.util.ApiClient
 
 class AnswerQuizListActivity : AppCompatActivity() {

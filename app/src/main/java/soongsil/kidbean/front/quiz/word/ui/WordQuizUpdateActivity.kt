@@ -1,6 +1,5 @@
 package soongsil.kidbean.front.quiz.word.ui
 
-import RetrofitImpl.retrofit
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import soongsil.kidbean.front.MainActivity
+import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.databinding.ActivityWordQuizUpdateBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.mypage.MypageActivity
