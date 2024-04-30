@@ -41,19 +41,23 @@
             tools:replace="android:usesCleartextTraffic"
             tools:targetApi="33">
         <activity
+                android:name=".home.ui.SignUpActivity"
+                android:exported="false" />
+        <activity
                 android:name=".login.ui.LoginActivity"
                 android:exported="true" />
         <activity
                 android:name=".quiz.QuizListActivity"
-                android:exported="true" >
+                android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
                 android:name=".quiz.image.ui.ImageQuizSolveActivity"
-                android:exported="false"/>
+                android:exported="false" />
         <activity
                 android:name=".quiz.answer.ui.AnswerQuizSolveActivity"
                 android:exported="false" />
@@ -89,8 +93,7 @@
                 android:exported="false" />
         <activity
                 android:name=".home.ui.MainActivity"
-                android:exported="false">
-        </activity>
+                android:exported="false"></activity>
     </application>
 
 </manifest>

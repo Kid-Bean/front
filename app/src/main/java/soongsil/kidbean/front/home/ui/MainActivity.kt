@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         ApiClient.init(this)
 
         binding.btnEnroll.setOnClickListener {
-            // 단어 문제 등록 화면으로 이동
             val intent = Intent(this, QuizListActivity::class.java)
             startActivity(intent)
         }
@@ -91,6 +90,17 @@ class MainActivity : AppCompatActivity() {
 
                     // API로 가져온 제목 넣기
                     var name = body?.name.toString()
+                    Log.d("name", name)
+
+                    // 이름이 null이거나 빈 문자열인 경우 SignUpActivity로 이동
+                    if (name.isEmpty()) {
+                        val intent = Intent(this@MainActivity, SignUpActivity::class.java)
+                        startActivity(intent)
+                        finish() // 현재 Activity 종료
+                        return // 이후 로직을 실행하지 않고 메서드 종료
+                    }
+
+                    // 이름이 존재하는 경우 기존 로직 실행
                     binding.tvKidName.text = name
 
                     // createDate 문자열 예시: "2024-04-30"
