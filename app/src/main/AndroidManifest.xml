@@ -123,6 +123,12 @@
         <activity
                 android:name=".mypage.image.ui.ImageQuizSolvedDetailActivity"
                 android:exported="false" />
+        <activity
+                android:name=".mypage.word.ui.SolvedWordQuizListActivity"
+                android:exported="false" />
+        <activity
+                android:name=".mypage.word.ui.SolvedWordQuizDetailActivity"
+                android:exported="false" />
     </application>
 
 </manifest>

@@ -151,7 +151,7 @@
                 android:layout_gravity="top"
                 android:background="#20F2FFF3"
                 android:nestedScrollingEnabled="false"
-                tools:listitem="@layout/mypage_item_quiz" />
+                tools:listitem="@layout/mypage_item_image_quiz" />
     </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
