@@ -1,4 +1,4 @@
-package soongsil.kidbean.front.mypage
+package soongsil.kidbean.front.mypage.image.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,6 +13,7 @@ import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityImageQuizSolvedResultBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.mypage.MySolvedQuizActivity
 import soongsil.kidbean.front.mypage.image.dto.response.SolvedImageDetailResponse
 import soongsil.kidbean.front.mypage.image.presentation.MypageImageController
 import soongsil.kidbean.front.quiz.QuizListActivity

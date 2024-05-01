@@ -112,16 +112,16 @@
                 android:name=".mypage.MySolvedQuizActivity"
                 android:exported="false" />
         <activity
-                android:name=".mypage.SolvedImageQuizMainActivity"
+                android:name=".mypage.image.ui.SolvedImageQuizMainActivity"
                 android:exported="false" />
         <activity
-                android:name=".mypage.RightQuizListActivity"
+                android:name=".mypage.image.ui.RightQuizListActivity"
                 android:exported="false" />
         <activity
-                android:name=".mypage.WrongQuizListActivity"
+                android:name=".mypage.image.ui.WrongQuizListActivity"
                 android:exported="false" />
         <activity
-                android:name=".mypage.ImageQuizSolvedDetailActivity"
+                android:name=".mypage.image.ui.ImageQuizSolvedDetailActivity"
                 android:exported="false" />
     </application>
 

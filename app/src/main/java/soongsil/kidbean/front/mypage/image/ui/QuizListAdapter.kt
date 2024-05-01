@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import soongsil.kidbean.front.databinding.MypageItemQuizBinding
-import soongsil.kidbean.front.mypage.ImageQuizSolvedDetailActivity
 import soongsil.kidbean.front.mypage.image.dto.response.SolvedImageListResponse
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter

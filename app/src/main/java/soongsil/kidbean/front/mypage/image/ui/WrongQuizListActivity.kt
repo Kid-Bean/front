@@ -1,4 +1,4 @@
-package soongsil.kidbean.front.mypage
+package soongsil.kidbean.front.mypage.image.ui
 
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -8,29 +8,18 @@ import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.github.mikephil.charting.components.XAxis
-import com.github.mikephil.charting.data.Entry
-import com.github.mikephil.charting.data.LineData
-import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.R
-import soongsil.kidbean.front.databinding.ActivityMyImageQuizSolvedMainBinding
-import soongsil.kidbean.front.databinding.ActivityRightImageQuizSolvedListBinding
 import soongsil.kidbean.front.databinding.ActivityWrongImageQuizSolvedListBinding
 import soongsil.kidbean.front.global.ResponseTemplate
-import soongsil.kidbean.front.mypage.image.dto.response.MyPageImageScoreResponse
+import soongsil.kidbean.front.mypage.MySolvedQuizActivity
 import soongsil.kidbean.front.mypage.image.dto.response.SolvedImageListResponse
 import soongsil.kidbean.front.mypage.image.presentation.MypageImageController
-import soongsil.kidbean.front.mypage.image.ui.QuizListAdapter
-import soongsil.kidbean.front.mypage.main.dto.QuizCategory
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
-import soongsil.kidbean.front.quiz.answer.dto.response.AnswerQuizMemberResponse
-import soongsil.kidbean.front.quiz.answer.ui.AnswerQuizAdapter
 import soongsil.kidbean.front.util.ApiClient
 
 class WrongQuizListActivity : AppCompatActivity(){

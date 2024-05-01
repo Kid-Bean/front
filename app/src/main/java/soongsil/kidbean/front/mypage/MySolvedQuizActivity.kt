@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityMySolvedQuizMainBinding
+import soongsil.kidbean.front.mypage.image.ui.SolvedImageQuizMainActivity
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.util.ApiClient
