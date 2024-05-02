@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityMySolvedQuizMainBinding
+import soongsil.kidbean.front.mypage.answer.ui.SolvedAnswerQuizMainActivity
 import soongsil.kidbean.front.mypage.image.ui.SolvedImageQuizMainActivity
 import soongsil.kidbean.front.mypage.word.ui.SolvedWordQuizListActivity
 import soongsil.kidbean.front.quiz.MyQuizActivity
@@ -44,8 +45,8 @@ class MySolvedQuizActivity : AppCompatActivity() {
 
         binding.btnVoice.setOnClickListener {
             //음성 퀴즈 메인
-//            val intent = Intent(this, MyQuizActivity::class.java)
-//            startActivity(intent)
+            val intent = Intent(this, SolvedAnswerQuizMainActivity::class.java)
+            startActivity(intent)
         }
     }
 
