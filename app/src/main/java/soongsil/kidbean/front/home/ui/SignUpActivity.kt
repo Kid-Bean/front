@@ -1,6 +1,7 @@
 package soongsil.kidbean.front.home.ui
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -31,8 +32,9 @@ import java.time.temporal.ChronoUnit
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySignUpBinding
     private lateinit var gender : String
-    private lateinit var createDate : LocalDate
+    private lateinit var birthDate : LocalDate
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -53,8 +55,6 @@ class SignUpActivity : AppCompatActivity() {
             gender = "WOMAN"
         }
 
-
-
         binding.btnEnroll.setOnClickListener {
             loadInfo()
 
@@ -66,11 +66,11 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun updateButtonStyles(selectedButton: Button, otherButton: Button) {
         // 선택된 버튼
-        selectedButton.setBackgroundColor(ContextCompat.getColor(this, R.color.green)) // 선택된 상태의 배경색으로 변경
+        selectedButton.setBackgroundResource(R.drawable.selected_shape_btn)
         selectedButton.setTextColor(ContextCompat.getColor(this, R.color.white)) // 선택된 상태의 텍스트 색으로 변경
 
         // 선택되지 않은 다른 버튼
-        otherButton.setBackgroundColor(ContextCompat.getColor(this, R.color.green100)) // 기본 배경색으로 변경
+        otherButton.setBackgroundResource(R.drawable.unselected_shape_btn)
         otherButton.setTextColor(ContextCompat.getColor(this, R.color.black)) // 기본 텍스트 색으로 변경
     }
 
@@ -84,14 +84,17 @@ class SignUpActivity : AppCompatActivity() {
         // "yyyy-MM-dd" 형식의 문자열 생성
         val dateString = "$year-$month-$day"
         val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-        createDate = LocalDate.parse(dateString, dateFormatter)
+        birthDate = LocalDate.parse(dateString, dateFormatter)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun loadInfo() {
-        var name = binding.etName.text.toString()
+        val name = binding.etName.text.toString()
+        sendDateToServer()
+        Log.d("signup", name + " " + gender + " " + birthDate)
 
         val homeController = ApiClient.getApiClient().create(HomeController::class.java)
-        homeController.uploadMemberInfo(MemberInfoRequest(name, gender, createDate)).enqueue(object :
+        homeController.uploadMemberInfo(MemberInfoRequest(name, gender, birthDate)).enqueue(object :
             Callback<ResponseTemplate<Void>> {
             @RequiresApi(Build.VERSION_CODES.O)
             override fun onResponse(

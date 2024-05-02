@@ -93,7 +93,8 @@
                 android:exported="false" />
         <activity
                 android:name=".home.ui.MainActivity"
-                android:exported="false"></activity>
+                android:exported="false">
+        </activity>
     </application>
 
 </manifest>

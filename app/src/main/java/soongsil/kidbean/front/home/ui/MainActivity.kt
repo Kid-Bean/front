@@ -1,6 +1,7 @@
 package soongsil.kidbean.front.home.ui
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -12,17 +13,12 @@ import com.bumptech.glide.Glide
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import soongsil.kidbean.front.R
 import soongsil.kidbean.front.databinding.ActivityMainBinding
-import soongsil.kidbean.front.databinding.ActivityMyQuizBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.home.dto.response.HomeResponse
 import soongsil.kidbean.front.home.presentation.HomeController
 import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
-import soongsil.kidbean.front.quiz.answer.dto.response.AnswerQuizMemberDetailResponse
-import soongsil.kidbean.front.quiz.answer.presentation.AnswerQuizController
-import soongsil.kidbean.front.quiz.answer.ui.AnswerQuizUploadActivity
 import soongsil.kidbean.front.util.ApiClient
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -30,11 +26,17 @@ import java.time.temporal.ChronoUnit
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
+//    private var preferences: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+//        preferences = getSharedPreferences("token", AppCompatActivity.MODE_PRIVATE)
+//        val editor = preferences!!.edit()
+//        editor.clear()
+//        editor.apply()
 
         ApiClient.init(this)
 
@@ -89,11 +91,11 @@ class MainActivity : AppCompatActivity() {
                     val body = response.body()?.results
 
                     // API로 가져온 제목 넣기
-                    var name = body?.name.toString()
-                    Log.d("name", name)
+                    var name = body?.name
+                    Log.d("name", name.toString())
 
                     // 이름이 null이거나 빈 문자열인 경우 SignUpActivity로 이동
-                    if (name.isEmpty()) {
+                    if (name.isNullOrEmpty()) {
                         val intent = Intent(this@MainActivity, SignUpActivity::class.java)
                         startActivity(intent)
                         finish() // 현재 Activity 종료
