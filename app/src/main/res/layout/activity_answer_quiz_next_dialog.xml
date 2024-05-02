@@ -41,7 +41,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/shape_btn"
                     android:backgroundTint="@color/green"
-                    android:text="다음 문제 풀기"
+                    android:text="홈 화면으로"
                     android:textColor="@color/white"
                     android:textStyle="bold">
             </Button>

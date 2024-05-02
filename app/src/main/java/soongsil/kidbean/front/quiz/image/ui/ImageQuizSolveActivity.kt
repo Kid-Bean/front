@@ -51,7 +51,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
     private val CLIENT_ID = BuildConfig.CLOVA_CLIENT_ID
 
     private var handler: RecognitionHandler? = null
-    private var naverRecognizer: NaverRecognizer? = null
+    private var answerNaverRecognizer: NaverRecognizer? = null
 
     private var txtResult: Button? = null
     private var btnStart: Button? = null
@@ -84,29 +84,30 @@ class ImageQuizSolveActivity : AppCompatActivity() {
         btnStart = binding.btnStart
 
         handler = RecognitionHandler(this)
-        naverRecognizer = NaverRecognizer(this, handler!!, CLIENT_ID)
+        answerNaverRecognizer = NaverRecognizer(this, handler!!, CLIENT_ID)
 
-        Log.d("naverRecognizer status", naverRecognizer!!.speechRecognizer!!.isRunning.toString())
+        Log.d("naverRecognizer status", answerNaverRecognizer!!.speechRecognizer!!.isRunning.toString())
 
         btnStart?.setOnClickListener {
-            if (!naverRecognizer!!.speechRecognizer!!.isRunning) {
+            if (!answerNaverRecognizer!!.speechRecognizer!!.isRunning) {
                 // Start button is pushed when SpeechRecognizer's state is inactive.
                 // Run SpeechRecongizer by calling recognize().
                 mResult = ""
                 txtResult!!.text = "Connecting..."
                 Log.d("text info", txtResult!!.text.toString())
                 binding.btnStart.setText(R.string.str_stop)
-                naverRecognizer!!.recognize()
+                answerNaverRecognizer!!.recognize()
             } else {
                 Log.d("ImageQuiz", "stop and wait Final Result")
                 btnStart!!.isEnabled = false
-                naverRecognizer!!.speechRecognizer!!.stop()
+                answerNaverRecognizer!!.speechRecognizer!!.stop()
             }
         }
 
         binding.btnBack.setOnClickListener {
             // 홈 화면으로 이동 - 진짜 나가겠냐고 물어보기
             val intent = Intent(this, QuizListActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
 
@@ -125,24 +126,28 @@ class ImageQuizSolveActivity : AppCompatActivity() {
     private fun bottomSetting() {
         binding.btnHome.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
 
         // 문제 풀기 화면으로 변경하기!
         binding.btnQuiz.setOnClickListener {
             val intent = Intent(this, QuizListActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
 
         // 프로그램 화면으로 변경하기!
         binding.btnProgram.setOnClickListener {
             /*val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)*/
         }
 
         // 마이페이지 화면으로 변경하기!
         binding.btnProgram.setOnClickListener {
             /*val intent = Intent(this, MypageActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)*/
         }
     }
@@ -304,7 +309,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
         binding.btnStart.setText(R.string.str_start)
         binding.txtResult.text = answer
 
-        naverRecognizer!!.speechRecognizer!!.release()
+        answerNaverRecognizer!!.speechRecognizer!!.release()
         Log.d("recognizer die", "true")
 
         val intent = Intent(this@ImageQuizSolveActivity, ImageQuizNextDialog::class.java)
@@ -336,10 +341,15 @@ class ImageQuizSolveActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        answerNaverRecognizer!!.speechRecognizer!!.release()
+    }
+
     override fun onStart() {
         super.onStart()
         // NOTE : initialize() must be called on start time.
-        naverRecognizer!!.speechRecognizer!!.initialize()
+        answerNaverRecognizer!!.speechRecognizer!!.initialize()
         Log.d("recognizer start", "true")
     }
 

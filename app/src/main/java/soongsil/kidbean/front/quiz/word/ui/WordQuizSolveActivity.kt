@@ -72,24 +72,28 @@ class WordQuizSolveActivity : AppCompatActivity() {
     private fun bottomSetting() {
         binding.btnHome.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
 
         // 문제 풀기 화면으로 변경하기!
         binding.btnQuiz.setOnClickListener {
             val intent = Intent(this, QuizListActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
 
         // 프로그램 화면으로 변경하기!
         binding.btnProgram.setOnClickListener {
             /*val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)*/
         }
 
         // 마이페이지 화면으로 변경하기!
         binding.btnProgram.setOnClickListener {
             /*val intent = Intent(this, MypageActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)*/
         }
     }
