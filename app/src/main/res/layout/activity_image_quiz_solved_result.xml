@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp"
-        tools:context=".quiz.MyQuizActivity">
+        tools:context=".quiz.image.ui.ImageQuizSolveActivity">
 
     <LinearLayout
             android:id="@+id/linearLayout"
@@ -15,18 +15,19 @@
             tools:ignore="MissingConstraints">
 
         <TextView
-                android:id="@+id/tv_image_quiz_add"
-                android:layout_width="wrap_content"
+                android:id="@+id/tv_image_quiz_solve"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
                 style="@style/AndroidH1"
                 android:textColor="@color/black"
-                android:text="문제 풀이 결과"
+                android:text="단어 맞추기 결과"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -34,8 +35,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="@id/linearLayout"
+            app:layout_constraintStart_toStartOf="@id/linearLayout"
             app:layout_constraintBottom_toBottomOf="@id/linearLayout"
-            tools:ignore="MissingConstraints,NotSibling">
+            app:layout_constraintEnd_toEndOf="@id/linearLayout"
+            tools:ignore="MissingConstraints,NotSibling"
+            tools:layout_editor_absoluteX="16dp">
 
         <ImageButton
                 android:id="@+id/btn_back"
@@ -47,56 +51,86 @@
                 android:src="@drawable/ic_left"
                 android:scaleType="fitCenter"
                 tools:ignore="MissingConstraints"
-                android:contentDescription="TODO" />
+                android:contentDescription="TODO"></ImageButton>
     </LinearLayout>
 
-    <LinearLayout
-            android:id="@+id/solved_result"
+    <ImageView
+            android:id="@+id/img_quiz"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_marginTop="15dp"
-            tools:ignore="MissingConstraints"
-            android:background="@android:color/transparent"
-            app:layout_constraintTop_toBottomOf="@id/linearLayout"
-            android:orientation="horizontal">
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/image_score_chart"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-        </com.github.mikephil.charting.charts.LineChart>
-    </LinearLayout>
+            android:layout_height="400dp"
+            android:background="@drawable/shape_edittext_big"
+            android:gravity="top"
+            android:layout_marginTop="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:ignore="SpeakableTextPresentCheck"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/layout_back" />
 
     <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/solved_result"
-            app:layout_constraintBottom_toTopOf="@id/bottom">
+            app:layout_constraintBottom_toTopOf="@id/bottom"
+            android:id="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:orientation="vertical">
 
-        <Button
-                android:id="@+id/btn_wrong_quiz"
-                style="@style/AndroidH2"
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginBottom="20dp"
-                android:text="자주 틀린 단어"
-                android:background="@drawable/shape_round_box"
-                android:layout_gravity="center_vertical" />
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-        <Button
-                android:id="@+id/btn_right_quiz"
+            <!-- "정답:" TextView -->
+            <TextView
+                    android:layout_width="wrap_content"
+                    style="@style/AndroidBody2"
+                    android:textSize="18sp"
+                    android:layout_height="wrap_content"
+                    android:text="정답 :" />
+
+            <!-- 단어 TextView -->
+            <TextView
+                    android:id="@+id/tv_answer"
+                    style="@style/AndroidBody2"
+                    android:layout_marginLeft="16dp"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="단어" />
+
+        </LinearLayout>
+
+        <!-- 두 번째 행 -->
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginBottom="20dp"
-                style="@style/AndroidH2"
-                android:text="맞춘 단어"
-                android:background="@drawable/shape_round_box"
-                android:layout_gravity="center_vertical" />
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
 
+            <!-- 아이 답 TextView -->
+            <TextView
+                    android:id="@+id/kidAnswerTextView"
+                    style="@style/AndroidBody2"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="아이 답 :" />
+
+            <!-- 아이 답 TextView -->
+            <TextView
+                    android:id="@+id/tv_reply"
+                    style="@style/AndroidBody2"
+                    android:textSize="18sp"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_height="wrap_content"
+                    android:text="아이 답 결과" />
+
+        </LinearLayout>
     </LinearLayout>
-
 
     <LinearLayout
             android:id="@+id/bottom"
@@ -145,7 +179,6 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@drawable/ic_quiz"
-                    android:backgroundTint="@color/gray600"
                     android:layout_gravity="center_horizontal"></Button>
 
             <TextView
@@ -153,7 +186,7 @@
                     android:includeFontPadding="false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/gray600"
+                    android:textColor="@color/black"
                     android:text="문제 풀기"
                     android:layout_gravity="center_horizontal">
 
@@ -197,6 +230,7 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@drawable/ic_mypage"
+                    android:backgroundTint="@color/gray600"
                     android:layout_gravity="center_horizontal"></Button>
 
             <TextView
@@ -204,12 +238,43 @@
                     android:includeFontPadding="false"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
+                    android:textColor="@color/gray600"
                     android:text="마이페이지"
                     android:layout_gravity="center_horizontal">
 
             </TextView>
         </LinearLayout>
+
     </LinearLayout>
+
+    <TextView
+            style="@style/AndroidBody1"
+            android:text="1/5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_count"
+            android:layout_weight="1"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout" />
+
+    <Button
+            android:id="@+id/txt_result"
+            style="@style/AndroidRate"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            android:background="@drawable/shape_btn"
+            android:backgroundTint="@color/green"
+            android:includeFontPadding="false"
+            android:singleLine="false"
+            android:text="정답"
+            android:layout_marginBottom="10dp"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/img_quiz"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:ignore="NotSibling" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -117,6 +117,30 @@
         <activity
                 android:name=".MainActivity"
                 android:exported="false" />
+        <activity
+                android:name=".mypage.MypageActivity"
+                android:exported="false" />
+        <activity
+                android:name=".mypage.MySolvedQuizActivity"
+                android:exported="false" />
+        <activity
+                android:name=".mypage.image.ui.SolvedImageQuizMainActivity"
+                android:exported="false" />
+        <activity
+                android:name=".mypage.image.ui.RightQuizListActivity"
+                android:exported="false" />
+        <activity
+                android:name=".mypage.image.ui.WrongQuizListActivity"
+                android:exported="false" />
+        <activity
+                android:name=".mypage.image.ui.ImageQuizSolvedDetailActivity"
+                android:exported="false" />
+        <activity
+                android:name=".mypage.word.ui.SolvedWordQuizListActivity"
+                android:exported="false" />
+        <activity
+                android:name=".mypage.word.ui.SolvedWordQuizDetailActivity"
+                android:exported="false" />
     </application>
 
 </manifest>
