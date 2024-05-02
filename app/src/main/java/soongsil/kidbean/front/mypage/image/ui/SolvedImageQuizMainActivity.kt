@@ -18,7 +18,7 @@ import soongsil.kidbean.front.databinding.ActivityMyImageQuizSolvedMainBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.mypage.MySolvedQuizActivity
 import soongsil.kidbean.front.mypage.image.dto.response.MyPageImageScoreResponse
-import soongsil.kidbean.front.mypage.image.presentation.MypageImageController
+import soongsil.kidbean.front.mypage.presentation.MypageController
 import soongsil.kidbean.front.mypage.main.dto.QuizCategory
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
@@ -55,9 +55,9 @@ class SolvedImageQuizMainActivity : AppCompatActivity() {
     }
 
     private fun makeScoreChart() {
-        val myPageImageController =
-            ApiClient.getApiClient().create(MypageImageController::class.java)
-        myPageImageController.getImageScoreResult().enqueue(object :
+        val myPageController =
+            ApiClient.getApiClient().create(MypageController::class.java)
+        myPageController.getImageScoreResult().enqueue(object :
             Callback<ResponseTemplate<MyPageImageScoreResponse>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<MyPageImageScoreResponse>>,

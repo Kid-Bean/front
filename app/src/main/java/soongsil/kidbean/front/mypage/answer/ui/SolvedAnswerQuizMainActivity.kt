@@ -18,7 +18,7 @@ import soongsil.kidbean.front.databinding.ActivityMyAnswerQuizSolvedMainBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.mypage.MySolvedQuizActivity
 import soongsil.kidbean.front.mypage.answer.dto.response.AllUseWordResponse
-import soongsil.kidbean.front.mypage.image.presentation.MypageImageController
+import soongsil.kidbean.front.mypage.presentation.MypageController
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.util.ApiClient
 
@@ -51,9 +51,9 @@ class SolvedAnswerQuizMainActivity : AppCompatActivity() {
     }
 
     private fun bindData() {
-        val myPageImageController =
-            ApiClient.getApiClient().create(MypageImageController::class.java)
-        myPageImageController.getAllUseWordList().enqueue(object :
+        val myPageController =
+            ApiClient.getApiClient().create(MypageController::class.java)
+        myPageController.getAllUseWordList().enqueue(object :
             Callback<ResponseTemplate<AllUseWordResponse>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<AllUseWordResponse>>,

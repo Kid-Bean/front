@@ -1,4 +1,4 @@
-package soongsil.kidbean.front.mypage.image.presentation
+package soongsil.kidbean.front.mypage.presentation
 
 import retrofit2.Call
 import retrofit2.http.GET
@@ -12,7 +12,7 @@ import soongsil.kidbean.front.mypage.image.dto.response.SolvedImageListResponse
 import soongsil.kidbean.front.mypage.word.dto.response.SolvedWordDetailResponse
 import soongsil.kidbean.front.mypage.word.dto.response.SolvedWordQuizListResponse
 
-interface MypageImageController {
+interface MypageController {
 
     @GET("mypage/solved/image/result")
     fun getImageScoreResult(): Call<ResponseTemplate<MyPageImageScoreResponse>>

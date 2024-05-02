@@ -15,7 +15,7 @@ import soongsil.kidbean.front.databinding.ActivityImageQuizSolvedResultBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.mypage.MySolvedQuizActivity
 import soongsil.kidbean.front.mypage.image.dto.response.SolvedImageDetailResponse
-import soongsil.kidbean.front.mypage.image.presentation.MypageImageController
+import soongsil.kidbean.front.mypage.presentation.MypageController
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.util.ApiClient
 
@@ -45,9 +45,9 @@ class ImageQuizSolvedDetailActivity : AppCompatActivity() {
     }
 
     private fun getQuizDetail(solvedId: Long) {
-        val myPageImageController =
-            ApiClient.getApiClient().create(MypageImageController::class.java)
-        myPageImageController.getImageQuizDetail(solvedId).enqueue(object :
+        val myPageController =
+            ApiClient.getApiClient().create(MypageController::class.java)
+        myPageController.getImageQuizDetail(solvedId).enqueue(object :
             Callback<ResponseTemplate<SolvedImageDetailResponse>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<SolvedImageDetailResponse>>,

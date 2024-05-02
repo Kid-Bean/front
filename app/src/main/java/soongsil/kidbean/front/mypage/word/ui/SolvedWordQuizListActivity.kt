@@ -16,7 +16,7 @@ import soongsil.kidbean.front.R
 import soongsil.kidbean.front.databinding.ActivityWordQuizSolvedListBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.mypage.MySolvedQuizActivity
-import soongsil.kidbean.front.mypage.image.presentation.MypageImageController
+import soongsil.kidbean.front.mypage.presentation.MypageController
 import soongsil.kidbean.front.mypage.word.dto.response.SolvedWordQuizListResponse
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
@@ -100,9 +100,9 @@ class SolvedWordQuizListActivity : AppCompatActivity() {
     }
 
     private fun loadQuizList() {
-        val myPageImageController =
-            ApiClient.getApiClient().create(MypageImageController::class.java)
-        myPageImageController.getWordQuizList().enqueue(object :
+        val myPageController =
+            ApiClient.getApiClient().create(MypageController::class.java)
+        myPageController.getWordQuizList().enqueue(object :
             Callback<ResponseTemplate<SolvedWordQuizListResponse>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<SolvedWordQuizListResponse>>,
