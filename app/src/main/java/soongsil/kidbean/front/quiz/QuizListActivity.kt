@@ -84,6 +84,15 @@ class QuizListActivity : AppCompatActivity() {
                         } else {
                             // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
                             Log.d("post", "onResponse 실패 + ${response.code()}")
+
+                            //refresh token은 괜찮은데 DB 초기화 등 이유로 유저 정보가 없는 경우
+                            preferences = getSharedPreferences("token", AppCompatActivity.MODE_PRIVATE)
+                            val editor = preferences!!.edit()
+                            editor.clear()
+                            editor.apply()
+
+                            val intent = Intent(this@QuizListActivity, QuizListActivity::class.java)
+                            startActivity(intent)
                         }
                     }
 

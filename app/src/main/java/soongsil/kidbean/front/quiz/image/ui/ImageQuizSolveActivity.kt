@@ -13,7 +13,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -30,10 +29,8 @@ import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.image.application.AudioWriterPCM
 import soongsil.kidbean.front.quiz.image.application.NaverRecognizer
-import soongsil.kidbean.front.quiz.image.dto.request.ImageQuizSolveListRequest
-import soongsil.kidbean.front.quiz.image.dto.request.ImageQuizSolveRequest
+import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveListResponse
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveResponse
-import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveScoreResponse
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
 import soongsil.kidbean.front.util.ApiClient
 import java.io.Serializable
@@ -48,7 +45,8 @@ class ImageQuizSolveActivity : AppCompatActivity() {
     private lateinit var answer : String
     private var quizId: Long = -1L
     private var quizCount: Long = 1L
-    private var score:Long = -1L
+
+    private lateinit var quizList: List<ImageQuizSolveResponse>
 
     private val CLIENT_ID = BuildConfig.CLOVA_CLIENT_ID
 
@@ -112,7 +110,15 @@ class ImageQuizSolveActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        loadInfo()
+
+        quizCount = intent.getLongExtra("quizCount", 1)
+        binding.tvCount.text = "$quizCount/5"
+        if (quizCount == 1L) {
+            loadInfoFromServer()
+        } else {
+            loadInfo()
+        }
+
         bottomSetting()
     }
 
@@ -142,21 +148,22 @@ class ImageQuizSolveActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadInfo() {
+    private fun loadInfoFromServer() {
         //아래처럼 ApiClient.getApiClient()으로 retrofit 뽑아야지 자동으로 header에 토큰 줌
         val imageQuizController = ApiClient.getApiClient().create(ImageQuizController::class.java)
         imageQuizController.getRandomImageQuizByMember().enqueue(object :
-            Callback<ResponseTemplate<ImageQuizSolveResponse>> {
+            Callback<ResponseTemplate<ImageQuizSolveListResponse>> {
             @SuppressLint("SetTextI18n")
             override fun onResponse(
-                call: Call<ResponseTemplate<ImageQuizSolveResponse>>,
-                response: Response<ResponseTemplate<ImageQuizSolveResponse>>,
+                call: Call<ResponseTemplate<ImageQuizSolveListResponse>>,
+                response: Response<ResponseTemplate<ImageQuizSolveListResponse>>,
             ) {
                 if (response.isSuccessful) {
                     // 정상적으로 통신이 성공된 경우
                     Log.d("post", "onResponse 성공: " + response.body().toString())
 
-                    val body = response.body()?.results
+                    quizList = response.body()?.results?.imageQuizSolveResponseList!!
+                    val body = response.body()?.results?.imageQuizSolveResponseList?.get((quizCount - 1).toInt())
 
                     // API로 가져온 이미지 넣기
                     val imageView: ImageView = binding.imgQuiz
@@ -171,8 +178,6 @@ class ImageQuizSolveActivity : AppCompatActivity() {
                     // API로 가져온 정답 넣기
                     answer = body?.answer.toString()
                     quizId = body?.quizId!!
-                    quizCount = intent.getLongExtra("quizCount", 1)
-                    binding.tvCount.text = "$quizCount/5"
 
                 } else {
                     // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
@@ -180,11 +185,31 @@ class ImageQuizSolveActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<ResponseTemplate<ImageQuizSolveResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseTemplate<ImageQuizSolveListResponse>>, t: Throwable) {
                 // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
                 Log.d("post", "onFailure 에러: " + t.message.toString())
             }
         })
+    }
+
+    private fun loadInfo() {
+
+        quizList = intent.getParcelableArrayListExtra("quizList")!!
+        val body = quizList?.get((quizCount - 1).toInt())
+
+        // API로 가져온 이미지 넣기
+        val imageView: ImageView = binding.imgQuiz
+        s3Url = body?.s3Url.toString()
+
+        Glide.with(this@ImageQuizSolveActivity)
+            .load(s3Url)
+            .into(imageView)
+
+        imageView.visibility = View.VISIBLE
+
+        // API로 가져온 정답 넣기
+        answer = body!!.answer
+        quizId = body.quizId
     }
 
     // Handle speech recognition Messages.
@@ -218,7 +243,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
 
                 // Handler와 Runnable을 사용해서 1.5초 뒤에 작업을 실행
                 Handler(Looper.getMainLooper()).postDelayed({
-                    showRecordingStoppedAlertDialog()
+                    showRecordingStoppedAndNextDialog()
                 }, 1500) // 1500 밀리초 == 1.5초
 
             }
@@ -261,7 +286,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
     }
 
     // 녹음이 끝나면 AlertDialog 표시
-    private fun showRecordingStoppedAlertDialog() {
+    private fun showRecordingStoppedAndNextDialog() {
 
         // 이전에 풀었던 문제들
         // Intent에서 Serializable 데이터를 받아오고, 이를 안전하게 MutableList<Pair<Long, String>>로 캐스팅
@@ -276,92 +301,21 @@ class ImageQuizSolveActivity : AppCompatActivity() {
             Log.d("ListData", "Key: $key, Value: $value")
         }
 
-        //5번째 문제 - 푼 문제들을 전부 제출
-        if (quizCount == 5L) {
-            val quizSolveRequestList = originalList.map { (key, value) ->
-                ImageQuizSolveRequest(quizId = key, answer = value)
-            }
+        //다음 문제 풀기 시작
+        binding.btnStart.setText(R.string.str_start)
+        binding.txtResult.text = answer
 
-            val request = ImageQuizSolveListRequest(quizSolvedRequestList = quizSolveRequestList)
+        naverRecognizer!!.speechRecognizer!!.release()
+        Log.d("recognizer die", "true")
 
-            val imageQuizController = ApiClient.getApiClient().create(ImageQuizController::class.java)
-            imageQuizController.solveImageQuiz(request).enqueue(object :
-                Callback<ResponseTemplate<ImageQuizSolveScoreResponse>> {
-                @SuppressLint("SetTextI18n")
-                override fun onResponse(
-                    call: Call<ResponseTemplate<ImageQuizSolveScoreResponse>>,
-                    response: Response<ResponseTemplate<ImageQuizSolveScoreResponse>>,
-                ) {
-                    if (response.isSuccessful) {
-                        // 정상적으로 통신이 성공된 경우
-                        Log.d("post", "onResponse 성공: " + response.body().toString())
+        val intent = Intent(this@ImageQuizSolveActivity, ImageQuizNextDialog::class.java)
 
-                        val body = response.body()?.results
+        intent.putExtra("listData", originalList as Serializable) // Map을 Serializable로 캐스팅
+        intent.putExtra("quizCount", quizCount + 1L)
+        // 서버에서 받은 데이터 리스트 전달
+        intent.putParcelableArrayListExtra("quizList", ArrayList(quizList))
 
-                        // API로 가져온 정답 넣기
-                        score = body?.score!!
-
-                        Log.d("score", score.toString())
-
-                        AlertDialog.Builder(this@ImageQuizSolveActivity).apply {
-                            setTitle("문제 풀기 완료")
-                            setMessage("5문제를 전부 풀었습니다!\n얻은 점수 : $score")
-                            Log.d("score", score.toString())
-
-                            Log.d("answer", txtResult?.text.toString())
-
-                            setPositiveButton("홈 화면으로") { _, _ ->
-                                binding.btnStart.setText(R.string.str_start)
-                                binding.txtResult.text = answer
-                                finish()
-
-                                //점수를 가지고 Home 화면으로 이동
-                                val intent = Intent(this@ImageQuizSolveActivity, QuizListActivity::class.java)
-                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                intent.putExtra("score", score)
-                                startActivity(intent)
-                                finish()
-                                naverRecognizer!!.speechRecognizer!!.release()
-                            }
-                        }.create().show()
-                    } else {
-                        // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
-                        Log.d("post", "onResponse 실패 + ${response.code()}")
-                    }
-                }
-
-                override fun onFailure(call: Call<ResponseTemplate<ImageQuizSolveScoreResponse>>, t: Throwable) {
-                    // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
-                    Log.d("post", "onFailure 에러: " + t.message.toString())
-                }
-            })
-        } else {    //다음 문제 풀기 시작
-            AlertDialog.Builder(this@ImageQuizSolveActivity).apply {
-                setTitle("문제 풀기 완료")
-                setMessage("다음 문제로 넘어가시겠어요?\n입력한 정답 : " + mResult.toString())
-
-                Log.d("answer", txtResult?.text.toString())
-
-                setPositiveButton("다음 문제로") { _, _ ->
-                    binding.btnStart.setText(R.string.str_start)
-                    binding.txtResult.text = answer
-                    finish()
-
-                    naverRecognizer!!.speechRecognizer!!.release()
-                    Log.d("recognizer die", "true")
-
-                    val intent = Intent(this@ImageQuizSolveActivity, ImageQuizSolveActivity::class.java)
-                    // 현재 태스크의 모든 액티비티를 제거하고, 새로운 태스크를 생성하여 그 안에서 액티비티를 실행
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
-                    intent.putExtra("listData", originalList as Serializable) // Map을 Serializable로 캐스팅
-                    intent.putExtra("quizCount", quizCount + 1L)
-
-                    startActivity(intent)
-                    finish()
-                }
-            }.create().show()
-        }
+        startActivity(intent)
     }
 
     // 사용자가 권한 요청에 대한 응답을 받을 때 호출되는 메서드

@@ -41,6 +41,10 @@
             tools:replace="android:usesCleartextTraffic"
             tools:targetApi="33">
         <activity
+                android:name=".quiz.image.ui.ImageQuizNextDialog"
+                android:theme="@style/Theme.AppCompat.Dialog"
+                android:exported="true" />
+        <activity
                 android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
                 android:exported="true">
             <intent-filter>
@@ -54,21 +58,21 @@
                         android:scheme="kakao${KAKAO_NATIVE_APP_KEY}" />
             </intent-filter>
         </activity>
-        
         <activity
                 android:name=".login.ui.LoginActivity"
                 android:exported="true" />
         <activity
                 android:name=".quiz.QuizListActivity"
-                android:exported="true" >
+                android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
                 android:name=".quiz.image.ui.ImageQuizSolveActivity"
-                android:exported="false"/>
+                android:exported="false" />
         <activity
                 android:name=".quiz.answer.ui.AnswerQuizSolveActivity"
                 android:exported="false" />

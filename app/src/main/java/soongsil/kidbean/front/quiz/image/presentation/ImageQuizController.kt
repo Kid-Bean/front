@@ -15,6 +15,7 @@ import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.quiz.image.dto.request.ImageQuizSolveListRequest
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberDetailResponse
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberResponse
+import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveListResponse
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveResponse
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveScoreResponse
 import soongsil.kidbean.front.quiz.word.dto.response.WordQuizSolveScoreResponse
@@ -57,7 +58,7 @@ interface ImageQuizController {
 
     @GET("quiz/image/solve")
     fun getRandomImageQuizByMember(
-    ): Call<ResponseTemplate<ImageQuizSolveResponse>>
+    ): Call<ResponseTemplate<ImageQuizSolveListResponse>>
 
     @POST("quiz/image/solve")
     fun solveImageQuiz(
