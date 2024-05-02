@@ -1,25 +1,30 @@
 package soongsil.kidbean.front.quiz
 
+import android.content.ContentValues.TAG
 import RetrofitImpl.retrofit
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
+import android.util.Base64
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import soongsil.kidbean.front.home.ui.MainActivity
+import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityQuizListBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.login.dto.request.LoginRequest
 import soongsil.kidbean.front.login.dto.request.ReissueRequest
+import soongsil.kidbean.front.login.dto.response.LoginResponse
 import soongsil.kidbean.front.login.dto.response.ReissueResponse
 import soongsil.kidbean.front.login.presentation.LoginController
 import soongsil.kidbean.front.login.ui.LoginActivity
 import soongsil.kidbean.front.mypage.MypageActivity
+import soongsil.kidbean.front.util.ApiClient
 import java.nio.charset.Charset
 import soongsil.kidbean.front.quiz.answer.ui.AnswerQuizSolveActivity
 import soongsil.kidbean.front.quiz.image.ui.ImageQuizSolveActivity
@@ -35,6 +40,12 @@ class QuizListActivity : AppCompatActivity() {
         binding = ActivityQuizListBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        //DB 밀었을 때 한번씩 해주세요!
+//        preferences = getSharedPreferences("token", AppCompatActivity.MODE_PRIVATE)
+//        val editor = preferences!!.edit()
+//        editor.clear()
+//        editor.apply()
 
         //이 아래 부분들 나중에 HomeActivity로 이동 예정
         preferences = getSharedPreferences("token", AppCompatActivity.MODE_PRIVATE)
@@ -81,6 +92,15 @@ class QuizListActivity : AppCompatActivity() {
                         } else {
                             // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
                             Log.d("post", "onResponse 실패 + ${response.code()}")
+
+                            //refresh token은 괜찮은데 DB 초기화 등 이유로 유저 정보가 없는 경우
+                            preferences = getSharedPreferences("token", AppCompatActivity.MODE_PRIVATE)
+                            val editor = preferences!!.edit()
+                            editor.clear()
+                            editor.apply()
+
+                            val intent = Intent(this@QuizListActivity, QuizListActivity::class.java)
+                            startActivity(intent)
                         }
                     }
 
@@ -132,8 +152,8 @@ class QuizListActivity : AppCompatActivity() {
 
         // 프로그램 화면으로 변경하기!
         binding.btnProgram.setOnClickListener {
-            val intent = Intent(this, MyQuizActivity::class.java)
-            startActivity(intent)
+            /*val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)*/
         }
 
         // 마이페이지 화면으로 변경하기!

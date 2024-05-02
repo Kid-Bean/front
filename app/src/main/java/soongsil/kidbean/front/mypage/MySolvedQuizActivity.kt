@@ -5,8 +5,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.databinding.ActivityMySolvedQuizMainBinding
+import soongsil.kidbean.front.mypage.image.ui.SolvedImageQuizMainActivity
+import soongsil.kidbean.front.mypage.word.ui.SolvedWordQuizListActivity
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
+import soongsil.kidbean.front.util.ApiClient
 
 class MySolvedQuizActivity : AppCompatActivity() {
 
@@ -16,6 +19,8 @@ class MySolvedQuizActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMySolvedQuizMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ApiClient.init(this)
 
         bottomSetting()
 
@@ -33,8 +38,8 @@ class MySolvedQuizActivity : AppCompatActivity() {
 
         binding.btnWord.setOnClickListener {
             //단어 퀴즈 메인
-//            val intent = Intent(this, MySolvedQuizActivity::class.java)
-//            startActivity(intent)
+            val intent = Intent(this, SolvedWordQuizListActivity::class.java)
+            startActivity(intent)
         }
 
         binding.btnVoice.setOnClickListener {

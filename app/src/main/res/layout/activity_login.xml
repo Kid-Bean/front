@@ -27,7 +27,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_logo" />
 
-    <com.google.android.material.card.MaterialCardView
+    <androidx.cardview.widget.CardView
             android:id="@+id/mcv_kakao_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,6 +45,6 @@
                 android:layout_gravity="center"
                 android:src="@drawable/img_kakao_login_large_wide" />
 
-    </com.google.android.material.card.MaterialCardView>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
