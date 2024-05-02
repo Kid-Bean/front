@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity() {
                     if (name.isNullOrEmpty()) {
                         val intent = Intent(this@MainActivity, SignUpActivity::class.java)
                         startActivity(intent)
-                        finish() // 현재 Activity 종료
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         return // 이후 로직을 실행하지 않고 메서드 종료
                     }
 
@@ -106,12 +106,12 @@ class MainActivity : AppCompatActivity() {
                     binding.tvKidName.text = name
 
                     // createDate 문자열 예시: "2024-04-30"
-                    val createDateStr = body?.createDate.toString()
+                    val createDateStr = body?.createDate
                     // DateTimeFormatter를 사용하여 문자열을 LocalDate로 파싱
                     val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
                     val createDate = LocalDate.parse(createDateStr, formatter)
                     val today = LocalDate.now()
-                    val daysBetween = ChronoUnit.DAYS.between(createDate, today)
+                    val daysBetween = ChronoUnit.DAYS.between(createDate, today) + 1
                     binding.tvKidDate.text = daysBetween.toString()
 
                     val imageView: ImageView = binding.imgView

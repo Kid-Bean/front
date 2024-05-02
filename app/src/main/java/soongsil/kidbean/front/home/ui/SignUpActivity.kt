@@ -23,6 +23,7 @@ import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.home.dto.request.MemberInfoRequest
 import soongsil.kidbean.front.home.dto.response.HomeResponse
 import soongsil.kidbean.front.home.presentation.HomeController
+import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.util.ApiClient
 import java.time.LocalDate
@@ -32,7 +33,7 @@ import java.time.temporal.ChronoUnit
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySignUpBinding
     private lateinit var gender : String
-    private lateinit var birthDate : LocalDate
+    private lateinit var birthDate : String
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,9 +83,7 @@ class SignUpActivity : AppCompatActivity() {
         val day = binding.etDay.text.toString().padStart(2, '0') // 항상 두 자리 수가 되도록 함
 
         // "yyyy-MM-dd" 형식의 문자열 생성
-        val dateString = "$year-$month-$day"
-        val dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-        birthDate = LocalDate.parse(dateString, dateFormatter)
+        birthDate = "$year-$month-$day"
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -113,6 +112,11 @@ class SignUpActivity : AppCompatActivity() {
                         .show()
                     Log.d("post", "onResponse 실패 + ${response.code()}")
                 }
+
+                // MyQuizActivity로 이동
+                val intent = Intent(this@SignUpActivity, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
             }
 
             override fun onFailure(call: Call<ResponseTemplate<Void>>, t: Throwable) {

@@ -4,7 +4,7 @@ import java.time.LocalDate
 
 data class HomeResponse(
     val name: String,
-    val createDate: LocalDate,
+    val createDate: String,
     val s3Url: String,
     val score: Long
 )
