@@ -3,11 +3,10 @@ package soongsil.kidbean.front.quiz.answer.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.Window
 import soongsil.kidbean.front.databinding.ActivityAnswerQuizNextDialogBinding
 import soongsil.kidbean.front.quiz.QuizListActivity
-import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveResponse
-import soongsil.kidbean.front.util.ApiClient
 
 class AnswerQuizNextDialog : AppCompatActivity() {
 
@@ -35,5 +34,15 @@ class AnswerQuizNextDialog : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+    }
+
+    @Override
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        return event!!.action != MotionEvent.ACTION_OUTSIDE
+    }
+
+    @Override
+    override fun onDestroy() {
+        super.onDestroy()
     }
 }
