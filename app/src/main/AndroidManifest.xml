@@ -43,7 +43,7 @@
         <activity
                 android:name=".quiz.answer.ui.AnswerQuizNextDialog"
                 android:exported="false"
-                android:theme="@style/Theme.AppCompat.Dialog"/>
+                android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
                 android:name=".quiz.word.ui.WordQuizNextDialog"
                 android:exported="false"
