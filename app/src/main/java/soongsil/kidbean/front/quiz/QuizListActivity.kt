@@ -39,6 +39,12 @@ class QuizListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        //DB 밀었을 때 한번씩 해주세요!
+//        preferences = getSharedPreferences("token", AppCompatActivity.MODE_PRIVATE)
+//        val editor = preferences!!.edit()
+//        editor.clear()
+//        editor.apply()
+
         //이 아래 부분들 나중에 HomeActivity로 이동 예정
         preferences = getSharedPreferences("token", AppCompatActivity.MODE_PRIVATE)
         val accessToken = preferences?.getString("accessToken", "")
