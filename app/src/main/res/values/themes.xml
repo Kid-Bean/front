@@ -96,4 +96,8 @@
         <item name="android:fontFamily">@font/noto_medium</item>
         <item name="android:textSize">36sp</item>
     </style>
+    <style name="AndroidRate2">
+        <item name="android:fontFamily">@font/noto_bold</item>
+        <item name="android:textSize">36sp</item>
+    </style>
 </resources>
