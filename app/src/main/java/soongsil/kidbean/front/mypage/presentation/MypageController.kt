@@ -6,6 +6,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.mypage.answer.dto.response.AllUseWordResponse
+import soongsil.kidbean.front.mypage.answer.dto.response.SolvedAnswerQuizListResponse
 import soongsil.kidbean.front.mypage.image.dto.response.MyPageImageScoreResponse
 import soongsil.kidbean.front.mypage.image.dto.response.SolvedImageDetailResponse
 import soongsil.kidbean.front.mypage.image.dto.response.SolvedImageListResponse
@@ -39,4 +40,7 @@ interface MypageController {
     fun getAllUseWordList()
             : Call<ResponseTemplate<AllUseWordResponse>>
 
+    @GET("mypage/solved/voice/list")
+    fun getAnswerQUizList()
+            : Call<ResponseTemplate<SolvedAnswerQuizListResponse>>
 }

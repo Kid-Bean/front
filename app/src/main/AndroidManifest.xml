@@ -144,6 +144,12 @@
         <activity
                 android:name=".mypage.answer.ui.SolvedAnswerQuizMainActivity"
                 android:exported="false" />
+        <activity
+                android:name=".mypage.answer.ui.SolvedAnswerQuizListActivity"
+                android:exported="false" />
+        <activity
+                android:name=".mypage.answer.ui.SolvedAnswerQuizDetailActivity"
+                android:exported="false" />
     </application>
 
 </manifest>
