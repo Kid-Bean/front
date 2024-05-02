@@ -314,6 +314,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
         intent.putExtra("quizCount", quizCount + 1L)
         // 서버에서 받은 데이터 리스트 전달
         intent.putParcelableArrayListExtra("quizList", ArrayList(quizList))
+        intent.putExtra("result", mResult)
 
         startActivity(intent)
     }

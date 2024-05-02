@@ -36,6 +36,7 @@ class ImageQuizNextDialog : AppCompatActivity() {
         val quizCount = intent.getLongExtra("quizCount", 1)
         val originalList = intent.getSerializableExtra("listData") as? MutableList<Pair<Long, String>> ?: mutableListOf()
         val quizList: ArrayList<ImageQuizSolveResponse>? = intent.getParcelableArrayListExtra("quizList")
+        val result = intent.getStringExtra("result")
         var score = 0L
 
         Log.d("quiz count in dialog", quizCount.toString())
@@ -92,6 +93,9 @@ class ImageQuizNextDialog : AppCompatActivity() {
                 finish()
             }
         } else {
+
+            binding.tvTitle.text = "입력한 정답\n$result"
+
             binding.btnNext.setOnClickListener {
                 val intent = Intent(this@ImageQuizNextDialog, ImageQuizSolveActivity::class.java)
                 // 현재 태스크의 모든 액티비티를 제거하고, 새로운 태스크를 생성하여 그 안에서 액티비티를 실행
