@@ -58,7 +58,7 @@ class ImageQuizSolvedDetailActivity : AppCompatActivity() {
                     val body = response.body()?.results
                         ?: throw IllegalStateException("Response body is null")
 
-                    bindDate(body)
+                    bindData(body)
                 } else {
                     // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
                     Log.d("post", "onResponse 실패 + ${response.code()}")
@@ -73,7 +73,7 @@ class ImageQuizSolvedDetailActivity : AppCompatActivity() {
         })
     }
 
-    private fun bindDate(body: SolvedImageDetailResponse) {
+    private fun bindData(body: SolvedImageDetailResponse) {
         binding.tvAnswer.text = body.answer
         binding.tvReply.text = body.kidAnswer
         val imageView: ImageView = binding.imgQuiz
