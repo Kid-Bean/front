@@ -68,7 +68,7 @@ class WordQuizNextDialog : AppCompatActivity() {
                         Log.d("score", score.toString())
 
                         binding.tvTitle.text = "3문제를 전부 풀었습니다!\n얻은 점수 : $score"
-                        binding.btnNext.text = "홈 화면으로 이동"
+                        binding.btnNext.text = "홈 화면으로"
                     } else {
                         // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
                         Log.d("post", "onResponse 실패 + ${response.code()}")

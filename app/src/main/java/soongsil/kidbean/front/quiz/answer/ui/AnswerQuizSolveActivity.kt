@@ -12,14 +12,9 @@ import android.os.Message
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.naver.speech.clientapi.SpeechRecognitionResult
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody.Companion.asRequestBody
-import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,12 +25,10 @@ import soongsil.kidbean.front.databinding.ActivityAnswerQuizSolveBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.answer.dto.response.AnswerQuizSolveResponse
-import soongsil.kidbean.front.quiz.answer.dto.response.AnswerQuizSolveScoreResponse
 import soongsil.kidbean.front.quiz.answer.presentation.AnswerQuizController
 import soongsil.kidbean.front.quiz.image.application.AudioWriterPCM
 import soongsil.kidbean.front.quiz.image.application.NaverRecognizer
 import soongsil.kidbean.front.util.ApiClient
-import java.io.File
 import java.lang.ref.WeakReference
 
 class AnswerQuizSolveActivity : AppCompatActivity() {
@@ -87,7 +80,7 @@ class AnswerQuizSolveActivity : AppCompatActivity() {
                 binding.btnStart.setText(R.string.str_stop)
                 naverRecognizer!!.recognize()
             } else {
-                Log.d("ImageQuiz", "stop and wait Final Result")
+                Log.d("AnswerQuiz", "stop and wait Final Result")
                 btnStart!!.isEnabled = false
                 naverRecognizer!!.speechRecognizer!!.stop()
             }
@@ -123,8 +116,8 @@ class AnswerQuizSolveActivity : AppCompatActivity() {
     }
 
     private fun loadInfo() {
-        val imageQuizController = ApiClient.getApiClient().create(AnswerQuizController::class.java)
-        imageQuizController.getRandomAnswerQuizByMember().enqueue(object :
+        val answerQuizSolveActivity = ApiClient.getApiClient().create(AnswerQuizController::class.java)
+        answerQuizSolveActivity.getRandomAnswerQuizByMember().enqueue(object :
             Callback<ResponseTemplate<AnswerQuizSolveResponse>> {
             @SuppressLint("SetTextI18n")
             override fun onResponse(
@@ -137,13 +130,13 @@ class AnswerQuizSolveActivity : AppCompatActivity() {
 
                     val body = response.body()?.results
 
-                    // API로 가져온 이미지 넣기
+                    //질문
                     binding.tvQuiz.text = body?.question
 
-                    // API로 가져온 제목
+                    //API로 가져온 제목
                     title = body?.title!!
 
-                    // API로 가져온 정답 넣기
+                    //퀴즈 번호
                     quizId = body.quizId
 
                 } else {
@@ -223,64 +216,15 @@ class AnswerQuizSolveActivity : AppCompatActivity() {
     // 녹음이 끝나면 AlertDialog 표시
     private fun showRecordingStoppedAlertDialog() {
 
-        val file = File(this.filesDir, "$sessionId.pcm")
-        val requestFile = file.asRequestBody("audio/pcm".toMediaTypeOrNull())
-        val recordPart = MultipartBody.Part.createFormData("record", file.name, requestFile)
+        naverRecognizer!!.speechRecognizer!!.release()
 
-        val quizData = """
-            {
-                "quizId": "$quizId",
-                "answer": "${mResult.toString()}"
-            }
-            """.trimIndent().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
+        val intent = Intent(this@AnswerQuizSolveActivity, AnswerQuizNextDialog::class.java)
+        intent.putExtra("sessionId", sessionId)
+        intent.putExtra("quizId", quizId)
+        intent.putExtra("answer", mResult.toString())
+        intent.putExtra("filePath", this.filesDir) // 파일 경로 추가
 
-        val quizDataPart = MultipartBody.Part.createFormData("answerQuizSolvedRequest", "", quizData)
-
-        val answerQuizController = ApiClient.getApiClient().create(AnswerQuizController::class.java)
-        answerQuizController.solveAnswerQuiz(recordPart, quizDataPart).enqueue(object :
-            Callback<ResponseTemplate<AnswerQuizSolveScoreResponse>> {
-            @SuppressLint("SetTextI18n")
-            override fun onResponse(
-                call: Call<ResponseTemplate<AnswerQuizSolveScoreResponse>>,
-                response: Response<ResponseTemplate<AnswerQuizSolveScoreResponse>>,
-            ) {
-                if (response.isSuccessful) {
-                    // 정상적으로 통신이 성공된 경우
-                    Log.d("post", "onResponse 성공: " + response.body().toString())
-
-                    val body = response.body()?.results
-
-                    // API로 가져온 정답 넣기
-                    score = body?.score!!
-
-                    Log.d("score", score.toString())
-
-                    AlertDialog.Builder(this@AnswerQuizSolveActivity).apply {
-                        setTitle("문제 풀기 완료\n입력한 대답 :" + mResult.toString())
-
-                        setPositiveButton("홈 화면으로") { _, _ ->
-                            finish()
-
-                            //점수를 가지고 Home 화면으로 이동
-                            val intent = Intent(this@AnswerQuizSolveActivity, QuizListActivity::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                            intent.putExtra("score", score)
-                            startActivity(intent)
-                            finish()
-                            naverRecognizer!!.speechRecognizer!!.release()
-                        }
-                    }.create().show()
-                } else {
-                    // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
-                    Log.d("post", "onResponse 실패 + ${response.code()}")
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseTemplate<AnswerQuizSolveScoreResponse>>, t: Throwable) {
-                // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
-                Log.d("post", "onFailure 에러: " + t.message.toString())
-            }
-        })
+        startActivity(intent)
     }
 
     // 사용자가 권한 요청에 대한 응답을 받을 때 호출되는 메서드

@@ -41,13 +41,17 @@
             tools:replace="android:usesCleartextTraffic"
             tools:targetApi="33">
         <activity
+                android:name=".quiz.answer.ui.AnswerQuizNextDialog"
+                android:exported="false"
+                android:theme="@style/Theme.AppCompat.Dialog"/>
+        <activity
                 android:name=".quiz.word.ui.WordQuizNextDialog"
-                android:theme="@style/Theme.AppCompat.Dialog"
-                android:exported="false" />
+                android:exported="false"
+                android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
                 android:name=".quiz.image.ui.ImageQuizNextDialog"
-                android:theme="@style/Theme.AppCompat.Dialog"
-                android:exported="true" />
+                android:exported="true"
+                android:theme="@style/Theme.AppCompat.Dialog" />
         <activity
                 android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
                 android:exported="true">

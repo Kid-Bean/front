@@ -233,73 +233,15 @@ class WordQuizSolveActivity : AppCompatActivity() {
         originalList.forEach { (key, value) ->
             Log.d("ListData", "Key: $key, Value: $value")
         }
+        //다음 문제 풀기 시작
+        binding.btnAnswer.visibility = View.INVISIBLE
 
-        //3번째 문제 - 푼 문제들을 전부 제출
-        if (quizCount == 3L) {
-            val quizSolvedRequestList = originalList.map { (key, value) ->
-                WordQuizSolveRequest(quizId = key, answer = value)
-            }
+        val intent = Intent(this@WordQuizSolveActivity, WordQuizNextDialog::class.java)
 
-            val request = WordQuizSolveListRequest(quizSolvedRequestList = quizSolvedRequestList)
+        intent.putExtra("listData", originalList as Serializable) // Map을 Serializable로 캐스팅
+        intent.putExtra("quizCount", quizCount)
+        intent.putParcelableArrayListExtra("quizList", ArrayList(quizList))
 
-            val wordQuizController = ApiClient.getApiClient().create(WordQuizController::class.java)
-
-            wordQuizController.solveWordQuiz(request).enqueue(object :
-                Callback<ResponseTemplate<WordQuizSolveScoreResponse>> {
-                @SuppressLint("SetTextI18n")
-                override fun onResponse(
-                    call: Call<ResponseTemplate<WordQuizSolveScoreResponse>>,
-                    response: Response<ResponseTemplate<WordQuizSolveScoreResponse>>,
-                ) {
-                    if (response.isSuccessful) {
-                        // 정상적으로 통신이 성공된 경우
-                        Log.d("post", "onResponse 성공: " + response.body().toString())
-
-                        val body = response.body()?.results
-
-                        // API로 가져온 정답 넣기
-                        score = body?.score!!
-
-                        Log.d("score", score.toString())
-
-                        AlertDialog.Builder(this@WordQuizSolveActivity).apply {
-                            setTitle("문제 풀기 완료")
-                            setMessage("3문제를 전부 풀었습니다!\n얻은 점수 : $score")
-                            Log.d("score", score.toString())
-
-                            setPositiveButton("홈 화면으로") { _, _ ->
-                                binding.btnAnswer.visibility = View.INVISIBLE
-
-                                //점수를 가지고 Home 화면으로 이동
-                                val intent = Intent(this@WordQuizSolveActivity, QuizListActivity::class.java)
-                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                                intent.putExtra("score", score)
-
-                                startActivity(intent)
-                                finish()
-                            }
-                        }.create().show()
-                    } else {
-                        // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
-                        Log.d("post", "onResponse 실패 + ${response.code()}")
-                    }
-                }
-
-                override fun onFailure(call: Call<ResponseTemplate<WordQuizSolveScoreResponse>>, t: Throwable) {
-                    // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
-                    Log.d("post", "onFailure 에러: " + t.message.toString())
-                }
-            })
-        } else {    //다음 문제 풀기 시작
-            binding.btnAnswer.visibility = View.INVISIBLE
-
-            val intent = Intent(this@WordQuizSolveActivity, WordQuizNextDialog::class.java)
-
-            intent.putExtra("listData", originalList as Serializable) // Map을 Serializable로 캐스팅
-            intent.putExtra("quizCount", quizCount)
-            intent.putParcelableArrayListExtra("quizList", ArrayList(quizList))
-
-            startActivity(intent)
-        }
+        startActivity(intent)
     }
 }
