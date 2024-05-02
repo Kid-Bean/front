@@ -13,9 +13,9 @@ import com.github.mikephil.charting.formatter.ValueFormatter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityMyImageQuizSolvedMainBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.mypage.MySolvedQuizActivity
 import soongsil.kidbean.front.mypage.image.dto.response.MyPageImageScoreResponse
 import soongsil.kidbean.front.mypage.image.presentation.MypageImageController

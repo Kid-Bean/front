@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.R
 import soongsil.kidbean.front.databinding.ActivityWordQuizSolvedListBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.mypage.MySolvedQuizActivity
 import soongsil.kidbean.front.mypage.image.presentation.MypageImageController
 import soongsil.kidbean.front.mypage.word.dto.response.SolvedWordQuizListResponse

@@ -140,6 +140,9 @@
         <activity
                 android:name=".mypage.word.ui.SolvedWordQuizDetailActivity"
                 android:exported="false" />
+        <activity
+                android:name=".home.ui.MainActivity"
+                android:exported="false" />
     </application>
 
 </manifest>
