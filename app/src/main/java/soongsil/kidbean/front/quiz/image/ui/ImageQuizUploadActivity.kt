@@ -193,8 +193,6 @@ class ImageQuizUploadActivity : AppCompatActivity() {
                     val intent = Intent(this@ImageQuizUploadActivity, MyQuizActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
-
-                    finish()
                 }
 
                 override fun onFailure(call: Call<ResponseTemplate<Void>>, t: Throwable) {
@@ -206,8 +204,6 @@ class ImageQuizUploadActivity : AppCompatActivity() {
             // 파일이 선택되지 않았을 때 처리할 로직 추가 가능
             Toast.makeText(this@ImageQuizUploadActivity, "이미지를 선택해주세요.", Toast.LENGTH_SHORT).show()
         }
-
-        finish()
     }
 
     override fun onRestart() {

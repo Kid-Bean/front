@@ -122,11 +122,13 @@ class QuizListActivity : AppCompatActivity() {
 
         binding.btnWord.setOnClickListener {
             val intent = Intent(this, WordQuizSolveActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
 
         binding.btnAnswer.setOnClickListener {
             val intent = Intent(this, AnswerQuizSolveActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
 
@@ -154,6 +156,7 @@ class QuizListActivity : AppCompatActivity() {
         // 마이페이지 화면으로 변경하기!
         binding.btnMypage.setOnClickListener {
             val intent = Intent(this, MypageActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
     }

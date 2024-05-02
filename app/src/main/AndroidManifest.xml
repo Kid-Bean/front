@@ -81,6 +81,18 @@
             </intent-filter>
         </activity>
         <activity
+                android:name=".quiz.answer.ui.AnswerQuizListActivity"
+                android:exported="false"/>
+        <activity
+                android:name=".quiz.answer.ui.AnswerQuizUpdateActivity"
+                android:exported="false"/>
+        <activity
+                android:name=".quiz.answer.ui.AnswerQuizUploadActivity"
+                android:exported="false"/>
+        <activity
+                android:name=".quiz.answer.ui.AnswerQuizShowActivity"
+                android:exported="false"/>
+        <activity
                 android:name=".quiz.image.ui.ImageQuizSolveActivity"
                 android:exported="false"/>
         <activity
