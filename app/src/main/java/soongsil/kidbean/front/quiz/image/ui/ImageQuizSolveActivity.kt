@@ -110,7 +110,6 @@ class ImageQuizSolveActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
         quizCount = intent.getLongExtra("quizCount", 1)
         binding.tvCount.text = "$quizCount/5"
         if (quizCount == 1L) {
@@ -311,7 +310,7 @@ class ImageQuizSolveActivity : AppCompatActivity() {
         val intent = Intent(this@ImageQuizSolveActivity, ImageQuizNextDialog::class.java)
 
         intent.putExtra("listData", originalList as Serializable) // Map을 Serializable로 캐스팅
-        intent.putExtra("quizCount", quizCount + 1L)
+        intent.putExtra("quizCount", quizCount)
         // 서버에서 받은 데이터 리스트 전달
         intent.putParcelableArrayListExtra("quizList", ArrayList(quizList))
         intent.putExtra("result", mResult)

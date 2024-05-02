@@ -41,6 +41,10 @@
             tools:replace="android:usesCleartextTraffic"
             tools:targetApi="33">
         <activity
+                android:name=".quiz.word.ui.WordQuizNextDialog"
+                android:theme="@style/Theme.AppCompat.Dialog"
+                android:exported="false" />
+        <activity
                 android:name=".quiz.image.ui.ImageQuizNextDialog"
                 android:theme="@style/Theme.AppCompat.Dialog"
                 android:exported="true" />
