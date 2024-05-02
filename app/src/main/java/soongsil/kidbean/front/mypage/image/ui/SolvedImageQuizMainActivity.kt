@@ -39,17 +39,19 @@ class SolvedImageQuizMainActivity : AppCompatActivity() {
 
         binding.btnBack.setOnClickListener {
             // 홈 화면으로 이동
-            val intent = Intent(this, MyQuizActivity::class.java)
+            val intent = Intent(this, MySolvedQuizActivity::class.java)
             startActivity(intent)
         }
 
         binding.btnRightQuiz.setOnClickListener{
             val intent = Intent(this, RightQuizListActivity::class.java)
+            intent.putExtra("isRight", "right")
             startActivity(intent)
         }
 
         binding.btnWrongQuiz.setOnClickListener{
             val intent = Intent(this, WrongQuizListActivity::class.java)
+            intent.putExtra("isRight", "wrong")
             startActivity(intent)
         }
     }

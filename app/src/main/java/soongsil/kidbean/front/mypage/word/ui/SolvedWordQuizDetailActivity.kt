@@ -35,7 +35,7 @@ class SolvedWordQuizDetailActivity : AppCompatActivity() {
         getQuizDetail(solvedId)
 
         binding.btnBack.setOnClickListener {
-            val intent = Intent(this, SolvedImageQuizMainActivity::class.java)
+            val intent = Intent(this, SolvedWordQuizListActivity::class.java)
             startActivity(intent)
         }
 

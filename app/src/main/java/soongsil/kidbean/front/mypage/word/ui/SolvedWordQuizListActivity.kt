@@ -47,7 +47,7 @@ class SolvedWordQuizListActivity : AppCompatActivity() {
 
         binding.btnBack.setOnClickListener {
             // 홈 화면으로 이동
-            val intent = Intent(this, MyQuizActivity::class.java)
+            val intent = Intent(this, MySolvedQuizActivity::class.java)
             startActivity(intent)
         }
 

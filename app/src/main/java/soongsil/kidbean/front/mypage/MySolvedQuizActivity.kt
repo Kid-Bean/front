@@ -27,7 +27,7 @@ class MySolvedQuizActivity : AppCompatActivity() {
 
         binding.btnBack.setOnClickListener {
             // 홈 화면으로 이동
-            val intent = Intent(this, MyQuizActivity::class.java)
+            val intent = Intent(this, MypageActivity::class.java)
             startActivity(intent)
         }
 
