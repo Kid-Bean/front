@@ -8,6 +8,7 @@ import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.mypage.image.dto.response.MyPageImageScoreResponse
 import soongsil.kidbean.front.mypage.image.dto.response.SolvedImageDetailResponse
 import soongsil.kidbean.front.mypage.image.dto.response.SolvedImageListResponse
+import soongsil.kidbean.front.mypage.word.dto.response.SolvedWordDetailResponse
 import soongsil.kidbean.front.mypage.word.dto.response.SolvedWordQuizListResponse
 
 interface MypageImageController {
@@ -27,5 +28,10 @@ interface MypageImageController {
     @GET("mypage/solved/word/list")
     fun getWordQuizList() :
             Call<ResponseTemplate<SolvedWordQuizListResponse>>
+
+    @GET("mypage/solved/word/{solvedId}")
+    fun getWordQuizDetail(
+        @Path("solvedId") solvedId: Long
+    ) : Call<ResponseTemplate<SolvedWordDetailResponse>>
 
 }
