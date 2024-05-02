@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
@@ -35,6 +36,8 @@ class QuizListActivity : AppCompatActivity() {
         binding = ActivityQuizListBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         //DB 밀었을 때 한번씩 해주세요!
 //        preferences = getSharedPreferences("token", AppCompatActivity.MODE_PRIVATE)
@@ -156,7 +159,6 @@ class QuizListActivity : AppCompatActivity() {
         // 마이페이지 화면으로 변경하기!
         binding.btnMypage.setOnClickListener {
             val intent = Intent(this, MypageActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
     }
