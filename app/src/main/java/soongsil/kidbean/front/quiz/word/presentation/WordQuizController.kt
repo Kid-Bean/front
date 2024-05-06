@@ -21,33 +21,28 @@ import soongsil.kidbean.front.quiz.word.dto.response.WordQuizSolveScoreResponse
 
 interface WordQuizController {
 
-    @GET("quiz/word/member/{memberId}/{quizId}")
+    @GET("quiz/word/member/{quizId}")
     fun getAnswerQuizById(
-        @Path("memberId") memberId: Long,
         @Path("quizId") quizId: Long
     ): Call<ResponseTemplate<WordQuizMemberDetailResponse>>
 
-    @GET("quiz/word/member/{memberId}")
+    @GET("quiz/word/member")
     fun getAllWordQuizByMember(
-        @Path("memberId") memberId: Long
     ): Call<ResponseTemplate<List<WordQuizMemberResponse>>>
 
-    @POST("quiz/word/member/{memberId}")
+    @POST("quiz/word/member")
     fun uploadWordQuiz(
-        @Path("memberId") memberId: Long,
         @Body request: WordQuizUploadRequest
     ): Call<ResponseTemplate<Void>>
 
-    @PUT("quiz/word/member/{memberId}/{quizId}")
+    @PUT("quiz/word/member/{quizId}")
     fun updateWordQuiz(
-        @Path("memberId") memberId: Long,
         @Path("quizId") quizId: Long,
         @Body request: WordQuizUpdateRequest
     ): Call<ResponseTemplate<Void>>
 
-    @DELETE("quiz/word/member/{memberId}/{quizId}")
+    @DELETE("quiz/word/member/{quizId}")
     fun deleteWordQuiz(
-        @Path("memberId") memberId: Long,
         @Path("quizId") quizId: Long
     ) :Call<ResponseTemplate<Void>>
 

@@ -1,6 +1,5 @@
 package soongsil.kidbean.front.quiz.image.ui
 
-import RetrofitImpl.retrofit
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -13,13 +12,15 @@ import com.bumptech.glide.Glide
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import soongsil.kidbean.front.MainActivity
+import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.databinding.ActivityImageQuizShowBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberDetailResponse
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
+import soongsil.kidbean.front.util.ApiClient
 
 
 class ImageQuizShowActivity : AppCompatActivity() {
@@ -34,6 +35,8 @@ class ImageQuizShowActivity : AppCompatActivity() {
         binding = ActivityImageQuizShowBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        ApiClient.init(this)
 
         binding.btnBack.setOnClickListener {
             // 그림 문제 목록 화면으로 이동
@@ -97,15 +100,15 @@ class ImageQuizShowActivity : AppCompatActivity() {
         }
 
         // 마이페이지 화면으로 변경하기!
-        binding.btnProgram.setOnClickListener {
-            /*val intent = Intent(this, MypageActivity::class.java)
-            startActivity(intent)*/
+        binding.btnMypage.setOnClickListener {
+            val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)
         }
     }
 
     private fun loadInfo() {
-        val imageQuizController = retrofit.create(ImageQuizController::class.java)
-        imageQuizController.getImageQuizById(1, quizId).enqueue(object :
+        val imageQuizController = ApiClient.getApiClient().create(ImageQuizController::class.java)
+        imageQuizController.getImageQuizById(quizId).enqueue(object :
             Callback<ResponseTemplate<ImageQuizMemberDetailResponse>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<ImageQuizMemberDetailResponse>>,
@@ -168,8 +171,8 @@ class ImageQuizShowActivity : AppCompatActivity() {
     }
 
     private fun postDelete() {
-        val imageQuizController = retrofit.create(ImageQuizController::class.java)
-        imageQuizController.deleteImageQuiz(1, quizId).enqueue(object :
+        val imageQuizController = ApiClient.getApiClient().create(ImageQuizController::class.java)
+        imageQuizController.deleteImageQuiz(quizId).enqueue(object :
             Callback<ResponseTemplate<Void>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<Void>>,

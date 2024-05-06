@@ -1,6 +1,5 @@
 package soongsil.kidbean.front.quiz.image.ui
 
-import RetrofitImpl.retrofit
 import android.Manifest
 import android.R
 import android.content.Intent
@@ -22,12 +21,14 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import soongsil.kidbean.front.MainActivity
+import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.databinding.ActivityImageQuizUploadBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
+import soongsil.kidbean.front.util.ApiClient
 import java.io.File
 
 class ImageQuizUploadActivity : AppCompatActivity() {
@@ -99,9 +100,9 @@ class ImageQuizUploadActivity : AppCompatActivity() {
         }
 
         // 마이페이지 화면으로 변경하기!
-        binding.btnProgram.setOnClickListener {
-            /*val intent = Intent(this, MypageActivity::class.java)
-            startActivity(intent)*/
+        binding.btnMypage.setOnClickListener {
+            val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -167,9 +168,9 @@ class ImageQuizUploadActivity : AppCompatActivity() {
         """.trimIndent().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
 
-        val imageQuizController = retrofit.create(ImageQuizController::class.java)
+        val imageQuizController = ApiClient.getApiClient().create(ImageQuizController::class.java)
         if (fileUpdate != null) {
-            imageQuizController.uploadImageQuiz(1, fileUpdate, quizData).enqueue(object :
+            imageQuizController.uploadImageQuiz(fileUpdate, quizData).enqueue(object :
                 Callback<ResponseTemplate<Void>> {
                 override fun onResponse(
                     call: Call<ResponseTemplate<Void>>,
@@ -192,8 +193,6 @@ class ImageQuizUploadActivity : AppCompatActivity() {
                     val intent = Intent(this@ImageQuizUploadActivity, MyQuizActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
-
-                    finish()
                 }
 
                 override fun onFailure(call: Call<ResponseTemplate<Void>>, t: Throwable) {
@@ -205,8 +204,6 @@ class ImageQuizUploadActivity : AppCompatActivity() {
             // 파일이 선택되지 않았을 때 처리할 로직 추가 가능
             Toast.makeText(this@ImageQuizUploadActivity, "이미지를 선택해주세요.", Toast.LENGTH_SHORT).show()
         }
-
-        finish()
     }
 
     override fun onRestart() {

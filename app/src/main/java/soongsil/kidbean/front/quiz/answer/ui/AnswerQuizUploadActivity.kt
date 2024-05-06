@@ -1,6 +1,5 @@
 package soongsil.kidbean.front.quiz.answer.ui
 
-import RetrofitImpl.retrofit
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,13 +9,15 @@ import androidx.appcompat.app.AppCompatActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import soongsil.kidbean.front.MainActivity
+import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.databinding.ActivityAnswerQuizUploadBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.answer.dto.request.AnswerQuizUploadRequest
 import soongsil.kidbean.front.quiz.answer.presentation.AnswerQuizController
+import soongsil.kidbean.front.util.ApiClient
 
 class AnswerQuizUploadActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAnswerQuizUploadBinding
@@ -25,6 +26,8 @@ class AnswerQuizUploadActivity : AppCompatActivity() {
         binding = ActivityAnswerQuizUploadBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        ApiClient.init(this)
 
         binding.btnBack.setOnClickListener {
             val intent = Intent(this, AnswerQuizListActivity::class.java)
@@ -71,8 +74,8 @@ class AnswerQuizUploadActivity : AppCompatActivity() {
 
         // 마이페이지 화면으로 변경하기!
         binding.btnProgram.setOnClickListener {
-            /*val intent = Intent(this, MypageActivity::class.java)
-            startActivity(intent)*/
+            val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -80,8 +83,8 @@ class AnswerQuizUploadActivity : AppCompatActivity() {
         val title = binding.tvTitle.text.toString()
         val question = binding.tvQuestion.text.toString()
 
-        val answerQuizController = retrofit.create(AnswerQuizController::class.java)
-        answerQuizController.uploadAnswerQuiz(1, AnswerQuizUploadRequest(title, question)).enqueue(object :
+        val answerQuizController = ApiClient.getApiClient().create(AnswerQuizController::class.java)
+        answerQuizController.uploadAnswerQuiz(AnswerQuizUploadRequest(title, question)).enqueue(object :
             Callback<ResponseTemplate<Void>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<Void>>,
@@ -106,6 +109,7 @@ class AnswerQuizUploadActivity : AppCompatActivity() {
 
                 // MyQuizActivity로 이동
                 val intent = Intent(this@AnswerQuizUploadActivity, MyQuizActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             }
 

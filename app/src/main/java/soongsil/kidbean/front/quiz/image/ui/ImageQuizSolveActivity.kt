@@ -22,15 +22,17 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import soongsil.kidbean.front.BuildConfig
-import soongsil.kidbean.front.MainActivity
+import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.R
 import soongsil.kidbean.front.databinding.ActivityImageQuizSolveBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.image.application.AudioWriterPCM
 import soongsil.kidbean.front.quiz.image.application.NaverRecognizer
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveListResponse
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveResponse
+import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveScoreResponse
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
 import soongsil.kidbean.front.util.ApiClient
 import java.io.Serializable
@@ -145,10 +147,9 @@ class ImageQuizSolveActivity : AppCompatActivity() {
         }
 
         // 마이페이지 화면으로 변경하기!
-        binding.btnProgram.setOnClickListener {
-            /*val intent = Intent(this, MypageActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)*/
+        binding.btnMypage.setOnClickListener {
+            val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)
         }
     }
 

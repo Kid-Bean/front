@@ -1,6 +1,5 @@
 package soongsil.kidbean.front.quiz.answer.ui
 
-import RetrofitImpl.retrofit
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,13 +9,15 @@ import androidx.appcompat.app.AppCompatActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import soongsil.kidbean.front.MainActivity
+import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.databinding.ActivityAnswerQuizShowBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.answer.dto.response.AnswerQuizMemberDetailResponse
 import soongsil.kidbean.front.quiz.answer.presentation.AnswerQuizController
+import soongsil.kidbean.front.util.ApiClient
 
 class AnswerQuizShowActivity : AppCompatActivity() {
     private lateinit var binding : ActivityAnswerQuizShowBinding
@@ -29,12 +30,14 @@ class AnswerQuizShowActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        ApiClient.init(this)
+
         binding.btnBack.setOnClickListener {
             val intent = Intent(this, AnswerQuizListActivity::class.java)
             startActivity(intent)
         }
 
-        quizId = intent.getLongExtra("quizId", 1)
+        quizId = intent.getLongExtra("quizId", -1L)
 
         loadInfo()
 
@@ -43,7 +46,7 @@ class AnswerQuizShowActivity : AppCompatActivity() {
             // 그림 문제 목록 화면으로 이동
             val intent = Intent(this, AnswerQuizUpdateActivity::class.java)
             intent.putExtra("title", title)
-            intent.putExtra("answer", question)
+            intent.putExtra("question", question)
             intent.putExtra("quizId", quizId)
             startActivity(intent)
         }
@@ -90,14 +93,14 @@ class AnswerQuizShowActivity : AppCompatActivity() {
 
         // 마이페이지 화면으로 변경하기!
         binding.btnProgram.setOnClickListener {
-            /*val intent = Intent(this, MypageActivity::class.java)
-            startActivity(intent)*/
+            val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)
         }
     }
 
     private fun loadInfo() {
-        val answerQuizController = retrofit.create(AnswerQuizController::class.java)
-        answerQuizController.getAnswerQuizById(1, quizId).enqueue(object :
+        val answerQuizController = ApiClient.getApiClient().create(AnswerQuizController::class.java)
+        answerQuizController.getAnswerQuizById(quizId).enqueue(object :
             Callback<ResponseTemplate<AnswerQuizMemberDetailResponse>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<AnswerQuizMemberDetailResponse>>,
@@ -131,8 +134,8 @@ class AnswerQuizShowActivity : AppCompatActivity() {
     }
 
     private fun postDelete() {
-        val answerQuizController = retrofit.create(AnswerQuizController::class.java)
-        answerQuizController.deleteAnswerQuiz(1, quizId).enqueue(object :
+        val answerQuizController = ApiClient.getApiClient().create(AnswerQuizController::class.java)
+        answerQuizController.deleteAnswerQuiz(quizId).enqueue(object :
             Callback<ResponseTemplate<Void>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<Void>>,

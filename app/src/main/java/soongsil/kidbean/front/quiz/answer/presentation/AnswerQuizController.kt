@@ -20,33 +20,28 @@ import soongsil.kidbean.front.quiz.answer.dto.response.AnswerQuizSolveScoreRespo
 
 interface AnswerQuizController {
 
-    @GET("quiz/answer/member/{memberId}")
+    @GET("quiz/answer/member")
     fun getAllAnswerQuizByMember(
-        @Path("memberId") memberId: Long
     ): Call<ResponseTemplate<List<AnswerQuizMemberResponse>>>
 
-    @GET("quiz/answer/member/{memberId}/{quizId}")
+    @GET("quiz/answer/member/{quizId}")
     fun getAnswerQuizById(
-        @Path("memberId") memberId: Long,
         @Path("quizId") quizId: Long
     ): Call<ResponseTemplate<AnswerQuizMemberDetailResponse>>
 
-    @POST("quiz/answer/member/{memberId}")
+    @POST("quiz/answer/member")
     fun uploadAnswerQuiz(
-        @Path("memberId") memberId: Long,
         @Body request: AnswerQuizUploadRequest
     ): Call<ResponseTemplate<Void>>
 
-    @PUT("quiz/answer/member/{memberId}/{quizId}")
+    @PUT("quiz/answer/member/{quizId}")
     fun updateAnswerQuiz(
-        @Path("memberId") memberId: Long,
         @Path("quizId") quizId: Long,
         @Body request: AnswerQuizUpdateRequest
     ): Call<ResponseTemplate<Void>>
 
-    @DELETE("quiz/answer/member/{memberId}/{quizId}")
+    @DELETE("quiz/answer/member/{quizId}")
     fun deleteAnswerQuiz(
-        @Path("memberId") memberId: Long,
         @Path("quizId") quizId: Long
     ) :Call<ResponseTemplate<Void>>
   

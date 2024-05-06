@@ -7,12 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityWordQuizSolvedResultBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.mypage.MySolvedQuizActivity
 import soongsil.kidbean.front.mypage.presentation.MypageController
-import soongsil.kidbean.front.mypage.image.ui.SolvedImageQuizMainActivity
 import soongsil.kidbean.front.mypage.word.dto.response.SolvedWordDetailResponse
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.util.ApiClient

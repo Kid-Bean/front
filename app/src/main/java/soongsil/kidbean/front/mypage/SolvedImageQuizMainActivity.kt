@@ -4,48 +4,23 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import soongsil.kidbean.front.home.ui.MainActivity
-import soongsil.kidbean.front.databinding.ActivityMySolvedQuizMainBinding
-import soongsil.kidbean.front.mypage.answer.ui.SolvedAnswerQuizMainActivity
-import soongsil.kidbean.front.mypage.image.ui.SolvedImageQuizMainActivity
-import soongsil.kidbean.front.mypage.word.ui.SolvedWordQuizListActivity
+import soongsil.kidbean.front.databinding.ActivityMyImageQuizSolvedMainBinding
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
-import soongsil.kidbean.front.util.ApiClient
 
-class MySolvedQuizActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityMySolvedQuizMainBinding
+class SolvedImageQuizMainActivity : AppCompatActivity(){
+    private lateinit var binding: ActivityMyImageQuizSolvedMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMySolvedQuizMainBinding.inflate(layoutInflater)
+        binding = ActivityMyImageQuizSolvedMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        ApiClient.init(this)
 
         bottomSetting()
 
         binding.btnBack.setOnClickListener {
             // 홈 화면으로 이동
-            val intent = Intent(this, MypageActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.btnImage.setOnClickListener {
-            // 이미지 퀴즈 메인
-            val intent = Intent(this, SolvedImageQuizMainActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.btnWord.setOnClickListener {
-            //단어 퀴즈 메인
-            val intent = Intent(this, SolvedWordQuizListActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.btnVoice.setOnClickListener {
-            //음성 퀴즈 메인
-            val intent = Intent(this, SolvedAnswerQuizMainActivity::class.java)
+            val intent = Intent(this, MyQuizActivity::class.java)
             startActivity(intent)
         }
     }
@@ -74,5 +49,4 @@ class MySolvedQuizActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
 }

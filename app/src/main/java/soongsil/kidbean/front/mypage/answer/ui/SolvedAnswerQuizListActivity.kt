@@ -1,19 +1,16 @@
 package soongsil.kidbean.front.mypage.answer.ui
 
 import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import soongsil.kidbean.front.MainActivity
 import soongsil.kidbean.front.databinding.ActivityAnswerQuizSolvedListBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.mypage.MySolvedQuizActivity
 import soongsil.kidbean.front.mypage.answer.dto.response.SolvedAnswerQuizListResponse
 import soongsil.kidbean.front.mypage.presentation.MypageController

@@ -41,6 +41,10 @@
             tools:replace="android:usesCleartextTraffic"
             tools:targetApi="33">
         <activity
+                android:name=".home.ui.SignUpActivity"
+                android:exported="false" />
+
+        <activity
                 android:name=".quiz.answer.ui.AnswerQuizNextDialog"
                 android:exported="false"
                 android:theme="@style/Theme.AppCompat.Dialog" />
@@ -72,12 +76,19 @@
         <activity
                 android:name=".quiz.QuizListActivity"
                 android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+        <activity
+                android:name=".quiz.answer.ui.AnswerQuizListActivity"
+                android:exported="false"/>
+        <activity
+                android:name=".quiz.answer.ui.AnswerQuizUpdateActivity"
+                android:exported="false"/>
+        <activity
+                android:name=".quiz.answer.ui.AnswerQuizUploadActivity"
+                android:exported="false"/>
+        <activity
+                android:name=".quiz.answer.ui.AnswerQuizShowActivity"
+                android:exported="false"/>
         <activity
                 android:name=".quiz.image.ui.ImageQuizSolveActivity"
                 android:exported="false" />
@@ -115,8 +126,15 @@
                 android:name=".quiz.image.ui.ImageQuizShowActivity"
                 android:exported="false" />
         <activity
-                android:name=".MainActivity"
-                android:exported="false" />
+                android:name=".home.ui.MainActivity"
+                android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
                 android:name=".mypage.MypageActivity"
                 android:exported="false" />
