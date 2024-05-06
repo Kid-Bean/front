@@ -29,15 +29,15 @@
                 app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
 
-<TextView
-        android:id="@+id/tv_ch_nickname"
-        style="@style/AndroidSubtitle2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="이름"
-        android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@id/linearLayout"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout"/>
+    <TextView
+            android:id="@+id/tv_ch_nickname"
+            style="@style/AndroidSubtitle2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이름"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@id/linearLayout"
+            app:layout_constraintTop_toBottomOf="@id/linearLayout"/>
 
     <EditText
             android:id="@+id/et_name"
@@ -65,12 +65,12 @@
             app:layout_constraintTop_toBottomOf="@id/et_name"/>
 
     <LinearLayout
-        android:id="@+id/btn_sex"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/tv_sex"
-        app:layout_constraintEnd_toEndOf="@id/tv_sex"
-        app:layout_constraintTop_toBottomOf="@id/tv_sex">
+            android:id="@+id/btn_sex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/tv_sex"
+            app:layout_constraintEnd_toEndOf="@id/tv_sex"
+            app:layout_constraintTop_toBottomOf="@id/tv_sex">
 
         <Button
                 android:id="@+id/btn_boy"
@@ -78,8 +78,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/shape_btn"
-                android:backgroundTint="@color/green100"
+                android:background="@drawable/unselected_shape_btn"
                 android:layout_marginRight="5dp"
                 android:includeFontPadding="false"
                 android:text="남자"
@@ -92,8 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="5dp"
-                android:background="@drawable/shape_btn"
-                android:backgroundTint="@color/green100"
+                android:background="@drawable/unselected_shape_btn"
                 android:includeFontPadding="false"
                 android:text="여자"
                 app:layout_constraintStart_toStartOf="@+id/tv_sex"/>

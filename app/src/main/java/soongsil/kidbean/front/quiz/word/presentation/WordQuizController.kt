@@ -15,6 +15,7 @@ import soongsil.kidbean.front.quiz.word.dto.request.WordQuizUpdateRequest
 import soongsil.kidbean.front.quiz.word.dto.request.WordQuizUploadRequest
 import soongsil.kidbean.front.quiz.word.dto.response.WordQuizMemberDetailResponse
 import soongsil.kidbean.front.quiz.word.dto.response.WordQuizMemberResponse
+import soongsil.kidbean.front.quiz.word.dto.response.WordQuizSolveListResponse
 import soongsil.kidbean.front.quiz.word.dto.response.WordQuizSolveResponse
 import soongsil.kidbean.front.quiz.word.dto.response.WordQuizSolveScoreResponse
 
@@ -47,7 +48,7 @@ interface WordQuizController {
 
     @GET("quiz/word/solve")
     fun getRandomWordQuizByMember(
-    ): Call<ResponseTemplate<WordQuizSolveResponse>>
+    ): Call<ResponseTemplate<WordQuizSolveListResponse>>
 
     @POST("quiz/word/solve")
     fun solveWordQuiz(

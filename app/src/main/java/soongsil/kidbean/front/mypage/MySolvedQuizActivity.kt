@@ -5,8 +5,12 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.databinding.ActivityMySolvedQuizMainBinding
+import soongsil.kidbean.front.mypage.answer.ui.SolvedAnswerQuizMainActivity
+import soongsil.kidbean.front.mypage.image.ui.SolvedImageQuizMainActivity
+import soongsil.kidbean.front.mypage.word.ui.SolvedWordQuizListActivity
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
+import soongsil.kidbean.front.util.ApiClient
 
 class MySolvedQuizActivity : AppCompatActivity() {
 
@@ -17,11 +21,13 @@ class MySolvedQuizActivity : AppCompatActivity() {
         binding = ActivityMySolvedQuizMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        ApiClient.init(this)
+
         bottomSetting()
 
         binding.btnBack.setOnClickListener {
             // 홈 화면으로 이동
-            val intent = Intent(this, MyQuizActivity::class.java)
+            val intent = Intent(this, MypageActivity::class.java)
             startActivity(intent)
         }
 
@@ -33,14 +39,14 @@ class MySolvedQuizActivity : AppCompatActivity() {
 
         binding.btnWord.setOnClickListener {
             //단어 퀴즈 메인
-//            val intent = Intent(this, MySolvedQuizActivity::class.java)
-//            startActivity(intent)
+            val intent = Intent(this, SolvedWordQuizListActivity::class.java)
+            startActivity(intent)
         }
 
         binding.btnVoice.setOnClickListener {
             //음성 퀴즈 메인
-//            val intent = Intent(this, MyQuizActivity::class.java)
-//            startActivity(intent)
+            val intent = Intent(this, SolvedAnswerQuizMainActivity::class.java)
+            startActivity(intent)
         }
     }
 

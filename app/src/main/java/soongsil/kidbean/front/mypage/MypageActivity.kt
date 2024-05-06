@@ -1,6 +1,5 @@
 package soongsil.kidbean.front.mypage
 
-import RetrofitImpl.retrofit
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -12,10 +11,11 @@ import retrofit2.Response
 import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.databinding.ActivityMypageBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.member.presentation.MemberController
 import soongsil.kidbean.front.mypage.main.dto.response.MemberInfoResponse
-import soongsil.kidbean.front.mypage.main.presentation.MyPageController
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
+import soongsil.kidbean.front.util.ApiClient
 
 class MypageActivity : AppCompatActivity() {
 
@@ -25,6 +25,8 @@ class MypageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMypageBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        ApiClient.init(this)
 
         binding.btnBack.setOnClickListener {
             // 홈 화면으로 이동
@@ -55,8 +57,8 @@ class MypageActivity : AppCompatActivity() {
     }
 
     private fun loadMemberInfo() {
-        val myPageController = retrofit.create(MyPageController::class.java)
-        myPageController.getImageQuizById(1).enqueue(object :
+        val myPageController = ApiClient.getApiClient().create(MemberController::class.java)
+        myPageController.getImageQuizById().enqueue(object :
             Callback<ResponseTemplate<MemberInfoResponse>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<MemberInfoResponse>>,

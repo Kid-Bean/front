@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".home.ui.MainActivity">
-
-<LinearLayout
-        android:id="@+id/linearLayout"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        tools:ignore="MissingConstraints">
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        tools:context=".home.ui.MainActivity">
 
-    <TextView
-            android:id="@+id/tv_image_quiz_add"
-            android:layout_width="wrap_content"
+    <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginRight="5dp"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:textSize="25dp"
-            android:fontFamily="@font/noto_bold"
-            android:textColor="@color/green"
-            android:text="키드콩"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:ignore="MissingConstraints">
 
-    <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/kidbean">
+        <TextView
+                android:id="@+id/tv_image_quiz_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="5dp"
+                android:gravity="center"
+                android:textSize="25dp"
+                android:fontFamily="@font/noto_bold"
+                android:textColor="@color/green"
+                android:text="키드콩"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </ImageView>
-</LinearLayout>
+        <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/kidbean">
+
+        </ImageView>
+    </LinearLayout>
 
     <LinearLayout
             android:id="@+id/linear_kid"
@@ -90,48 +90,47 @@
 
     </LinearLayout>
 
-<TextView
-        android:id="@+id/tv_title"
-        style="@style/AndroidSubtitle1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="오늘도 같이 콩나무를 키워볼까요?"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@id/linearLayout"
-        app:layout_constraintStart_toStartOf="@id/linearLayout"
-        app:layout_constraintTop_toBottomOf="@id/linear_kid"
-        tools:ignore="NotSibling" />
+    <TextView
+            android:id="@+id/tv_title"
+            style="@style/AndroidSubtitle1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="오늘도 같이 콩나무를 키워볼까요?"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@id/linearLayout"
+            app:layout_constraintStart_toStartOf="@id/linearLayout"
+            app:layout_constraintTop_toBottomOf="@id/linear_kid"
+            tools:ignore="NotSibling" />
 
-<ImageView
-        android:id="@+id/img_view"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="40dp"
-        android:background="@drawable/shape_edittext_big"
-        style="@style/AndroidH2"
-        android:textColor="@color/black"
-        android:gravity="center"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title"/>
+    <ImageView
+            android:id="@+id/img_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="40dp"
+            style="@style/AndroidH2"
+            android:textColor="@color/black"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            app:layout_constraintBottom_toTopOf="@id/progressbar"/>
 
     <ProgressBar
-        android:id="@+id/progressbar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:progress="70"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintStart_toStartOf="@id/layout_button"
-        app:layout_constraintEnd_toEndOf="@id/layout_button"
-        app:layout_constraintBottom_toTopOf="@id/layout_button"
-        android:progressDrawable="@drawable/custom_progress_bar"
-        android:max="100"
-        android:padding="8dp"
-    />
+            android:id="@+id/progressbar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:progress="70"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintStart_toStartOf="@id/layout_button"
+            app:layout_constraintEnd_toEndOf="@id/layout_button"
+            app:layout_constraintBottom_toTopOf="@id/layout_button"
+            android:progressDrawable="@drawable/custom_progress_bar"
+            android:max="100"
+            android:padding="8dp"
+            />
 
     <LinearLayout
             android:id="@+id/layout_button"
@@ -157,124 +156,124 @@
 
     </LinearLayout>
 
-<LinearLayout
-        android:id="@+id/bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:weightSum="4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-
     <LinearLayout
-            android:id="@+id/btn_home"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:weightSum="4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
 
-        <Button
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/ic_home"
-                android:backgroundTint="@color/black"
-                android:layout_gravity="center_horizontal">
-        </Button>
+        <LinearLayout
+                android:id="@+id/btn_home"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-        <TextView
-                style="@style/AndroidCaption2"
-                android:includeFontPadding="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="홈"
-                android:layout_gravity="center_horizontal">
+            <Button
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/ic_home"
+                    android:backgroundTint="@color/black"
+                    android:layout_gravity="center_horizontal">
+            </Button>
 
-        </TextView>
+            <TextView
+                    style="@style/AndroidCaption2"
+                    android:includeFontPadding="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="홈"
+                    android:layout_gravity="center_horizontal">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/btn_quiz"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+            <Button
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/ic_quiz"
+                    android:backgroundTint="@color/gray600"
+                    android:layout_gravity="center_horizontal">
+            </Button>
+
+            <TextView
+                    style="@style/AndroidCaption2"
+                    android:includeFontPadding="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray600"
+                    android:text="문제 풀기"
+                    android:layout_gravity="center_horizontal">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/btn_program"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+            <Button
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/ic_program"
+                    android:backgroundTint="@color/gray600"
+                    android:layout_gravity="center_horizontal">
+            </Button>
+
+            <TextView
+                    style="@style/AndroidCaption2"
+                    android:includeFontPadding="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="프로그램"
+                    android:textColor="@color/gray600"
+                    android:layout_gravity="center_horizontal">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/btn_mypage"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+            <Button
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/ic_mypage"
+                    android:backgroundTint="@color/gray600"
+                    android:layout_gravity="center_horizontal">
+            </Button>
+
+            <TextView
+                    style="@style/AndroidCaption2"
+                    android:includeFontPadding="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray600"
+                    android:text="마이페이지"
+                    android:layout_gravity="center_horizontal">
+
+            </TextView>
+        </LinearLayout>
+
     </LinearLayout>
-
-    <LinearLayout
-            android:id="@+id/btn_quiz"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-        <Button
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/ic_quiz"
-                android:backgroundTint="@color/gray600"
-                android:layout_gravity="center_horizontal">
-        </Button>
-
-        <TextView
-                style="@style/AndroidCaption2"
-                android:includeFontPadding="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/gray600"
-                android:text="문제 풀기"
-                android:layout_gravity="center_horizontal">
-
-        </TextView>
-    </LinearLayout>
-
-    <LinearLayout
-            android:id="@+id/btn_program"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-        <Button
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/ic_program"
-                android:backgroundTint="@color/gray600"
-                android:layout_gravity="center_horizontal">
-        </Button>
-
-        <TextView
-                style="@style/AndroidCaption2"
-                android:includeFontPadding="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="프로그램"
-                android:textColor="@color/gray600"
-                android:layout_gravity="center_horizontal">
-
-        </TextView>
-    </LinearLayout>
-
-    <LinearLayout
-            android:id="@+id/btn_mypage"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-        <Button
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:background="@drawable/ic_mypage"
-                android:backgroundTint="@color/gray600"
-                android:layout_gravity="center_horizontal">
-        </Button>
-
-        <TextView
-                style="@style/AndroidCaption2"
-                android:includeFontPadding="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/gray600"
-                android:text="마이페이지"
-                android:layout_gravity="center_horizontal">
-
-        </TextView>
-    </LinearLayout>
-
-</LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

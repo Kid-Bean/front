@@ -18,10 +18,10 @@ import retrofit2.Callback
 import retrofit2.Response
 import soongsil.kidbean.front.databinding.ActivityLoginBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.login.dto.request.LoginRequest
 import soongsil.kidbean.front.login.dto.response.LoginResponse
 import soongsil.kidbean.front.login.presentation.LoginController
-import soongsil.kidbean.front.quiz.QuizListActivity
 
 
 class LoginActivity : AppCompatActivity() {
@@ -117,7 +117,7 @@ class LoginActivity : AppCompatActivity() {
                     editor.apply()
 
                     //Main 으로 나중에 바꿔주기
-                    val intent = Intent(this@LoginActivity, QuizListActivity::class.java)
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
                 } else {
                     // 통신이 실패한 경우(응답코드 3xx, 4xx 등)

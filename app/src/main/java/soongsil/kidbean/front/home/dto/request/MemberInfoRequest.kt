@@ -5,5 +5,5 @@ import java.time.LocalDate
 data class MemberInfoRequest(
     val name: String,
     val gender: String,
-    val birthDate: LocalDate
+    val birthDate: String
 )
