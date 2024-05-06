@@ -1,4 +1,4 @@
-package soongsil.kidbean.front.mypage.word.ui
+package soongsil.kidbean.front.mypage.answer.ui
 
 import android.content.Intent
 import android.os.Build
@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import soongsil.kidbean.front.databinding.MypageItemWordAndAnswerQuizBinding
-import soongsil.kidbean.front.mypage.word.dto.response.SolvedWordQuizListResponse
+import soongsil.kidbean.front.mypage.answer.dto.response.SolvedAnswerQuizListResponse
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class SolvedWordQuizListAdapter(private val dataList: List<SolvedWordQuizListResponse.SolvedWordQuizInfo>) :
-    RecyclerView.Adapter<SolvedWordQuizListAdapter.ViewHolder>() {
+class SolvedAnswerQuizListAdapter(private val dataList: List<SolvedAnswerQuizListResponse.SolvedAnswerQuizInfo>) :
+    RecyclerView.Adapter<SolvedAnswerQuizListAdapter.ViewHolder>() {
 
         private var solvedId : Long = -1L
 
@@ -29,7 +29,7 @@ class SolvedWordQuizListAdapter(private val dataList: List<SolvedWordQuizListRes
                 binding.tvTitle.isSelected = true
 
                 binding.btnDetail.setOnClickListener {
-                    val intent = Intent(binding.root.context, SolvedWordQuizDetailActivity::class.java)
+                    val intent = Intent(binding.root.context, SolvedAnswerQuizDetailActivity::class.java)
                     intent.putExtra("solvedId", dataList[position].solvedId)
                     binding.root.context.startActivity(intent)
                 }
@@ -43,7 +43,7 @@ class SolvedWordQuizListAdapter(private val dataList: List<SolvedWordQuizListRes
         }
 
         @RequiresApi(Build.VERSION_CODES.O)
-        override fun onBindViewHolder(holder: SolvedWordQuizListAdapter.ViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: SolvedAnswerQuizListAdapter.ViewHolder, position: Int) {
             holder.bind(position)
         }
 

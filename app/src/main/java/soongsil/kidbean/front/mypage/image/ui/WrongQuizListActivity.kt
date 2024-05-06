@@ -17,7 +17,7 @@ import soongsil.kidbean.front.databinding.ActivityWrongImageQuizSolvedListBindin
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.mypage.MySolvedQuizActivity
 import soongsil.kidbean.front.mypage.image.dto.response.SolvedImageListResponse
-import soongsil.kidbean.front.mypage.image.presentation.MypageImageController
+import soongsil.kidbean.front.mypage.presentation.MypageController
 import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.util.ApiClient
@@ -47,7 +47,7 @@ class WrongQuizListActivity : AppCompatActivity(){
 
         binding.btnBack.setOnClickListener {
             // 홈 화면으로 이동
-            val intent = Intent(this, MyQuizActivity::class.java)
+            val intent = Intent(this, SolvedImageQuizMainActivity::class.java)
             startActivity(intent)
         }
 
@@ -99,9 +99,9 @@ class WrongQuizListActivity : AppCompatActivity(){
 
 
     private fun loadQuizList() {
-        val myPageImageController =
-            ApiClient.getApiClient().create(MypageImageController::class.java)
-        myPageImageController.getImageQuizList(false).enqueue(object :
+        val myPageController =
+            ApiClient.getApiClient().create(MypageController::class.java)
+        myPageController.getImageQuizList(false).enqueue(object :
             Callback<ResponseTemplate<SolvedImageListResponse>> {
             override fun onResponse(
                 call: Call<ResponseTemplate<SolvedImageListResponse>>,
