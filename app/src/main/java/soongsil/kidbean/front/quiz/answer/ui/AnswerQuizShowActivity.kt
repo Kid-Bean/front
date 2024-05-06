@@ -46,7 +46,7 @@ class AnswerQuizShowActivity : AppCompatActivity() {
             // 그림 문제 목록 화면으로 이동
             val intent = Intent(this, AnswerQuizUpdateActivity::class.java)
             intent.putExtra("title", title)
-            intent.putExtra("answer", question)
+            intent.putExtra("question", question)
             intent.putExtra("quizId", quizId)
             startActivity(intent)
         }

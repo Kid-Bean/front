@@ -120,8 +120,6 @@ class WordQuizUploadActivity : AppCompatActivity() {
                 val intent = Intent(this@WordQuizUploadActivity, MyQuizActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
-
-                finish()
             }
 
             override fun onFailure(call: Call<ResponseTemplate<Void>>, t: Throwable) {

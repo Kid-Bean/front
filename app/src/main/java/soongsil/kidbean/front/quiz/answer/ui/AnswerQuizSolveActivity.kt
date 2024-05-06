@@ -1,4 +1,4 @@
-    package soongsil.kidbean.front.quiz.answer.ui
+package soongsil.kidbean.front.quiz.answer.ui
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -12,7 +12,6 @@ import android.os.Message
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.naver.speech.clientapi.SpeechRecognitionResult
@@ -286,6 +285,86 @@ import java.lang.ref.WeakReference
             permissions: Array<out String>,
             grantResults: IntArray
         ) {
+            // 권한이 없는 경우 권한 요청
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.RECORD_AUDIO),
+                RECORD_AUDIO_PERMISSION_REQUEST_CODE
+            )
+        }
+
+        btnStart = binding.btnStart
+
+        handler = RecognitionHandler(this)
+        naverRecognizer = NaverRecognizer(this, handler!!, CLIENT_ID)
+
+        btnStart?.setOnClickListener {
+            if (!naverRecognizer!!.speechRecognizer!!.isRunning) {
+                // Start button is pushed when SpeechRecognizer's state is inactive.
+                // Run SpeechRecongizer by calling recognize().
+                mResult = ""
+                binding.btnStart.setText(R.string.str_stop)
+                naverRecognizer!!.recognize()
+            } else {
+                Log.d("ImageQuiz", "stop and wait Final Result")
+                btnStart!!.isEnabled = false
+                naverRecognizer!!.speechRecognizer!!.stop()
+            }
+        }
+
+        loadInfo()
+        bottomSetting()
+    }
+
+    private fun bottomSetting() {
+        binding.btnHome.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+
+        // 문제 풀기 화면으로 변경하기!
+        binding.btnQuiz.setOnClickListener {
+            val intent = Intent(this, QuizListActivity::class.java)
+            startActivity(intent)
+        }
+
+        // 프로그램 화면으로 변경하기!
+        binding.btnProgram.setOnClickListener {
+            /*val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)*/
+        }
+
+        // 마이페이지 화면으로 변경하기!
+        binding.btnProgram.setOnClickListener {
+            val intent = Intent(this, MypageActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun loadInfo() {
+        val imageQuizController = ApiClient.getApiClient().create(AnswerQuizController::class.java)
+        imageQuizController.getRandomAnswerQuizByMember().enqueue(object :
+            Callback<ResponseTemplate<AnswerQuizSolveResponse>> {
+            @SuppressLint("SetTextI18n")
+            override fun onResponse(
+                call: Call<ResponseTemplate<AnswerQuizSolveResponse>>,
+                response: Response<ResponseTemplate<AnswerQuizSolveResponse>>,
+            ) {
+                if (response.isSuccessful) {
+                    // 정상적으로 통신이 성공된 경우
+                    Log.d("post", "onResponse 성공: " + response.body().toString())
+
+                    val body = response.body()?.results
+
+                    // API로 가져온 이미지 넣기
+                    binding.tvQuiz.text = body?.question
+
+                    // API로 가져온 제목
+                    title = body?.title!!
+
+                    // API로 가져온 정답 넣기
+                    quizId = body.quizId
+
             super.onRequestPermissionsResult(requestCode, permissions, grantResults)
             if (requestCode == RECORD_AUDIO_PERMISSION_REQUEST_CODE) {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

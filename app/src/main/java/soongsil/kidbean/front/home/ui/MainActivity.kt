@@ -1,12 +1,8 @@
 package soongsil.kidbean.front.home.ui
 
-import RetrofitImpl.retrofit
-import android.annotation.SuppressLint
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -28,6 +24,9 @@ import soongsil.kidbean.front.login.presentation.LoginController
 import soongsil.kidbean.front.login.ui.LoginActivity
 import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
+import soongsil.kidbean.front.quiz.answer.dto.response.AnswerQuizMemberDetailResponse
+import soongsil.kidbean.front.quiz.answer.presentation.AnswerQuizController
+import soongsil.kidbean.front.quiz.answer.ui.AnswerQuizUploadActivity
 import soongsil.kidbean.front.util.ApiClient
 import java.nio.charset.Charset
 import java.time.LocalDate
