@@ -34,6 +34,7 @@ import soongsil.kidbean.front.quiz.answer.ui.AnswerQuizUploadActivity
 import soongsil.kidbean.front.util.ApiClient
 import java.nio.charset.Charset
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
@@ -188,13 +189,19 @@ class MainActivity : AppCompatActivity() {
                     // 이름이 존재하는 경우 기존 로직 실행
                     binding.tvKidName.text = name
 
-                    // createDate 문자열 예시: "2024-04-30"
-                    val createDateStr = body?.createDate
-                    // DateTimeFormatter를 사용하여 문자열을 LocalDate로 파싱
-                    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                    val createDate = LocalDate.parse(createDateStr, formatter)
-                    val today = LocalDate.now()
-                    val daysBetween = ChronoUnit.DAYS.between(createDate, today) + 1
+                    // createDate 문자열 예시: "2024-04-30T15:30:00"
+                    val createDateStr = body?.createdDate
+                    // DateTimeFormatter를 사용하여 문자열을 LocalDateTime으로 파싱
+                    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
+                    val createDate = LocalDateTime.parse(createDateStr, formatter)
+                    val today = LocalDateTime.now()
+
+                    // LocalDateTime을 LocalDate로 변환
+                    val createDateAsLocalDate = createDate.toLocalDate()
+                    val todayAsLocalDate = today.toLocalDate()
+
+                    // 날짜 간의 차이를 계산
+                    val daysBetween = ChronoUnit.DAYS.between(createDateAsLocalDate, todayAsLocalDate) + 1
                     binding.tvKidDate.text = daysBetween.toString()
 
                     val imageView: ImageView = binding.imgView
