@@ -34,14 +34,14 @@ interface ImageQuizController {
     @PUT("quiz/image/member/{quizId}")
     fun updateImageQuiz(
         @Path("quizId") quizId: Long,
-        @Part s3Url: MultipartBody.Part,
+        @Part multipartFile: MultipartBody.Part,
         @Part("imageQuizUpdateRequest") request: RequestBody
     ): Call<ResponseTemplate<Void>>
 
     @Multipart
     @POST("quiz/image/member")
     fun uploadImageQuiz(
-        @Part s3Url: MultipartBody.Part,
+        @Part multipartFile: MultipartBody.Part,
         @Part("imageQuizUploadRequest") request: RequestBody
     ): Call<ResponseTemplate<Void>>
 
