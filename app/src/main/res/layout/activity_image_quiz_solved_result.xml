@@ -231,7 +231,7 @@
                     android:layout_height="20dp"
                     android:background="@drawable/ic_mypage"
                     android:backgroundTint="@color/gray600"
-                    android:layout_gravity="center_horizontal"></Button>
+                    android:layout_gravity="center_horizontal" />
 
             <TextView
                     style="@style/AndroidCaption2"
@@ -247,34 +247,5 @@
 
     </LinearLayout>
 
-    <TextView
-            style="@style/AndroidBody1"
-            android:text="1/5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_count"
-            android:layout_weight="1"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-            app:layout_constraintTop_toTopOf="@+id/linearLayout"
-            app:layout_constraintBottom_toBottomOf="@+id/linearLayout" />
-
-    <Button
-            android:id="@+id/txt_result"
-            style="@style/AndroidRate"
-            android:layout_width="300dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:visibility="invisible"
-            android:background="@drawable/shape_btn"
-            android:backgroundTint="@color/green"
-            android:includeFontPadding="false"
-            android:singleLine="false"
-            android:text="정답"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@id/img_quiz"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            tools:ignore="NotSibling" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
