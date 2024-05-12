@@ -88,7 +88,7 @@ class MypageActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun setMemberInfo(body: MemberInfoResponse?) {
         binding.textName.text = body?.memberName ?: "금쪽이"
-        binding.textBirth.text = "${body?.memberBirth.toString()}(만 ${body?.memberAge}세)"
+        binding.textBirth.text = "${body?.memberBirth.toString()} (만 ${body?.memberAge}세)"
         binding.textGender.text = body?.memberGender
     }
 

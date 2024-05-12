@@ -28,12 +28,8 @@ import soongsil.kidbean.front.login.presentation.LoginController
 import soongsil.kidbean.front.login.ui.LoginActivity
 import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
-import soongsil.kidbean.front.quiz.answer.dto.response.AnswerQuizMemberDetailResponse
-import soongsil.kidbean.front.quiz.answer.presentation.AnswerQuizController
-import soongsil.kidbean.front.quiz.answer.ui.AnswerQuizUploadActivity
 import soongsil.kidbean.front.util.ApiClient
 import java.nio.charset.Charset
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
@@ -192,7 +188,7 @@ class MainActivity : AppCompatActivity() {
                     // createDate 문자열 예시: "2024-04-30T15:30:00"
                     val createDateStr = body?.createdDate
                     // DateTimeFormatter를 사용하여 문자열을 LocalDateTime으로 파싱
-                    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
+                    val formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
                     val createDate = LocalDateTime.parse(createDateStr, formatter)
                     val today = LocalDateTime.now()
 

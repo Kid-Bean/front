@@ -12,6 +12,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import soongsil.kidbean.front.databinding.ActivityWordQuizNextDialogBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizSolveResponse
 import soongsil.kidbean.front.quiz.word.dto.request.WordQuizSolveListRequest
@@ -83,7 +84,7 @@ class WordQuizNextDialog : AppCompatActivity() {
 
             binding.btnNext.setOnClickListener {
                 //점수를 가지고 Home 화면으로 이동
-                val intent = Intent(this@WordQuizNextDialog, QuizListActivity::class.java)
+                val intent = Intent(this@WordQuizNextDialog, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 intent.putExtra("score", score)
                 // 현재 태스크의 모든 액티비티를 제거하고, 새로운 태스크를 생성하여 그 안에서 액티비티를 실행
