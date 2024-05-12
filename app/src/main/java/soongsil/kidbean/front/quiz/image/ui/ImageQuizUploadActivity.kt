@@ -154,7 +154,7 @@ class ImageQuizUploadActivity : AppCompatActivity() {
         val fileUpdate: MultipartBody.Part? = if (!selectedImagePath.isNullOrEmpty()) {
             val imageFile = File(selectedImagePath)
             val fileBody = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
-            MultipartBody.Part.createFormData("s3Url", imageFile.name, fileBody)
+            MultipartBody.Part.createFormData("multipartFile", imageFile.name, fileBody)
         } else {
             null
         }

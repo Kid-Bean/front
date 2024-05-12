@@ -172,11 +172,11 @@ class ImageQuizUpdateActivity : AppCompatActivity() {
         val fileUpdate: MultipartBody.Part? = if (!selectedImagePath.isNullOrEmpty()) {
             val imageFile = File(selectedImagePath)
             val fileBody = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
-            MultipartBody.Part.createFormData("s3Url", imageFile.name, fileBody)
+            MultipartBody.Part.createFormData("multipartFile", imageFile.name, fileBody)
         } else {
             // 이미지가 변경되지 않은 경우 공백("")을 넘겨주기 위한 코드
             val emptyRequestBody = "".toRequestBody("text/plain".toMediaTypeOrNull())
-            MultipartBody.Part.createFormData("s3Url", "", emptyRequestBody)
+            MultipartBody.Part.createFormData("multipartFile", "", emptyRequestBody)
         }
 
         val quizData = """
