@@ -5,6 +5,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp"
+        android:background="@drawable/round_corners"
+        android:backgroundTint="@color/white"
         tools:context=".quiz.word.ui.WordQuizNextDialog">
 
     <LinearLayout
