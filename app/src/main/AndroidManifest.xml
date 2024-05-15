@@ -41,6 +41,9 @@
             tools:replace="android:usesCleartextTraffic"
             tools:targetApi="33">
         <activity
+                android:name=".program.ui.ProgramHomeActivity"
+                android:exported="false" />
+        <activity
                 android:name=".program.ui.ProgramDetailActivity"
                 android:exported="false" />
         <activity
@@ -80,7 +83,7 @@
                 android:exported="true" />
         <activity
                 android:name=".quiz.QuizListActivity"
-                android:exported="true"></activity>
+                android:exported="true" />
         <activity
                 android:name=".quiz.answer.ui.AnswerQuizListActivity"
                 android:exported="false" />

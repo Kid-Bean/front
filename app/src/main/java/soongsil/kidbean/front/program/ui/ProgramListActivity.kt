@@ -35,6 +35,17 @@ class ProgramListActivity : AppCompatActivity() {
         loadProgramList()
         bottomSetting()
 
+        binding.btnCategoryHospital.setOnClickListener {
+            nowCategory = "HOSPITAL"
+            nowPage = 0
+            loadProgramList()
+        }
+
+        binding.btnCategoryAcademy.setOnClickListener {
+            nowCategory = "ACADEMY"
+            nowPage = 0
+            loadProgramList()
+        }
 
         binding.btnPageBefore.setOnClickListener {
             if (nowPage > 0) {
