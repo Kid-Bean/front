@@ -44,6 +44,9 @@
                 android:name=".program.ui.ProgramStarActivity"
                 android:exported="false" />
         <activity
+                android:name=".program.ui.ProgramUploadActivity"
+                android:exported="false" />
+        <activity
                 android:name=".program.ui.ProgramHomeActivity"
                 android:exported="false" />
         <activity

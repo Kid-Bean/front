@@ -79,6 +79,11 @@ class ProgramListActivity : AppCompatActivity() {
             nowPage++
             loadProgramList()
         }
+
+        binding.btnProgramAdd.setOnClickListener {
+            val intent = Intent(this, ProgramUploadActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun bottomSetting() {
