@@ -22,7 +22,7 @@
                 android:layout_gravity="center">
 
             <ImageView
-                    android:id="@+id/img_teacher"
+                    android:id="@+id/img_department"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:foregroundGravity="center"
@@ -38,10 +38,10 @@
                 android:layout_gravity="center">
 
             <TextView
-                    android:id="@+id/tv_teacher_name"
+                    android:id="@+id/tv_department_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="선생님 이름"
+                    android:text="부서 이름"
                     style="@style/AndroidCaption1"
                     android:textColor="@color/black" />
 
