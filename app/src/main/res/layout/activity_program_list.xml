@@ -67,7 +67,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:text="추가하기"
                 android:textColor="@color/white"
-                style="@style/AndroidBody1"
+                style="@style/AndroidBody3"
                 android:foregroundGravity="bottom"
                 android:background="@drawable/shape_btn"
                 android:backgroundTint="@color/green"
