@@ -15,7 +15,7 @@
         tools:ignore="MissingConstraints">
 
     <TextView
-            android:id="@+id/tv_image_quiz_add"
+            android:id="@+id/tv_program_list_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -95,7 +95,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_program_name" />
 
             <TextView
-                    android:id="@+id/tv_teacher_name"
+                    android:id="@+id/tv_department_name"
                     style="@style/AndroidSubtitle2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
                     app:layout_constraintTop_toBottomOf="@id/et_program" />
 
             <EditText
-                    android:id="@+id/et_teacher"
+                    android:id="@+id/et_department"
                     style="@style/AndroidBody3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -118,7 +118,7 @@
                     android:maxLength="8"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_teacher_name" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_department_name" />
 
             <TextView
                     android:id="@+id/tv_location"
@@ -129,7 +129,7 @@
                     android:text="장소"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/et_teacher" />
+                    app:layout_constraintTop_toBottomOf="@id/et_department" />
 
             <EditText
                     android:id="@+id/et_location"
@@ -175,7 +175,7 @@
                         android:layout_marginRight="5dp"
                         android:text="월"
                         android:background="@drawable/unselected_shape_day"
-                        android:layout_weight="1"></Button>
+                        android:layout_weight="1"/>
 
                 <Button
                         android:id="@+id/btn_day2"
@@ -187,7 +187,7 @@
                         android:layout_marginRight="5dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/unselected_shape_day"
-                        android:layout_weight="1"></Button>
+                        android:layout_weight="1"/>
 
                 <Button
                         android:id="@+id/btn_day3"
@@ -199,7 +199,7 @@
                         android:layout_marginRight="5dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/unselected_shape_day"
-                        android:layout_weight="1"></Button>
+                        android:layout_weight="1"/>
 
                 <Button
                         android:id="@+id/btn_day4"
@@ -211,7 +211,7 @@
                         android:layout_marginRight="5dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/unselected_shape_day"
-                        android:layout_weight="1"></Button>
+                        android:layout_weight="1"/>
 
                 <Button
                         android:id="@+id/btn_day5"
@@ -223,7 +223,7 @@
                         android:layout_marginRight="5dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/unselected_shape_day"
-                        android:layout_weight="1"></Button>
+                        android:layout_weight="1"/>
 
                 <Button
                         android:id="@+id/btn_day6"
@@ -235,7 +235,7 @@
                         android:layout_marginRight="5dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/unselected_shape_day"
-                        android:layout_weight="1"></Button>
+                        android:layout_weight="1"/>
 
                 <Button
                         android:id="@+id/btn_day7"
@@ -246,7 +246,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_height="match_parent"
                         android:background="@drawable/unselected_shape_day"
-                        android:layout_weight="1"></Button>
+                        android:layout_weight="1"/>
             </LinearLayout>
 
             <TextView
@@ -276,18 +276,18 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_phone" />
 
             <TextView
-                    android:id="@+id/tv_title"
+                    android:id="@+id/tv_content_title"
                     style="@style/AndroidSubtitle2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="프로그램 제목"
+                    android:text="내용 제목"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/et_phone" />
 
             <EditText
-                    android:id="@+id/et_title"
+                    android:id="@+id/et_content_title"
                     style="@style/AndroidBody3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -296,7 +296,7 @@
                     android:hint="\제목을 입력해주세요"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/tv_content_title" />
 
             <TextView
                     android:id="@+id/tv_content"
@@ -307,7 +307,7 @@
                     android:text="프로그램 내용"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/et_title" />
+                    app:layout_constraintTop_toBottomOf="@id/et_content_title" />
 
             <EditText
                     android:id="@+id/et_report_comment"
