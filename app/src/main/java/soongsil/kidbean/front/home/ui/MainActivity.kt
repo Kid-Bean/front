@@ -27,6 +27,7 @@ import soongsil.kidbean.front.login.dto.response.ReissueResponse
 import soongsil.kidbean.front.login.presentation.LoginController
 import soongsil.kidbean.front.login.ui.LoginActivity
 import soongsil.kidbean.front.mypage.MypageActivity
+import soongsil.kidbean.front.program.ui.ProgramHomeActivity
 import soongsil.kidbean.front.program.ui.ProgramListActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.util.ApiClient
@@ -145,7 +146,7 @@ class MainActivity : AppCompatActivity() {
 
         // 프로그램 화면으로 변경하기!
         binding.btnProgram.setOnClickListener {
-            val intent = Intent(this, ProgramListActivity::class.java)
+            val intent = Intent(this, ProgramHomeActivity::class.java)
             startActivity(intent)
         }
 

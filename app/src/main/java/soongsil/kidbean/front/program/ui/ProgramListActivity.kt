@@ -74,7 +74,7 @@ class ProgramListActivity : AppCompatActivity() {
 
         // 프로그램 화면으로 변경하기!
         binding.btnProgram.setOnClickListener {
-            val intent = Intent(this, ProgramListActivity::class.java)
+            val intent = Intent(this, ProgramHomeActivity::class.java)
             startActivity(intent)
         }
 

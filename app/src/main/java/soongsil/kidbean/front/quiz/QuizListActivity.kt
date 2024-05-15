@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import soongsil.kidbean.front.databinding.ActivityQuizListBinding
 import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.mypage.MypageActivity
+import soongsil.kidbean.front.program.ui.ProgramHomeActivity
 import soongsil.kidbean.front.quiz.answer.ui.AnswerQuizSolveActivity
 import soongsil.kidbean.front.quiz.image.ui.ImageQuizSolveActivity
 import soongsil.kidbean.front.quiz.word.ui.WordQuizSolveActivity
@@ -57,7 +58,7 @@ class QuizListActivity : AppCompatActivity() {
 
         // 프로그램 화면으로 변경하기!
         binding.btnProgram.setOnClickListener {
-            val intent = Intent(this, MyQuizActivity::class.java)
+            val intent = Intent(this, ProgramHomeActivity::class.java)
             startActivity(intent)
         }
 
