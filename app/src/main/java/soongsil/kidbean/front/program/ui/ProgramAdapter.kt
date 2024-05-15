@@ -96,6 +96,7 @@ class ProgramAdapter(private val dataList: List<ProgramResponse>) :
         holder.itemView.setOnClickListener {
             val intent = Intent(it.context, ProgramDetailActivity::class.java)
             intent.putExtra("programId", dataList[position].programId)
+            Log.d("programId", dataList[position].programId.toString())
             it.context.startActivity(intent)
         }
     }

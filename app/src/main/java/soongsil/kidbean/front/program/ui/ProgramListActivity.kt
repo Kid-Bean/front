@@ -39,6 +39,11 @@ class ProgramListActivity : AppCompatActivity() {
         loadProgramList()
         bottomSetting()
 
+        binding.btnBack.setOnClickListener {
+            val intent = Intent(this, ProgramHomeActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.btnCategoryHospital.setOnClickListener {
             nowCategory = "HOSPITAL"
             nowPage = 0

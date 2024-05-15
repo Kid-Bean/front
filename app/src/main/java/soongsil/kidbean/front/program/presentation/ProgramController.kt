@@ -6,6 +6,7 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.program.dto.response.ProgramDetailResponse
 import soongsil.kidbean.front.program.dto.response.ProgramResponseList
 import soongsil.kidbean.front.program.dto.response.StarResponse
 
@@ -21,4 +22,9 @@ interface ProgramController {
     fun postStar(
         @Path("programId") programId: Long
     ): Call<ResponseTemplate<StarResponse>>
+
+    @GET("programs/{programId}")
+    fun getProgramDetail(
+        @Path("programId") programId: Long
+    ): Call<ResponseTemplate<ProgramDetailResponse>>
 }
