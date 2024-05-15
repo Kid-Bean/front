@@ -2,13 +2,17 @@ package soongsil.kidbean.front.program.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import soongsil.kidbean.front.R
 import soongsil.kidbean.front.databinding.ActivityProgramListBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.home.ui.MainActivity
@@ -39,12 +43,29 @@ class ProgramListActivity : AppCompatActivity() {
             nowCategory = "HOSPITAL"
             nowPage = 0
             loadProgramList()
+
+            val colorG = ContextCompat.getColor(this, R.color.green) // 원하는 색상으로 변경
+            val colorStateListG = ColorStateList.valueOf(colorG)
+            ViewCompat.setBackgroundTintList(binding.btnCategoryHospital, colorStateListG)
+
+            val color = ContextCompat.getColor(this, R.color.gray400) // 원하는 색상으로 변경
+            val colorStateList = ColorStateList.valueOf(color)
+            ViewCompat.setBackgroundTintList(binding.btnCategoryAcademy, colorStateList)
+
         }
 
         binding.btnCategoryAcademy.setOnClickListener {
             nowCategory = "ACADEMY"
             nowPage = 0
             loadProgramList()
+
+            val colorG = ContextCompat.getColor(this, R.color.gray400) // 원하는 색상으로 변경
+            val colorStateListG = ColorStateList.valueOf(colorG)
+            ViewCompat.setBackgroundTintList(binding.btnCategoryHospital, colorStateListG)
+
+            val color = ContextCompat.getColor(this, R.color.green) // 원하는 색상으로 변경
+            val colorStateList = ColorStateList.valueOf(color)
+            ViewCompat.setBackgroundTintList(binding.btnCategoryAcademy, colorStateList)
         }
 
         binding.btnPageBefore.setOnClickListener {
