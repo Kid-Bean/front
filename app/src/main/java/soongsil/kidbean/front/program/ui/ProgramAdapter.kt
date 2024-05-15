@@ -1,5 +1,6 @@
 package soongsil.kidbean.front.program.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,11 +9,19 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import soongsil.kidbean.front.R
 import soongsil.kidbean.front.databinding.ItemProgramBinding
 import soongsil.kidbean.front.databinding.ItemQuizBinding
+import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.program.dto.response.ProgramResponse
+import soongsil.kidbean.front.program.dto.response.ProgramResponseList
+import soongsil.kidbean.front.program.dto.response.StarResponse
+import soongsil.kidbean.front.program.presentation.ProgramController
 import soongsil.kidbean.front.quiz.image.ui.ImageQuizShowActivity
+import soongsil.kidbean.front.util.ApiClient
 
 class ProgramAdapter(private val dataList: List<ProgramResponse>) :
     RecyclerView.Adapter<ProgramAdapter.ViewHolder>() {
@@ -37,7 +46,42 @@ class ProgramAdapter(private val dataList: List<ProgramResponse>) :
                 .load(dataList[position].departmentS3Url)
                 .into(imageView)
 
+            ApiClient.init(this.itemView.context)
+
             imageView.visibility = View.VISIBLE
+
+            binding.imgStar.setOnClickListener {
+                val programController = ApiClient.getApiClient().create(ProgramController::class.java)
+                programController.postStar(dataList[position].programId).enqueue(object :
+                    Callback<ResponseTemplate<StarResponse>> {
+                    @SuppressLint("SetTextI18n")
+                    override fun onResponse(
+                        call: Call<ResponseTemplate<StarResponse>>,
+                        response: Response<ResponseTemplate<StarResponse>>,
+                    ) {
+                        if (response.isSuccessful) {
+                            // 정상적으로 통신이 성공된 경우
+                            Log.d("post", "onResponse 성공: " + response.body().toString())
+
+                            val status = response.body()?.results?.starStatus
+
+                            if (status == "save") {
+                                binding.imgStar.setImageResource(R.drawable.star)
+                            } else if (status == "delete") {
+                                binding.imgStar.setImageResource(R.drawable.empty_star)
+                            }
+                        } else {
+                            // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
+                            Log.d("post", "onResponse 실패 + ${response.code()}")
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ResponseTemplate<StarResponse>>, t: Throwable) {
+                        // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
+                        Log.d("post", "onFailure 에러: " + t.message.toString())
+                    }
+                })
+            }
         }
     }
 
