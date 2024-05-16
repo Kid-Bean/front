@@ -121,6 +121,29 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_department_name" />
 
             <TextView
+                    android:id="@+id/tv_department_image"
+                    style="@style/AndroidSubtitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="담당자 이미지"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_department" />
+
+            <ImageView
+                    android:id="@+id/img_department"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/shape_edittext_big"
+                    android:gravity="top"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_department_image"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            <TextView
                     android:id="@+id/tv_location"
                     style="@style/AndroidSubtitle2"
                     android:layout_width="wrap_content"
@@ -129,7 +152,7 @@
                     android:text="장소"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/et_department" />
+                    app:layout_constraintTop_toBottomOf="@id/img_department" />
 
             <EditText
                     android:id="@+id/et_location"
@@ -342,7 +365,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/et_report_comment" />
 
             <TextView
-                    android:id="@+id/tv_image"
+                    android:id="@+id/tv_program_image"
                     style="@style/AndroidSubtitle2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -353,7 +376,7 @@
                     app:layout_constraintTop_toBottomOf="@id/tv_maxtext" />
 
             <ImageView
-                    android:id="@+id/img_quiz"
+                    android:id="@+id/img_program"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:layout_marginTop="10dp"
@@ -361,8 +384,37 @@
                     android:gravity="top"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_image"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_program_image"
                     tools:ignore="SpeakableTextPresentCheck" />
+
+            <LinearLayout
+                    android:id="@+id/tv_category_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4"
+                    android:paddingTop="15dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/img_program">
+
+                <TextView
+                        style="@style/AndroidBody1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="카테고리"
+                        android:textColor="@color/black"
+                        android:layout_weight="1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                <Spinner
+                        android:id="@+id/tv_category"
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:layout_height="50dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_centerInParent="true"/>
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
