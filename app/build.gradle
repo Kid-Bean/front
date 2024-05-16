@@ -94,4 +94,7 @@ dependencies {
 
     //꺾은선 그래프
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+    //JWT
+    implementation 'com.auth0:java-jwt:3.18.2'
 }

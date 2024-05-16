@@ -51,6 +51,34 @@
         </ImageButton>
     </LinearLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_program_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/linearLayout"
+            app:layout_constraintBottom_toBottomOf="@id/linearLayout"
+            app:layout_constraintEnd_toEndOf="@id/linearLayout"
+            tools:ignore="MissingConstraints,NotSibling">
+
+        <Button
+                android:id="@+id/btn_program_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="수정 | 삭제"
+                android:textColor="@color/white"
+                style="@style/AndroidBody3"
+                android:foregroundGravity="bottom"
+                android:background="@drawable/shape_btn"
+                android:backgroundTint="@color/green"
+                android:src="@drawable/ic_left"
+                android:scaleType="fitCenter"
+                tools:ignore="MissingConstraints"
+                android:visibility="gone"
+                android:contentDescription="TODO">
+        </Button>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"

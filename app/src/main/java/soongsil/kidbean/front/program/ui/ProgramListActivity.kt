@@ -6,9 +6,12 @@ import android.content.res.ColorStateList
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.auth0.jwt.JWT
+import com.auth0.jwt.interfaces.DecodedJWT
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -85,10 +88,20 @@ class ProgramListActivity : AppCompatActivity() {
             loadProgramList()
         }
 
-        binding.btnProgramAdd.setOnClickListener {
-            val intent = Intent(this, ProgramUploadActivity::class.java)
-            startActivity(intent)
+        //JWT를 확인해서 role이 ADMIN이면 프로그램 추가 버튼 활성화 - 나중에 확인 필요
+        val accessToken = getSharedPreferences("token", AppCompatActivity.MODE_PRIVATE)?.getString("accessToken", "")
+        val jwt: DecodedJWT = JWT.decode(accessToken)
+        val role = jwt.getClaim("role").asString()
+
+        if (role == "ADMIN") {
+            binding.btnProgramAdd.visibility = View.VISIBLE
+            binding.btnProgramAdd.setOnClickListener {
+                val intent = Intent(this, ProgramUploadActivity::class.java)
+                startActivity(intent)
+            }
         }
+
+        Log.d("role", role.toString())
     }
 
     private fun bottomSetting() {

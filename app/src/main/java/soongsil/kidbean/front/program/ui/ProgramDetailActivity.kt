@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import com.auth0.jwt.JWT
+import com.auth0.jwt.interfaces.DecodedJWT
 import com.bumptech.glide.Glide
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,6 +42,21 @@ class ProgramDetailActivity : AppCompatActivity() {
 
         bottomSetting()
         loadProgramInfo(programId)
+
+        //JWT를 확인해서 role이 ADMIN이면 프로그램 추가 버튼 활성화 - 나중에 확인 필요
+        val accessToken = getSharedPreferences("token", AppCompatActivity.MODE_PRIVATE)?.getString("accessToken", "")
+        val jwt: DecodedJWT = JWT.decode(accessToken)
+        val role = jwt.getClaim("role").asString()
+
+        //JWT의 role을 확인해서 ADMIN이면 수정|삭제 버튼 활성화 - 수정 삭제 화면으로 programId 전송
+        if (role == "ADMIN") {
+            binding.btnProgramEdit.visibility = View.VISIBLE
+            binding.btnProgramEdit.setOnClickListener {
+                val intent = Intent(this, ProgramEditActivity::class.java)
+                intent.putExtra("programId", programId)
+                startActivity(intent)
+            }
+        }
     }
 
     private fun loadProgramInfo(programId: Long) {

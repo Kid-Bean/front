@@ -74,6 +74,7 @@
                 android:src="@drawable/ic_left"
                 android:scaleType="fitCenter"
                 tools:ignore="MissingConstraints"
+                android:visibility="gone"
                 android:contentDescription="TODO">
         </Button>
     </androidx.constraintlayout.widget.ConstraintLayout>
