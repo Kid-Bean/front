@@ -15,6 +15,7 @@ import retrofit2.Response
 import soongsil.kidbean.front.databinding.ActivityAnswerQuizSolvedResultBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.home.ui.MainActivity
+import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.mypage.answer.dto.response.SolvedAnswerQuizDetailResponse
 import soongsil.kidbean.front.mypage.presentation.MypageController
 import soongsil.kidbean.front.quiz.QuizListActivity
@@ -155,7 +156,7 @@ class SolvedAnswerQuizDetailActivity : AppCompatActivity(){
 
         // 마이페이지 화면으로 변경하기!
         binding.btnMypage.setOnClickListener {
-            val intent = Intent(this, SolvedAnswerQuizMainActivity::class.java)
+            val intent = Intent(this, MypageActivity::class.java)
             startActivity(intent)
         }
     }
