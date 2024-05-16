@@ -334,7 +334,7 @@
                     app:layout_constraintTop_toBottomOf="@id/et_content_title" />
 
             <EditText
-                    android:id="@+id/et_report_comment"
+                    android:id="@+id/et_comment"
                     style="@style/AndroidBody3"
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
@@ -361,8 +361,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/max_500"
                     android:textAlignment="center"
-                    app:layout_constraintEnd_toEndOf="@+id/et_report_comment"
-                    app:layout_constraintTop_toBottomOf="@+id/et_report_comment" />
+                    app:layout_constraintEnd_toEndOf="@+id/et_comment"
+                    app:layout_constraintTop_toBottomOf="@+id/et_comment" />
 
             <TextView
                     android:id="@+id/tv_program_image"

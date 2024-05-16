@@ -3,6 +3,7 @@ package soongsil.kidbean.front.program.presentation
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
@@ -39,5 +40,18 @@ interface ProgramController {
         @Part programImage: MultipartBody.Part,
         @Part departmentImage: MultipartBody.Part,
         @Part("enrollProgramRequest") request: RequestBody
+    ): Call<ResponseTemplate<Void>>
+
+    @Multipart
+    @PUT("programs")
+    fun editProgram(
+        @Part programImage: MultipartBody.Part?,
+        @Part departmentImage: MultipartBody.Part?,
+        @Part("updateProgramRequest") request: RequestBody
+    ): Call<ResponseTemplate<Void>>
+
+    @DELETE("programs/{programId}")
+    fun deleteProgram(
+        @Path("programId") programId: Long
     ): Call<ResponseTemplate<Void>>
 }
