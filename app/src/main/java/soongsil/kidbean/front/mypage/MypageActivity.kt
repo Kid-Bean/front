@@ -36,8 +36,8 @@ class MypageActivity : AppCompatActivity() {
 
         binding.btnChangeInfo.setOnClickListener {
             // 사용자 정보 변경 창
-//            val intent = Intent(this, ImageQuizUploadActivity::class.java)
-//            startActivity(intent)
+            val intent = Intent(this, UpdateKidInfoActivity::class.java)
+            startActivity(intent)
         }
 
         binding.btnSolvedInfo.setOnClickListener {
@@ -89,7 +89,15 @@ class MypageActivity : AppCompatActivity() {
     private fun setMemberInfo(body: MemberInfoResponse?) {
         binding.textName.text = body?.memberName ?: "금쪽이"
         binding.textBirth.text = "${body?.memberBirth.toString()} (만 ${body?.memberAge}세)"
-        binding.textGender.text = body?.memberGender
+        binding.textGender.text = body?.memberGender?.toGenderString()
+    }
+
+    private fun String?.toGenderString(): String {
+        return when (this) {
+            "MAN" -> "남자"
+            "WOMAN" -> "여자"
+            else -> "" // 다른 값이 올 경우 처리 가능
+        }
     }
 
 
