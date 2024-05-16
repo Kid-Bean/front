@@ -4,7 +4,9 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.PUT
+import retrofit2.http.Path
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.home.dto.request.MemberInfoRequest
 import soongsil.kidbean.front.home.dto.response.HomeResponse

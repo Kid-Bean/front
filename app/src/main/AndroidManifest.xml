@@ -171,6 +171,9 @@
         <activity
                 android:name=".mypage.answer.ui.SolvedAnswerQuizDetailActivity"
                 android:exported="false" />
+        <activity
+                android:name=".mypage.UpdateKidInfoActivity"
+                android:exported="false" />
     </application>
 
 </manifest>
