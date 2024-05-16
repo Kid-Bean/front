@@ -97,13 +97,30 @@ class SolvedAnswerQuizDetailActivity : AppCompatActivity(){
     private fun setAdapter(
         checkList: List<SolvedAnswerQuizDetailResponse.MorphemeCheckListResponse.MorphemeCheckListInfo>,
     ) {
-        val listAdapter = SolvedAnswerQuizCheckListAdapter(checkList)
+        val sortCheckList = sortCheckList(checkList)
+
+        val listAdapter = SolvedAnswerQuizCheckListAdapter(sortCheckList)
         val linearLayoutManager = LinearLayoutManager(this)
 
         binding.rvCheckList.adapter = listAdapter
         binding.rvCheckList.layoutManager = linearLayoutManager
         binding.rvCheckList.setHasFixedSize(true)
     }
+
+    private fun sortCheckList(checkList: List<SolvedAnswerQuizDetailResponse.MorphemeCheckListResponse.MorphemeCheckListInfo>): List<SolvedAnswerQuizDetailResponse.MorphemeCheckListResponse.MorphemeCheckListInfo> {
+        return checkList.sortedBy { item ->
+            when (item.ageGroup) {
+                "BEFORE_ONE" -> 0
+                "ONE" -> 1
+                "TWO" -> 2
+                "THREE" -> 3
+                "FOUR" -> 4
+                "AFTER_FIVE" -> 5
+                else -> throw IllegalArgumentException("Unknown age group: ${item.ageGroup}")
+            }
+        }
+    }
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun bindQuizInfo(body: SolvedAnswerQuizDetailResponse) {

@@ -26,7 +26,8 @@
             android:focusableInTouchMode="true"
             android:scrollHorizontally="true"
             android:maxLines="1"
-            app:layout_constraintHorizontal_weight="1"/>
+            app:layout_constraintHorizontal_weight="1"
+            android:button="@drawable/custom_checkbox_button"/>
 
     <TextView
             android:id="@+id/check_content"
@@ -40,7 +41,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:maxLines="5"
-            app:layout_constraintHorizontal_weight="8"/>
+            app:layout_constraintHorizontal_weight="8" />
 
     <!-- 상세 정보 버튼 -->
     <TextView
@@ -50,9 +51,24 @@
             android:text="나이 정보"
             style="@style/AndroidSubtitle2"
             android:textColor="@color/black"
+            android:paddingStart="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_weight="2"/>
+            app:layout_constraintHorizontal_weight="2" />
+
+    <androidx.constraintlayout.widget.Guideline
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/guideline2"
+            app:layout_constraintGuide_begin="20dp"
+            android:orientation="vertical" />
+
+    <androidx.constraintlayout.widget.Barrier
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="checkbox"
+            android:id="@+id/barrier2"
+            app:barrierDirection="left" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

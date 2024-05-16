@@ -11,20 +11,30 @@ import soongsil.kidbean.front.mypage.answer.dto.response.SolvedAnswerQuizDetailR
 class SolvedAnswerQuizCheckListAdapter(private val dataList: List<SolvedAnswerQuizDetailResponse.MorphemeCheckListResponse.MorphemeCheckListInfo>) :
     RecyclerView.Adapter<SolvedAnswerQuizCheckListAdapter.ViewHolder>() {
 
-        private var solvedId : Long = -1L
-
         inner class ViewHolder(private val binding: MypageItemCheckListBinding) :
             RecyclerView.ViewHolder(binding.root) {
 
             @RequiresApi(Build.VERSION_CODES.O)
             fun bind(position: Int) {
                 binding.checkbox.isChecked = dataList[position].isUsed
-                binding.ageGroup.text = dataList[position].ageGroup
+                binding.ageGroup.text = convertAgeGroup(dataList[position].ageGroup)
                 binding.checkContent.text = dataList[position].checkInfoContent
             }
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    private fun convertAgeGroup(ageGroup: String): CharSequence? {
+        return when (ageGroup) {
+            "BEFORE_ONE" -> "0세"
+            "ONE" -> "1세"
+            "TWO" -> "2세"
+            "THREE" -> "3세"
+            "FOUR" -> "4세"
+            "AFTER_FIVE" -> "5세 이상"
+            else -> null
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val viewBinding = MypageItemCheckListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
             return ViewHolder(viewBinding)
