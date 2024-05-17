@@ -264,7 +264,7 @@ class ProgramUploadActivity : AppCompatActivity() {
             "programTitle": "${binding.etProgram.text}",
             "contentTitle": "${binding.etContentTitle.text}",
             "programCategory": "$category",
-            "content": "${binding.tvContent.text}",
+            "content": "${binding.etComment.text}",
             "date": $dateJsonArray,
             "place": "${binding.etLocation.text}",
             "departmentName": "${binding.etDepartment.text}",
