@@ -370,20 +370,22 @@ class ProgramEditActivity : AppCompatActivity() {
     }
 
     private fun editProgram() {
-        val departmentFileUpdate: MultipartBody.Part? = if (!selectedDepartmentPath.isNullOrEmpty()) {
+        val departmentFileUpdate: MultipartBody.Part = if (!selectedDepartmentPath.isNullOrEmpty()) {
             val imageFile = File(selectedDepartmentPath)
             val fileBody = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
             MultipartBody.Part.createFormData("departmentImage", imageFile.name, fileBody)
         } else {
-            null
+            val emptyRequestBody = "".toRequestBody("text/plain".toMediaTypeOrNull())
+            MultipartBody.Part.createFormData("departmentImage", "", emptyRequestBody)
         }
 
-        val programFileUpdate: MultipartBody.Part? = if (!selectedProgramPath.isNullOrEmpty()) {
+        val programFileUpdate: MultipartBody.Part = if (!selectedProgramPath.isNullOrEmpty()) {
             val imageFile = File(selectedProgramPath)
             val fileBody = imageFile.asRequestBody("image/*".toMediaTypeOrNull())
             MultipartBody.Part.createFormData("programImage", imageFile.name, fileBody)
         } else {
-            null
+            val emptyRequestBody = "".toRequestBody("text/plain".toMediaTypeOrNull())
+            MultipartBody.Part.createFormData("programImage", "", emptyRequestBody)
         }
 
         val dateJsonArray = dateList.joinToString(separator = "\", \"", prefix = "[\"", postfix = "\"]")
@@ -393,7 +395,7 @@ class ProgramEditActivity : AppCompatActivity() {
             "programId": "${intent.getLongExtra("programId", 0)}",
             "programTitle": "${binding.etProgram.text}",
             "contentTitle": "${binding.etContentTitle.text}",
-            "content": "${binding.tvContent.text}",
+            "content": "${binding.etComment.text}",
             "date": $dateJsonArray,
             "place": "${binding.etLocation.text}",
             "departmentName": "${binding.etDepartment.text}",

@@ -45,8 +45,8 @@ interface ProgramController {
     @Multipart
     @PUT("programs")
     fun editProgram(
-        @Part programImage: MultipartBody.Part?,
-        @Part departmentImage: MultipartBody.Part?,
+        @Part programImage: MultipartBody.Part,
+        @Part departmentImage: MultipartBody.Part,
         @Part("updateProgramRequest") request: RequestBody
     ): Call<ResponseTemplate<Void>>
 

@@ -275,7 +275,7 @@ class ProgramUploadActivity : AppCompatActivity() {
         Log.d("dateList", dateJsonArray)
 
         val programController = ApiClient.getApiClient().create(ProgramController::class.java)
-        if (departmentFileUpdate != null) {
+        if (departmentFileUpdate != null && programFileUpdate != null) {
             programController.uploadProgram(programFileUpdate!!, departmentFileUpdate, programData).enqueue(object :
                 Callback<ResponseTemplate<Void>> {
                 override fun onResponse(
