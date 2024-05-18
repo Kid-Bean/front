@@ -131,7 +131,7 @@ class ProgramListActivity : AppCompatActivity() {
 
     private fun loadProgramList() {
         val programController = ApiClient.getApiClient().create(ProgramController::class.java)
-        programController.getProgramList(nowCategory, nowPage).enqueue(object :
+        programController.getProgramList(listOf(nowCategory), nowPage).enqueue(object :
             Callback<ResponseTemplate<ProgramResponseList>> {
             @SuppressLint("SetTextI18n")
             override fun onResponse(

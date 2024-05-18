@@ -20,7 +20,7 @@ interface ProgramController {
 
     @GET("programs")
     fun getProgramList(
-        @Query("programCategoryList") programCategory: String,
+        @Query("programCategoryList") programCategory: List<String>,
         @Query("page") page: Int
     ): Call<ResponseTemplate<ProgramResponseList>>
 
