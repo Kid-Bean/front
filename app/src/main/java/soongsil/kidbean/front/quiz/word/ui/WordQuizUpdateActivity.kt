@@ -13,6 +13,7 @@ import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.databinding.ActivityWordQuizUpdateBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.mypage.MypageActivity
+import soongsil.kidbean.front.program.ui.ProgramHomeActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.word.dto.request.WordQuizUpdateRequest
 import soongsil.kidbean.front.quiz.word.presentation.WordQuizController
@@ -92,8 +93,8 @@ class WordQuizUpdateActivity : AppCompatActivity() {
 
         // 프로그램 화면으로 변경하기!
         binding.btnProgram.setOnClickListener {
-            /*val intent = Intent(this, ProgramActivity::class.java)
-            startActivity(intent)*/
+            val intent = Intent(this, ProgramHomeActivity::class.java)
+            startActivity(intent)
         }
 
         // 마이페이지 화면으로 변경하기!

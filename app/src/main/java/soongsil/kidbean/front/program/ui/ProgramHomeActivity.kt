@@ -1,22 +1,19 @@
-package soongsil.kidbean.front.quiz
+package soongsil.kidbean.front.program.ui
 
 import android.content.Intent
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import soongsil.kidbean.front.databinding.ActivityQuizListBinding
+import android.os.Bundle
+import soongsil.kidbean.front.R
+import soongsil.kidbean.front.databinding.ActivityProgramHomeBinding
 import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.mypage.MypageActivity
-import soongsil.kidbean.front.program.ui.ProgramHomeActivity
-import soongsil.kidbean.front.quiz.answer.ui.AnswerQuizSolveActivity
-import soongsil.kidbean.front.quiz.image.ui.ImageQuizSolveActivity
-import soongsil.kidbean.front.quiz.word.ui.WordQuizSolveActivity
+import soongsil.kidbean.front.quiz.QuizListActivity
 
-class QuizListActivity : AppCompatActivity() {
-
-    private lateinit var binding : ActivityQuizListBinding
+class ProgramHomeActivity : AppCompatActivity() {
+    private lateinit var binding : ActivityProgramHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityQuizListBinding.inflate(layoutInflater)
+        binding = ActivityProgramHomeBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
@@ -25,19 +22,13 @@ class QuizListActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.btnImage.setOnClickListener {
-            val intent = Intent(this, ImageQuizSolveActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        binding.btnProgramList.setOnClickListener {
+            val intent = Intent(this, ProgramListActivity::class.java)
             startActivity(intent)
         }
 
-        binding.btnWord.setOnClickListener {
-            val intent = Intent(this, WordQuizSolveActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.btnAnswer.setOnClickListener {
-            val intent = Intent(this, AnswerQuizSolveActivity::class.java)
+        binding.btnStar.setOnClickListener {
+            val intent = Intent(this, ProgramStarActivity::class.java)
             startActivity(intent)
         }
 

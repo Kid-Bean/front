@@ -1,58 +1,55 @@
-package soongsil.kidbean.front.quiz.image.ui
+package soongsil.kidbean.front.program.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import soongsil.kidbean.front.home.ui.MainActivity
-import soongsil.kidbean.front.databinding.ActivityImageQuizListBinding
+import soongsil.kidbean.front.databinding.ActivityProgramStarBinding
 import soongsil.kidbean.front.global.ResponseTemplate
+import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.mypage.MypageActivity
-import soongsil.kidbean.front.program.ui.ProgramHomeActivity
-import soongsil.kidbean.front.quiz.MyQuizActivity
+import soongsil.kidbean.front.program.dto.response.ProgramResponse
+import soongsil.kidbean.front.program.dto.response.ProgramResponseList
+import soongsil.kidbean.front.program.presentation.ProgramController
 import soongsil.kidbean.front.quiz.QuizListActivity
-import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberResponse
-import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
 import soongsil.kidbean.front.util.ApiClient
 
-class ImageQuizListActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityImageQuizListBinding
+class ProgramStarActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityProgramStarBinding
+    private var nowPage = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityImageQuizListBinding.inflate(layoutInflater)
+        binding = ActivityProgramStarBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         ApiClient.init(this)
 
-        binding.btnBack.setOnClickListener {
-            // 홈 화면으로 이동
-            val intent = Intent(this, MyQuizActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.btnEnroll.setOnClickListener {
-            // 그림 문제 등록 화면으로 이동
-            val intent = Intent(this, ImageQuizUploadActivity::class.java)
-            startActivity(intent)
-        }
-
-        loadQuizList()
-
+        loadProgramList()
         bottomSetting()
-    }
 
-    private fun setAdapter(quizList: List<ImageQuizMemberResponse>) {
-        val listAdapter = ImageQuizAdapter(quizList)
-        val linearLayoutManager = LinearLayoutManager(this)
+        binding.btnBack.setOnClickListener {
+            val intent = Intent(this, ProgramHomeActivity::class.java)
+            startActivity(intent)
+        }
 
-        binding.rvQuiz.adapter = listAdapter
-        binding.rvQuiz.layoutManager = linearLayoutManager
-        binding.rvQuiz.setHasFixedSize(true)
+        binding.btnPageBefore.setOnClickListener {
+            if (nowPage > 0) {
+                nowPage--
+                loadProgramList()
+            }
+        }
+
+        binding.btnPageAfter.setOnClickListener {
+            nowPage++
+            loadProgramList()
+        }
     }
 
     private fun bottomSetting() {
@@ -80,33 +77,47 @@ class ImageQuizListActivity : AppCompatActivity() {
         }
     }
 
-    private fun loadQuizList() {
-        val imageQuizController = ApiClient.getApiClient().create(ImageQuizController::class.java)
-        imageQuizController.getAllImageQuizByMember().enqueue(object :
-            Callback<ResponseTemplate<List<ImageQuizMemberResponse>>> {
+    private fun loadProgramList() {
+        val programController = ApiClient.getApiClient().create(ProgramController::class.java)
+        programController.getStarProgramList(nowPage).enqueue(object :
+            Callback<ResponseTemplate<ProgramResponseList>> {
+            @SuppressLint("SetTextI18n")
             override fun onResponse(
-                call: Call<ResponseTemplate<List<ImageQuizMemberResponse>>>,
-                response: Response<ResponseTemplate<List<ImageQuizMemberResponse>>>,
+                call: Call<ResponseTemplate<ProgramResponseList>>,
+                response: Response<ResponseTemplate<ProgramResponseList>>,
             ) {
                 if (response.isSuccessful) {
                     // 정상적으로 통신이 성공된 경우
                     Log.d("post", "onResponse 성공: " + response.body().toString())
 
-                    val body = response.body()?.results
+                    val body = response.body()?.results?.programResponseList
 
                     if (body!!.isNotEmpty()) {
                         setAdapter(body)
                     }
+
+                    //뷰의 페이지 번호 변경
+                    binding.tvNowPage.text = (nowPage + 1).toString()
                 } else {
                     // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
                     Log.d("post", "onResponse 실패 + ${response.code()}")
+                    nowPage--
                 }
             }
 
-            override fun onFailure(call: Call<ResponseTemplate<List<ImageQuizMemberResponse>>>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseTemplate<ProgramResponseList>>, t: Throwable) {
                 // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
                 Log.d("post", "onFailure 에러: " + t.message.toString())
             }
         })
+    }
+
+    private fun setAdapter(programList: List<ProgramResponse>) {
+        val listAdapter = ProgramAdapter(programList)
+        val linearLayoutManager = LinearLayoutManager(this)
+
+        binding.rvProgram.adapter = listAdapter
+        binding.rvProgram.layoutManager = linearLayoutManager
+        binding.rvProgram.setHasFixedSize(true)
     }
 }

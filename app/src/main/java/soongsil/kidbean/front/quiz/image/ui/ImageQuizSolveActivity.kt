@@ -27,6 +27,7 @@ import soongsil.kidbean.front.R
 import soongsil.kidbean.front.databinding.ActivityImageQuizSolveBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.mypage.MypageActivity
+import soongsil.kidbean.front.program.ui.ProgramHomeActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.image.application.AudioWriterPCM
 import soongsil.kidbean.front.quiz.image.application.NaverRecognizer
@@ -141,9 +142,9 @@ class ImageQuizSolveActivity : AppCompatActivity() {
 
         // 프로그램 화면으로 변경하기!
         binding.btnProgram.setOnClickListener {
-            /*val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, ProgramHomeActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)*/
+            startActivity(intent)
         }
 
         // 마이페이지 화면으로 변경하기!

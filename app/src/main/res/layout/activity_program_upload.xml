@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        tools:context=".program.ui.ProgramUploadActivity">
+
+<LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
+
+    <TextView
+            android:id="@+id/tv_program_list_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            style="@style/AndroidH1"
+            android:textColor="@color/black"
+            android:text="프로그램 정보"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+</LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/layout_back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/linearLayout"
+            app:layout_constraintBottom_toBottomOf="@id/linearLayout"
+            tools:ignore="MissingConstraints,NotSibling">
+
+        <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="left"
+                android:foregroundGravity="bottom"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_left"
+                android:scaleType="fitCenter"
+                tools:ignore="MissingConstraints"
+                android:contentDescription="TODO">
+        </ImageButton>
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toTopOf="@id/layout_enroll"
+            app:layout_constraintTop_toBottomOf="@id/linearLayout"
+            app:layout_constraintStart_toStartOf="@id/linearLayout"
+            app:layout_constraintEnd_toEndOf="@id/linearLayout"
+            tools:ignore="NotSibling"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="50dp"
+                android:nestedScrollingEnabled="false"
+                android:orientation="vertical">
+
+            <TextView
+                    android:id="@+id/tv_program_name"
+                    style="@style/AndroidSubtitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="프로그램명"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="@id/linearLayout"
+                    app:layout_constraintTop_toBottomOf="@id/linearLayout" />
+
+            <EditText
+                    android:id="@+id/et_program"
+                    style="@style/AndroidBody3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edittext_small_gray"
+                    android:inputType="text"
+                    android:hint="프로그램명을 입력해주세요"
+                    android:privateImeOptions="defaultInputmode=korea"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_program_name" />
+
+            <TextView
+                    android:id="@+id/tv_department_name"
+                    style="@style/AndroidSubtitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="담당자 이름"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="@id/et_name"
+                    app:layout_constraintTop_toBottomOf="@id/et_program" />
+
+            <EditText
+                    android:id="@+id/et_department"
+                    style="@style/AndroidBody3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edittext_small_gray"
+                    android:inputType="text"
+                    android:hint="담당자 이름을 입력해주세요"
+                    android:maxLines="1"
+                    android:maxLength="8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_department_name" />
+
+            <TextView
+                    android:id="@+id/tv_department_image"
+                    style="@style/AndroidSubtitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="담당자 이미지"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_department" />
+
+            <ImageView
+                    android:id="@+id/img_department"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/shape_edittext_big"
+                    android:gravity="top"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_department_image"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            <TextView
+                    android:id="@+id/tv_location"
+                    style="@style/AndroidSubtitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="장소"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/img_department" />
+
+            <EditText
+                    android:id="@+id/et_location"
+                    style="@style/AndroidBody3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edittext_small_gray"
+                    android:inputType="text"
+                    android:hint="장소를 입력해주세요"
+                    android:maxLines="1"
+                    android:maxLength="8"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_location" />
+
+            <TextView
+                    android:id="@+id/tv_day"
+                    style="@style/AndroidSubtitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="프로그램 진행 요일을 선택하세요"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_location" />
+
+            <LinearLayout
+                    android:id="@+id/btn_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:paddingBottom="4dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_day"
+                    android:weightSum="7">
+
+                <Button
+                        android:id="@+id/btn_day1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        style="@style/AndroidCaption2"
+                        android:includeFontPadding="false"
+                        android:layout_marginRight="5dp"
+                        android:text="월"
+                        android:background="@drawable/unselected_shape_day"
+                        android:layout_weight="1"/>
+
+                <Button
+                        android:id="@+id/btn_day2"
+                        android:layout_width="0dp"
+                        style="@style/AndroidCaption2"
+                        android:includeFontPadding="false"
+                        android:text="화"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/unselected_shape_day"
+                        android:layout_weight="1"/>
+
+                <Button
+                        android:id="@+id/btn_day3"
+                        android:layout_width="0dp"
+                        style="@style/AndroidCaption2"
+                        android:includeFontPadding="false"
+                        android:text="수"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/unselected_shape_day"
+                        android:layout_weight="1"/>
+
+                <Button
+                        android:id="@+id/btn_day4"
+                        android:layout_width="0dp"
+                        style="@style/AndroidCaption2"
+                        android:includeFontPadding="false"
+                        android:text="목"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/unselected_shape_day"
+                        android:layout_weight="1"/>
+
+                <Button
+                        android:id="@+id/btn_day5"
+                        android:layout_width="0dp"
+                        style="@style/AndroidCaption2"
+                        android:includeFontPadding="false"
+                        android:text="금"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/unselected_shape_day"
+                        android:layout_weight="1"/>
+
+                <Button
+                        android:id="@+id/btn_day6"
+                        android:layout_width="0dp"
+                        style="@style/AndroidCaption2"
+                        android:includeFontPadding="false"
+                        android:text="토"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/unselected_shape_day"
+                        android:layout_weight="1"/>
+
+                <Button
+                        android:id="@+id/btn_day7"
+                        android:layout_width="0dp"
+                        style="@style/AndroidCaption2"
+                        android:includeFontPadding="false"
+                        android:text="일"
+                        android:layout_marginLeft="5dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/unselected_shape_day"
+                        android:layout_weight="1"/>
+            </LinearLayout>
+
+            <TextView
+                    android:id="@+id/tv_phone"
+                    style="@style/AndroidSubtitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="전화번호"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_day" />
+
+            <EditText
+                    android:id="@+id/et_phone"
+                    style="@style/AndroidBody3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edittext_small_gray"
+                    android:hint="전화번호를 입력해주세요"
+                    android:maxLines="1"
+                    android:maxLength="11"
+                    android:inputType="phone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_phone" />
+
+            <TextView
+                    android:id="@+id/tv_content_title"
+                    style="@style/AndroidSubtitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="내용 제목"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_phone" />
+
+            <EditText
+                    android:id="@+id/et_content_title"
+                    style="@style/AndroidBody3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_edittext_small_gray"
+                    android:hint="\제목을 입력해주세요"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_content_title" />
+
+            <TextView
+                    android:id="@+id/tv_content"
+                    style="@style/AndroidSubtitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="프로그램 내용"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_content_title" />
+
+            <EditText
+                    android:id="@+id/et_comment"
+                    style="@style/AndroidBody3"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/shape_edittext_big"
+                    android:gravity="top"
+                    android:hint="내용을 입력해주세요"
+                    android:includeFontPadding="false"
+                    android:inputType="textMultiLine"
+                    android:lineSpacingExtra="-4dp"
+                    android:lines="10"
+                    android:maxLength="500"
+                    android:padding="10dp"
+                    android:privateImeOptions="defaultInputmode=korea"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_content"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            <TextView
+                    android:id="@+id/tv_maxtext"
+                    style="@style/AndroidCaption2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/max_500"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="@+id/et_comment"
+                    app:layout_constraintTop_toBottomOf="@+id/et_comment" />
+
+            <TextView
+                    android:id="@+id/tv_program_image"
+                    style="@style/AndroidSubtitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="프로그램 이미지"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_maxtext" />
+
+            <ImageView
+                    android:id="@+id/img_program"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/shape_edittext_big"
+                    android:gravity="top"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_program_image"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            <LinearLayout
+                    android:id="@+id/tv_category_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="4"
+                    android:paddingTop="15dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/img_program">
+
+                <TextView
+                        style="@style/AndroidBody1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="카테고리"
+                        android:textColor="@color/black"
+                        android:layout_weight="1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                <Spinner
+                        android:id="@+id/tv_category"
+                        android:layout_width="0dp"
+                        android:layout_weight="3"
+                        android:layout_height="50dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_centerInParent="true"/>
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+            android:id="@+id/layout_enroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bottom">
+
+        <Button
+                android:id="@+id/btn_enroll"
+                style="@style/AndroidButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/shape_btn"
+                android:backgroundTint="@color/green"
+                android:includeFontPadding="false"
+                android:text="등록하기"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:weightSum="4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:orientation="horizontal">
+
+    <LinearLayout
+            android:id="@+id/btn_home"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+        <Button
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_home"
+                android:backgroundTint="@color/gray600"
+                android:layout_gravity="center_horizontal">
+        </Button>
+
+        <TextView
+                style="@style/AndroidCaption2"
+                android:includeFontPadding="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray600"
+                android:text="홈"
+                android:layout_gravity="center_horizontal">
+
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/btn_quiz"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+        <Button
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_quiz"
+                android:backgroundTint="@color/gray600"
+                android:layout_gravity="center_horizontal">
+        </Button>
+
+        <TextView
+                style="@style/AndroidCaption2"
+                android:includeFontPadding="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray600"
+                android:text="문제 풀기"
+                android:layout_gravity="center_horizontal">
+
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/btn_program"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+        <Button
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/ic_program"
+
+                android:layout_gravity="center_horizontal">
+        </Button>
+
+        <TextView
+                style="@style/AndroidCaption2"
+                android:includeFontPadding="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:text="프로그램"
+                android:layout_gravity="center_horizontal">
+
+        </TextView>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/btn_mypage"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+        <Button
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:backgroundTint="@color/gray600"
+                android:background="@drawable/ic_mypage"
+                android:layout_gravity="center_horizontal">
+        </Button>
+
+        <TextView
+                style="@style/AndroidCaption2"
+                android:includeFontPadding="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray600"
+                android:text="마이페이지"
+                android:layout_gravity="center_horizontal">
+
+        </TextView>
+    </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
