@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import soongsil.kidbean.front.R
 import soongsil.kidbean.front.databinding.ActivityProgramStarBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.home.ui.MainActivity
@@ -80,7 +79,7 @@ class ProgramStarActivity : AppCompatActivity() {
 
     private fun loadProgramList() {
         val programController = ApiClient.getApiClient().create(ProgramController::class.java)
-        programController.getProgramList(listOf("HOSPITAL", "ACADEMY"), nowPage).enqueue(object :
+        programController.getStarProgramList(nowPage).enqueue(object :
             Callback<ResponseTemplate<ProgramResponseList>> {
             @SuppressLint("SetTextI18n")
             override fun onResponse(

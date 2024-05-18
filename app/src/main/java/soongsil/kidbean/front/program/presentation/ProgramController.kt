@@ -24,6 +24,11 @@ interface ProgramController {
         @Query("page") page: Int
     ): Call<ResponseTemplate<ProgramResponseList>>
 
+    @GET("programs/star")
+    fun getStarProgramList(
+        @Query("page") page: Int
+    ): Call<ResponseTemplate<ProgramResponseList>>
+
     @POST("program/star/{programId}")
     fun postStar(
         @Path("programId") programId: Long
