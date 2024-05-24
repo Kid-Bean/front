@@ -14,6 +14,7 @@ import soongsil.kidbean.front.databinding.ActivityImageQuizSolvedResultBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.mypage.MySolvedQuizActivity
+import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.mypage.image.dto.response.SolvedImageDetailResponse
 import soongsil.kidbean.front.mypage.presentation.MypageController
 import soongsil.kidbean.front.program.ui.ProgramHomeActivity
@@ -104,9 +105,8 @@ class ImageQuizSolvedDetailActivity : AppCompatActivity() {
 
         // 마이페이지 화면으로 변경하기!
         binding.btnMypage.setOnClickListener {
-            val intent = Intent(this, MySolvedQuizActivity::class.java)
+            val intent = Intent(this, MypageActivity::class.java)
             startActivity(intent)
         }
     }
-
 }

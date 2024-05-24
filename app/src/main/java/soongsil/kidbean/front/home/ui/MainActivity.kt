@@ -28,7 +28,6 @@ import soongsil.kidbean.front.login.presentation.LoginController
 import soongsil.kidbean.front.login.ui.LoginActivity
 import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.program.ui.ProgramHomeActivity
-import soongsil.kidbean.front.program.ui.ProgramListActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.util.ApiClient
 import java.nio.charset.Charset
@@ -54,12 +53,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, QuizListActivity::class.java)
             startActivity(intent)
         }
-
-        //DB 밀었을 때 한번씩 해주세요!
-//        preferences = getSharedPreferences("token", AppCompatActivity.MODE_PRIVATE)
-//        val editor = preferences!!.edit()
-//        editor.clear()
-//        editor.apply()
 
         preferences = getSharedPreferences("token", AppCompatActivity.MODE_PRIVATE)
         val accessToken = preferences?.getString("accessToken", "")
