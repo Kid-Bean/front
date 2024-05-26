@@ -268,7 +268,7 @@ class ProgramUploadActivity : AppCompatActivity() {
             "date": $dateJsonArray,
             "place": "${binding.etLocation.text}",
             "departmentName": "${binding.etDepartment.text}",
-            "phoneNumber": "${binding.tvPhone.text}"
+            "phoneNumber": "${binding.etPhone.text}"
         }
         """.trimIndent().toRequestBody("application/json; charset=utf-8".toMediaTypeOrNull())
 
