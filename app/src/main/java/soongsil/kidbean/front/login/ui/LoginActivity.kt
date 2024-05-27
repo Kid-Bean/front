@@ -22,6 +22,7 @@ import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.login.dto.request.LoginRequest
 import soongsil.kidbean.front.login.dto.response.LoginResponse
 import soongsil.kidbean.front.login.presentation.LoginController
+import soongsil.kidbean.front.util.ApiClient
 
 
 class LoginActivity : AppCompatActivity() {
@@ -86,7 +87,7 @@ class LoginActivity : AppCompatActivity() {
         var customAccessToken: String
         var customRefreshToken: String
 
-        val loginController = retrofit.create(LoginController::class.java)
+        val loginController = ApiClient.getApiClient().create(LoginController::class.java)
         loginController.socialLogin("kakao", request).enqueue(object :
             Callback<ResponseTemplate<LoginResponse>> {
             @SuppressLint("SetTextI18n")
