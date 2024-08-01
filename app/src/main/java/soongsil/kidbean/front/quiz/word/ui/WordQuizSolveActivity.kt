@@ -69,6 +69,13 @@ class WordQuizSolveActivity : AppCompatActivity() {
         }
 
         bottomSetting()
+
+        binding.btnBack.setOnClickListener {
+            // 홈 화면으로 이동 - 진짜 나가겠냐고 물어보기
+            val intent = Intent(this, QuizListActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+        }
     }
 
     private fun bottomSetting() {

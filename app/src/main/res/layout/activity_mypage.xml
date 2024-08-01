@@ -23,7 +23,7 @@
                 android:gravity="center"
                 style="@style/AndroidH1"
                 android:textColor="@color/black"
-                android:text="마이 페이지"
+                android:text="마이페이지"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -51,66 +51,85 @@
         </ImageButton>
     </LinearLayout>
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/member_info"
             android:layout_width="match_parent"
             android:layout_height="150dp"
-            app:layout_constraintTop_toBottomOf="@id/linearLayout">
+            app:layout_constraintTop_toBottomOf="@id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/quiz_category">
 
         <!-- Profile Thumbnail -->
         <ImageView
                 android:id="@+id/thumb_profile"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginStart="16dp"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
                 android:src="@drawable/kidbean"
                 android:scaleType="centerCrop"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
-        <!-- Name TextView -->
-        <TextView
-                android:id="@+id/text_name"
-                style="@style/AndroidCaption2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/thumb_profile"
-                android:layout_marginStart="60dp"
-                android:includeFontPadding="false"
-                android:text="금쪽이"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:layout_centerVertical="true"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="200dp"
+                android:layout_height="100dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/thumb_profile"
+                app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Gender TextView -->
-        <TextView
-                android:id="@+id/text_gender"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/text_name"
-                android:layout_marginStart="50dp"
-                android:includeFontPadding="false"
-                style="@style/AndroidCaption3"
-                android:text="남자"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:layout_centerVertical="true"/>
+            <TextView
+                    android:id="@+id/text_name"
+                    style="@style/AndroidCaption1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:includeFontPadding="false"
+                    android:text="금쪽이"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/text_gender"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/text_birth" />
 
-        <!-- Date of Birth -->
-        <TextView
-                android:id="@+id/text_birth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/text_name"
-                style="@style/AndroidCaption4"
-                android:includeFontPadding="false"
-                android:layout_marginTop="8dp"
-                android:layout_toEndOf="@id/thumb_profile"
-                android:layout_marginStart="60dp"
-                android:text="2020/03/18"
-                android:textColor="@color/black"
-                android:textSize="16sp"/>
+            <!-- Gender TextView -->
+            <TextView
+                    android:id="@+id/text_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@id/text_name"
+                    android:includeFontPadding="false"
+                    style="@style/AndroidCaption2"
+                    android:text="남자"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toEndOf="@id/text_name"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/text_birth"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-    </RelativeLayout>
+            <!-- Date of Birth -->
+            <TextView
+                    android:id="@+id/text_birth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_name"
+                    style="@style/AndroidCaption2"
+                    android:includeFontPadding="false"
+                    android:text="2020/03/18"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@+id/text_gender"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
             android:id="@+id/quiz_category"
@@ -120,7 +139,8 @@
             android:gravity="center_vertical"
             app:layout_constraintTop_toBottomOf="@id/member_info"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bottom">
 
         <Button
                 android:id="@+id/btn_change_info"
@@ -130,8 +150,8 @@
                 android:layout_marginBottom="20dp"
                 android:text="개인 정보 수정"
                 android:background="@drawable/shape_round_box"
-                android:layout_gravity="center_vertical" />
-
+                android:layout_gravity="center_vertical">
+        </Button>
         <Button
                 android:id="@+id/btn_solved_info"
                 android:layout_width="match_parent"
@@ -140,8 +160,8 @@
                 style="@style/AndroidH2"
                 android:text="문제 풀이 결과"
                 android:background="@drawable/shape_round_box"
-                android:layout_gravity="center_vertical" />
-
+                android:layout_gravity="center_vertical">
+        </Button>
         <Button
                 android:id="@+id/btn_my_quiz"
                 android:layout_width="match_parent"
@@ -149,7 +169,8 @@
                 style="@style/AndroidH2"
                 android:text="내가 등록한 문제"
                 android:background="@drawable/shape_round_box"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal">
+        </Button>
 
     </LinearLayout>
 

@@ -2,10 +2,11 @@ package soongsil.kidbean.front.program.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.auth0.jwt.JWT
 import com.auth0.jwt.interfaces.DecodedJWT
 import com.bumptech.glide.Glide
@@ -18,13 +19,14 @@ import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.program.dto.response.ProgramDetailResponse
-import soongsil.kidbean.front.program.dto.response.ProgramResponseList
 import soongsil.kidbean.front.program.presentation.ProgramController
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.util.ApiClient
 
+
 class ProgramDetailActivity : AppCompatActivity() {
     private lateinit var binding : ActivityProgramDetailBinding
+    private lateinit var phoneCall : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityProgramDetailBinding.inflate(layoutInflater)
@@ -43,7 +45,7 @@ class ProgramDetailActivity : AppCompatActivity() {
         bottomSetting()
         loadProgramInfo(programId)
 
-        //JWT를 확인해서 role이 ADMIN이면 프로그램 추가 버튼 활성화 - 나중에 확인 필요
+        //JWT를 확인해서 role이 ADMIN이면 프로그램 추가 버튼 활성화
         val accessToken = getSharedPreferences("token", AppCompatActivity.MODE_PRIVATE)?.getString("accessToken", "")
         val jwt: DecodedJWT = JWT.decode(accessToken)
         val role = jwt.getClaim("role").asString()
@@ -56,6 +58,12 @@ class ProgramDetailActivity : AppCompatActivity() {
                 intent.putExtra("programId", programId)
                 startActivity(intent)
             }
+        }
+
+        //예약 전화하기 누르면 전화 걸기로 이동
+        binding.btnEnroll.setOnClickListener {
+            val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phoneCall"))
+            startActivity(intent)
         }
     }
 
@@ -114,6 +122,8 @@ class ProgramDetailActivity : AppCompatActivity() {
 
                     binding.tvContentTitle.text = body?.contentTitle
 
+                    phoneCall = body?.phoneNumber.toString()
+
                     Glide.with(this@ProgramDetailActivity)
                         .load(body?.programS3Url)
                         .into(binding.imgProgram)
@@ -131,6 +141,7 @@ class ProgramDetailActivity : AppCompatActivity() {
             }
         })
     }
+
 
     private fun bottomSetting() {
         binding.btnHome.setOnClickListener {

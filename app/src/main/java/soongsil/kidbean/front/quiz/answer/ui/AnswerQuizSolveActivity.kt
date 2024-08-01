@@ -4,7 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
@@ -12,6 +11,7 @@ import android.os.Message
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.naver.speech.clientapi.SpeechRecognitionResult
@@ -92,6 +92,13 @@ class AnswerQuizSolveActivity : AppCompatActivity() {
                 btnStart!!.isEnabled = false
                 naverRecognizer!!.speechRecognizer!!.stop()
             }
+        }
+
+        binding.btnBack.setOnClickListener {
+            // 홈 화면으로 이동 - 진짜 나가겠냐고 물어보기
+            val intent = Intent(this, QuizListActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
 
         loadInfo()

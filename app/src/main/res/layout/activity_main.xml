@@ -118,38 +118,42 @@
             app:layout_constraintBottom_toTopOf="@id/progressbar"/>
 
     <ProgressBar
-        android:id="@+id/progressbar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:progress="70"
-        android:layout_marginBottom="30dp"
-        app:layout_constraintStart_toStartOf="@id/layout_button"
-        app:layout_constraintEnd_toEndOf="@id/layout_button"
-        app:layout_constraintBottom_toTopOf="@id/layout_button"
-        android:progressDrawable="@drawable/custom_progress_bar"
-        android:max="100"
-        android:padding="8dp"
-    />
+            android:id="@+id/progressbar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:progress="70"
+            android:layout_marginBottom="28dp"
+            app:layout_constraintStart_toStartOf="@id/layout_button"
+            app:layout_constraintEnd_toEndOf="@id/layout_button"
+            app:layout_constraintTop_toBottomOf="@id/img_view"
+            app:layout_constraintBottom_toTopOf="@id/layout_button"
+            android:progressDrawable="@drawable/custom_progress_bar"
+            android:max="100"
+            android:padding="8dp"
+            app:layout_constraintHorizontal_bias="0.0" />
 
     <LinearLayout
             android:id="@+id/layout_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/progressbar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/bottom">
+            app:layout_constraintBottom_toTopOf="@id/bottom"
+            app:layout_constraintEnd_toEndOf="parent">
 
         <Button
                 android:id="@+id/btn_enroll"
                 style="@style/AndroidButton1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_weight="1"
                 android:background="@drawable/shape_btn"
                 android:backgroundTint="@color/green"
                 android:includeFontPadding="false"
                 android:text="콩나무 키우러 가기"
                 android:textColor="@color/white"
+                android:layout_marginBottom="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent" />
