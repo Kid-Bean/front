@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
@@ -119,10 +120,16 @@ class SolvedImageQuizMainActivity : AppCompatActivity() {
         ageScoreLineDataSet.color = Color.parseColor("#DF5757")
 
         myScoreLineDataSet.setCircleColor(Color.parseColor("#4CAF50"))
-        myScoreLineDataSet.setLineWidth(4F); //라인 두께
+        myScoreLineDataSet.setLineWidth(3F); //라인 두께
         myScoreLineDataSet.setCircleRadius(6F); // 점 크기
         myScoreLineDataSet.setDrawCircleHole(true); // 원의 겉 부분 칠할거?
         myScoreLineDataSet.valueTextSize = 0F
+
+        ageScoreLineDataSet.setCircleColor(Color.parseColor("#DF5757"))
+        ageScoreLineDataSet.setLineWidth(3F); //라인 두께
+        ageScoreLineDataSet.setCircleRadius(6F); // 점 크기
+        ageScoreLineDataSet.setDrawCircleHole(true); // 원의 겉 부분 칠할거?
+        ageScoreLineDataSet.valueTextSize = 0F
 
         binding.imageScoreChart.apply {
 //            var combinedata = LineDataSet(LineData(myScoreLineDataSet, ageScoreLineDataSet))
@@ -134,18 +141,32 @@ class SolvedImageQuizMainActivity : AppCompatActivity() {
             data = LineData(myScoreLineDataSet, ageScoreLineDataSet)
             description.isEnabled = false
 
-            xAxis.position = XAxis.XAxisPosition.BOTTOM
+            legend.isEnabled = true
+            legend.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+            legend.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
+            legend.orientation = Legend.LegendOrientation.HORIZONTAL
+            legend.setDrawInside(false)
+            legend.textSize = 10f
+
+            xAxis.position = XAxis.XAxisPosition.BOTTOM_INSIDE
             xAxis.labelCount = 4
             xAxis.granularity = 1f
             xAxis.setDrawGridLines(false)
             xAxis.setDrawAxisLine(false)
             xAxis.setTextSize(14f);
-            xAxis.enableGridDashedLine(10F, 24F, 0F); //수직 격자선
+            xAxis.enableGridDashedLine(5F, 24F, 0F); //수직 격자선
             xAxis.setGranularity(1f);
 
-            var yAxis: YAxis
-            yAxis = YAxis()
-            yAxis.setDrawAxisLine(false)
+            val leftAxis = axisLeft
+            leftAxis.granularity = 1f // Set the granularity
+            leftAxis.setDrawGridLines(true)
+            leftAxis.labelCount = 4
+
+            val rightAxis = axisRight
+            rightAxis.setDrawLabels(false);
+            rightAxis.setDrawAxisLine(false);
+            rightAxis.setDrawGridLines(false);
+
 
             val xLabels = listOf(0f to "동물", 1f to "식물", 2f to "사물", 3f to "음식", 4f to "기타")
             xAxis.valueFormatter = object : ValueFormatter() {
