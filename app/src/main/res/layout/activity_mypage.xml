@@ -4,8 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
-        tools:context=".quiz.image.ui.ImageQuizListActivity">
+        android:padding="16dp">
 
     <LinearLayout
             android:id="@+id/linearLayout"
@@ -154,47 +153,145 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toTopOf="@id/bottom">
 
-                <TextView
+                <LinearLayout
                         android:id="@+id/btn_change_info"
-                        style="@style/AndroidH1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:text="개인 정보 수정"
-                        android:layout_gravity="center_vertical" />
+                        android:weightSum="5"
+                    android:orientation="horizontal">
+
+                    <TextView
+                            android:id="@+id/text_info"
+                            style="@style/AndroidH1"
+                            android:layout_width="0dp"
+                            android:layout_weight="4.5"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/black"
+                            android:text="개인 정보 수정"
+                            android:layout_gravity="center_vertical" />
+
+                    <ImageButton
+                            android:id="@+id/btn_info_right"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:layout_gravity="left"
+                            android:foregroundGravity="bottom"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/ic_right"
+                            android:scaleType="fitCenter"
+                            tools:ignore="MissingConstraints"
+                            android:contentDescription="TODO">
+                    </ImageButton>
+
+                </LinearLayout>
 
                 <TextView
                         android:id="@+id/btn_my_quiz"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         style="@style/AndroidH1"
+                        android:textColor="@color/black"
                         android:text="내가 등록한 문제"
-                        android:layout_marginBottom="5dp"
                         android:layout_gravity="center_horizontal" />
 
-                <TextView
-                        android:id="@+id/enroll_btn_image"
-                        style="@style/AndroidH2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="그림 맞추기"
-                        android:layout_gravity="center_vertical" />
+            <LinearLayout
+                    android:id="@+id/enroll_btn_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="5"
+                    android:orientation="horizontal">
 
                 <TextView
-                        android:id="@+id/enroll_btn_word"
-                        android:layout_width="match_parent"
+                        android:id="@+id/enroll_text_image"
+                        style="@style/AndroidH2"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.5"
+                        android:layout_height="wrap_content"
+                        android:text="그림 맞추기"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center_vertical" />
+                <ImageButton
+                        android:id="@+id/btn_myimage_right"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="left"
+                        android:foregroundGravity="bottom"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_right"
+                        android:scaleType="fitCenter"
+                        tools:ignore="MissingConstraints"
+                        android:contentDescription="TODO">
+                </ImageButton>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/enroll_btn_word"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="5"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:id="@+id/enroll_text_word"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.5"
                         android:layout_height="wrap_content"
                         style="@style/AndroidH2"
                         android:text="단어 맞추기"
+                        android:textColor="@color/black"
                         android:layout_gravity="center_vertical" />
 
+                <ImageButton
+                        android:id="@+id/btn_myword_right"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="left"
+                        android:foregroundGravity="bottom"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_right"
+                        android:scaleType="fitCenter"
+                        tools:ignore="MissingConstraints"
+                        android:contentDescription="TODO">
+                </ImageButton>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/enroll_btn_answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="5"
+                    android:orientation="horizontal">
+
                 <TextView
-                        android:id="@+id/enroll_btn_answer"
-                        android:layout_width="match_parent"
+                        android:id="@+id/enroll_text_answer"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="4.5"
                         style="@style/AndroidH2"
                         android:text="질문 대답하기"
+                        android:textColor="@color/black"
                         android:layout_gravity="center_horizontal" />
+
+                <ImageButton
+                        android:id="@+id/btn_myanswer_right"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="left"
+                        android:foregroundGravity="bottom"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_right"
+                        android:scaleType="fitCenter"
+                        tools:ignore="MissingConstraints"
+                        android:contentDescription="TODO">
+                </ImageButton>
+
+            </LinearLayout>
 
                 <TextView
                         android:id="@+id/btn_solved_info"
@@ -202,32 +299,107 @@
                         android:layout_height="wrap_content"
                         style="@style/AndroidH1"
                         android:text="문제 풀이 결과"
-                        android:layout_marginBottom="5dp"
+                        android:textColor="@color/black"
                         android:layout_gravity="center_vertical" />
 
+            <LinearLayout
+                    android:id="@+id/btn_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="5"
+                    android:orientation="horizontal">
+
                 <TextView
-                        android:id="@+id/btn_image"
+                        android:id="@+id/text_image"
                         style="@style/AndroidH2"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.5"
+                        android:textColor="@color/black"
                         android:layout_height="wrap_content"
                         android:text="그림 맞추기"
                         android:layout_gravity="center_vertical" />
 
+                <ImageButton
+                        android:id="@+id/btn_anyimage_right"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="left"
+                        android:foregroundGravity="bottom"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_right"
+                        android:scaleType="fitCenter"
+                        tools:ignore="MissingConstraints"
+                        android:contentDescription="TODO">
+                </ImageButton>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/btn_word"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="5"
+                    android:orientation="horizontal">
+
                 <TextView
-                        android:id="@+id/btn_word"
-                        android:layout_width="match_parent"
+                        android:id="@+id/text_word"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.5"
                         android:layout_height="wrap_content"
                         style="@style/AndroidH2"
+                        android:textColor="@color/black"
                         android:text="단어 맞추기"
                         android:layout_gravity="center_vertical" />
 
+                <ImageButton
+                        android:id="@+id/btn_anyword_right"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="left"
+                        android:foregroundGravity="bottom"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_right"
+                        android:scaleType="fitCenter"
+                        tools:ignore="MissingConstraints"
+                        android:contentDescription="TODO">
+                </ImageButton>
+
+            </LinearLayout>
+
+            <LinearLayout
+                    android:id="@+id/btn_voice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="5"
+                    android:orientation="horizontal">
+
                 <TextView
-                        android:id="@+id/btn_voice"
-                        android:layout_width="match_parent"
+                        android:id="@+id/text_voice"
+                        android:layout_width="0dp"
+                        android:layout_weight="4.5"
                         android:layout_height="wrap_content"
                         style="@style/AndroidH2"
+                        android:textColor="@color/black"
                         android:text="질문 대답하기"
                         android:layout_gravity="center_horizontal" />
+
+                <ImageButton
+                        android:id="@+id/btn_anyanswer_right"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="left"
+                        android:foregroundGravity="bottom"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/ic_right"
+                        android:scaleType="fitCenter"
+                        tools:ignore="MissingConstraints"
+                        android:contentDescription="TODO">
+                </ImageButton>
+
+            </LinearLayout>
 
             </LinearLayout>
 

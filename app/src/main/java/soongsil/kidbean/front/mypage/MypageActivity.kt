@@ -46,15 +46,38 @@ class MypageActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.btnInfoRight.setOnClickListener {
+            // 사용자 정보 변경 창
+            val intent = Intent(this, UpdateKidInfoActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.enrollBtnImage.setOnClickListener {
             val intent = Intent(this, ImageQuizListActivity::class.java)
             startActivity(intent)
         }
+
+        binding.btnMyimageRight.setOnClickListener {
+            val intent = Intent(this, ImageQuizListActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.enrollBtnWord.setOnClickListener {
             val intent = Intent(this, WordQuizListActivity::class.java)
             startActivity(intent)
         }
+
+        binding.btnMywordRight.setOnClickListener {
+            val intent = Intent(this, WordQuizListActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.enrollBtnAnswer.setOnClickListener {
+            val intent = Intent(this, AnswerQuizListActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnMyanswerRight.setOnClickListener {
             val intent = Intent(this, AnswerQuizListActivity::class.java)
             startActivity(intent)
         }
@@ -64,12 +87,32 @@ class MypageActivity : AppCompatActivity() {
             val intent = Intent(this, SolvedImageQuizMainActivity::class.java)
             startActivity(intent)
         }
+
+        binding.btnAnyimageRight.setOnClickListener {
+            // 이미지 퀴즈 메인
+            val intent = Intent(this, SolvedImageQuizMainActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.btnWord.setOnClickListener {
             //단어 퀴즈 메인
             val intent = Intent(this, SolvedWordQuizListActivity::class.java)
             startActivity(intent)
         }
+
+        binding.btnAnywordRight.setOnClickListener {
+            //단어 퀴즈 메인
+            val intent = Intent(this, SolvedWordQuizListActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.btnVoice.setOnClickListener {
+            //음성 퀴즈 메인
+            val intent = Intent(this, SolvedAnswerQuizListActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.btnAnyanswerRight.setOnClickListener {
             //음성 퀴즈 메인
             val intent = Intent(this, SolvedAnswerQuizListActivity::class.java)
             startActivity(intent)
