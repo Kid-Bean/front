@@ -23,7 +23,7 @@
                 android:gravity="center"
                 style="@style/AndroidH1"
                 android:textColor="@color/black"
-                android:text="즐겨찾기 프로그램 목록"
+                android:text="즐겨찾기 목록"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
