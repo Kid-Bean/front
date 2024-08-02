@@ -127,9 +127,6 @@
                 android:name=".quiz.word.ui.WordQuizShowActivity"
                 android:exported="false" />
         <activity
-                android:name=".quiz.MyQuizActivity"
-                android:exported="true" />
-        <activity
                 android:name=".quiz.image.ui.ImageQuizListActivity"
                 android:exported="false" />
         <activity
@@ -154,9 +151,6 @@
                 android:name=".mypage.MypageActivity"
                 android:exported="false" />
         <activity
-                android:name=".mypage.MySolvedQuizActivity"
-                android:exported="false" />
-        <activity
                 android:name=".mypage.image.ui.SolvedImageQuizMainActivity"
                 android:exported="false" />
         <activity
@@ -173,9 +167,6 @@
                 android:exported="false" />
         <activity
                 android:name=".mypage.word.ui.SolvedWordQuizDetailActivity"
-                android:exported="false" />
-        <activity
-                android:name=".mypage.answer.ui.SolvedAnswerQuizMainActivity"
                 android:exported="false" />
         <activity
                 android:name=".mypage.answer.ui.SolvedAnswerQuizListActivity"

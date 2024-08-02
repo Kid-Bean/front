@@ -14,7 +14,6 @@ import soongsil.kidbean.front.databinding.ActivityWordQuizShowBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.program.ui.ProgramHomeActivity
-import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.word.dto.response.WordQuizMemberDetailResponse
 import soongsil.kidbean.front.quiz.word.presentation.WordQuizController
@@ -166,7 +165,7 @@ class WordQuizShowActivity : AppCompatActivity() {
                 }
 
                 // MyQuizActivity로 이동
-                val intent = Intent(this@WordQuizShowActivity, MyQuizActivity::class.java)
+                val intent = Intent(this@WordQuizShowActivity, MypageActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             }

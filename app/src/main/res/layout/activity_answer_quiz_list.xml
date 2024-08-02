@@ -66,6 +66,7 @@
             android:layout_height="match_parent"
             android:paddingStart="5dp"
             android:text="등록한 문제 목록"
+            android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20dp"
             android:textStyle="bold">

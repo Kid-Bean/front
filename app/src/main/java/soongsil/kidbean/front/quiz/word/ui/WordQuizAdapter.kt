@@ -16,7 +16,7 @@ class WordQuizAdapter(private val dataList: List<WordQuizMemberResponse>) :
                 RecyclerView.ViewHolder(binding.root) {
 
                 fun bind(position: Int) {
-                        binding.tvQuizTitle.text = dataList[position].title
+                        binding.tvQuizTitle.text = "· " + dataList[position].title
                         quizId = dataList[position].quizId
                 }
         }

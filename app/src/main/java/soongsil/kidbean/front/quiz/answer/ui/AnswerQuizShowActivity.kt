@@ -14,7 +14,6 @@ import soongsil.kidbean.front.databinding.ActivityAnswerQuizShowBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.program.ui.ProgramHomeActivity
-import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.answer.dto.response.AnswerQuizMemberDetailResponse
 import soongsil.kidbean.front.quiz.answer.presentation.AnswerQuizController
@@ -63,7 +62,7 @@ class AnswerQuizShowActivity : AppCompatActivity() {
                 setPositiveButton("삭제") { _, _ ->
                     postDelete()
 
-                    val intent = Intent(this@AnswerQuizShowActivity, MyQuizActivity::class.java)
+                    val intent = Intent(this@AnswerQuizShowActivity, MypageActivity::class.java)
                     startActivity(intent)
 
                     finish()

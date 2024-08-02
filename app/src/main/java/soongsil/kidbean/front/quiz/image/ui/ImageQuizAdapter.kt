@@ -19,7 +19,7 @@ class ImageQuizAdapter(private val dataList: List<ImageQuizMemberResponse>) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(position: Int) {
-            binding.tvQuizTitle.text = dataList[position].title
+            binding.tvQuizTitle.text = "· " + dataList[position].title
             quizId = dataList[position].quizId
         }
     }

@@ -13,7 +13,6 @@ import soongsil.kidbean.front.databinding.ActivityImageQuizListBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.program.ui.ProgramHomeActivity
-import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberResponse
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
@@ -31,7 +30,7 @@ class ImageQuizListActivity : AppCompatActivity() {
 
         binding.btnBack.setOnClickListener {
             // 홈 화면으로 이동
-            val intent = Intent(this, MyQuizActivity::class.java)
+            val intent = Intent(this, MypageActivity::class.java)
             startActivity(intent)
         }
 

@@ -12,10 +12,15 @@ import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.databinding.ActivityMypageBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.member.presentation.MemberController
+import soongsil.kidbean.front.mypage.answer.ui.SolvedAnswerQuizListActivity
+import soongsil.kidbean.front.mypage.image.ui.SolvedImageQuizMainActivity
 import soongsil.kidbean.front.mypage.main.dto.response.MemberInfoResponse
+import soongsil.kidbean.front.mypage.word.ui.SolvedWordQuizListActivity
 import soongsil.kidbean.front.program.ui.ProgramHomeActivity
-import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
+import soongsil.kidbean.front.quiz.answer.ui.AnswerQuizListActivity
+import soongsil.kidbean.front.quiz.image.ui.ImageQuizListActivity
+import soongsil.kidbean.front.quiz.word.ui.WordQuizListActivity
 import soongsil.kidbean.front.util.ApiClient
 
 class MypageActivity : AppCompatActivity() {
@@ -31,7 +36,7 @@ class MypageActivity : AppCompatActivity() {
 
         binding.btnBack.setOnClickListener {
             // 홈 화면으로 이동
-            val intent = Intent(this, MyQuizActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
@@ -41,14 +46,32 @@ class MypageActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.btnSolvedInfo.setOnClickListener {
-            //문제 풀이 결과 창으로 이동
-            val intent = Intent(this, MySolvedQuizActivity::class.java)
+        binding.enrollBtnImage.setOnClickListener {
+            val intent = Intent(this, ImageQuizListActivity::class.java)
+            startActivity(intent)
+        }
+        binding.enrollBtnWord.setOnClickListener {
+            val intent = Intent(this, WordQuizListActivity::class.java)
+            startActivity(intent)
+        }
+        binding.enrollBtnAnswer.setOnClickListener {
+            val intent = Intent(this, AnswerQuizListActivity::class.java)
             startActivity(intent)
         }
 
-        binding.btnMyQuiz.setOnClickListener {
-            val intent = Intent(this, MyQuizActivity::class.java)
+        binding.btnImage.setOnClickListener {
+            // 이미지 퀴즈 메인
+            val intent = Intent(this, SolvedImageQuizMainActivity::class.java)
+            startActivity(intent)
+        }
+        binding.btnWord.setOnClickListener {
+            //단어 퀴즈 메인
+            val intent = Intent(this, SolvedWordQuizListActivity::class.java)
+            startActivity(intent)
+        }
+        binding.btnVoice.setOnClickListener {
+            //음성 퀴즈 메인
+            val intent = Intent(this, SolvedAnswerQuizListActivity::class.java)
             startActivity(intent)
         }
 

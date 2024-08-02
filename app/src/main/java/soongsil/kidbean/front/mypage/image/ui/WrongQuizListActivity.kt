@@ -2,11 +2,11 @@ package soongsil.kidbean.front.mypage.image.ui
 
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,7 +15,6 @@ import soongsil.kidbean.front.R
 import soongsil.kidbean.front.databinding.ActivityWrongImageQuizSolvedListBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.home.ui.MainActivity
-import soongsil.kidbean.front.mypage.MySolvedQuizActivity
 import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.mypage.image.dto.response.SolvedImageListResponse
 import soongsil.kidbean.front.mypage.presentation.MypageController
@@ -23,10 +22,10 @@ import soongsil.kidbean.front.program.ui.ProgramHomeActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.util.ApiClient
 
-class WrongQuizListActivity : AppCompatActivity(){
+class WrongQuizListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWrongImageQuizSolvedListBinding
 
-    private lateinit var quizList : List<SolvedImageListResponse.SolvedListInfo>
+    private lateinit var quizList: List<SolvedImageListResponse.SolvedListInfo>
 
     private var selectCategory = "all"
 
@@ -74,8 +73,8 @@ class WrongQuizListActivity : AppCompatActivity(){
             "FOOD" to R.id.btn_food
         )
 
-        val selectedColor = Color.parseColor("#4CAF50")
-        val defaultColor = Color.parseColor("#69F0AE")
+        val selectedColor = ContextCompat.getColor(this, R.color.green) // Activity에서
+        val defaultColor = ContextCompat.getColor(this, R.color.green50)
 
         buttonIds.forEach { (categoryName, buttonId) ->
             val button = findViewById<Button>(buttonId)

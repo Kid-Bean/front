@@ -1,34 +1,23 @@
 package soongsil.kidbean.front.home.ui
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
-import com.bumptech.glide.Glide
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import soongsil.kidbean.front.R
-import soongsil.kidbean.front.databinding.ActivityMainBinding
 import soongsil.kidbean.front.databinding.ActivitySignUpBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.home.dto.request.MemberInfoRequest
-import soongsil.kidbean.front.home.dto.response.HomeResponse
 import soongsil.kidbean.front.home.presentation.HomeController
-import soongsil.kidbean.front.quiz.MyQuizActivity
-import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.util.ApiClient
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.time.temporal.ChronoUnit
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySignUpBinding

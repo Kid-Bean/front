@@ -4,8 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
-        tools:context=".quiz.image.ui.ImageQuizListActivity">
+        android:padding="16dp">
 
     <LinearLayout
             android:id="@+id/linearLayout"
@@ -66,7 +65,7 @@
                 android:layout_weight="1"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/shape_btn"
-                android:backgroundTint="#4CAF50"
+                android:backgroundTint="@color/green"
                 android:text="동물"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
@@ -79,7 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginEnd="10dp"
-                android:backgroundTint="#69F0AE"
+                android:backgroundTint="@color/green100"
                 android:background="@drawable/shape_btn"
                 android:text="식물"
                 android:textColor="@color/black"
@@ -94,7 +93,7 @@
                 android:layout_weight="1"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/shape_btn"
-                android:backgroundTint="#69F0AE"
+                android:backgroundTint="@color/green100"
                 android:text="사물"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
@@ -107,7 +106,7 @@
                 android:layout_weight="1"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/shape_btn"
-                android:backgroundTint="#69F0AE"
+                android:backgroundTint="@color/green100"
                 android:text="음식"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
@@ -120,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@drawable/shape_btn"
-                android:backgroundTint="#69F0AE"
+                android:backgroundTint="@color/green100"
                 android:text="기타"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
@@ -133,16 +132,10 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:fillViewport="true"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
             app:layout_constraintBottom_toTopOf="@id/bottom"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_list"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintTop_toBottomOf="@id/layout_list">
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_quiz"

@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.databinding.ActivityMyImageQuizSolvedMainBinding
 import soongsil.kidbean.front.program.ui.ProgramHomeActivity
-import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 
 class SolvedImageQuizMainActivity : AppCompatActivity(){
@@ -21,7 +20,7 @@ class SolvedImageQuizMainActivity : AppCompatActivity(){
 
         binding.btnBack.setOnClickListener {
             // 홈 화면으로 이동
-            val intent = Intent(this, MyQuizActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
     }

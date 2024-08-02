@@ -17,7 +17,6 @@ import soongsil.kidbean.front.databinding.ActivityImageQuizShowBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.program.ui.ProgramHomeActivity
-import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.image.dto.response.ImageQuizMemberDetailResponse
 import soongsil.kidbean.front.quiz.image.presentation.ImageQuizController
@@ -71,7 +70,7 @@ class ImageQuizShowActivity : AppCompatActivity() {
                 setPositiveButton("삭제") { _, _ ->
                     postDelete()
 
-                    val intent = Intent(this@ImageQuizShowActivity, MyQuizActivity::class.java)
+                    val intent = Intent(this@ImageQuizShowActivity, MypageActivity::class.java)
                     startActivity(intent)
 
                     finish()
@@ -189,7 +188,7 @@ class ImageQuizShowActivity : AppCompatActivity() {
                 }
 
                 // MyQuizActivity로 이동
-                val intent = Intent(this@ImageQuizShowActivity, MyQuizActivity::class.java)
+                val intent = Intent(this@ImageQuizShowActivity, MypageActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
 

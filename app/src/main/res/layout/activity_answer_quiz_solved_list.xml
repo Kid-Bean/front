@@ -4,8 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
-        tools:context=".quiz.image.ui.ImageQuizListActivity">
+        android:padding="16dp">
 
     <LinearLayout
             android:id="@+id/linearLayout"
@@ -56,25 +55,19 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:fillViewport="true"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingTop="16dp"
-            android:paddingBottom="16dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintBottom_toTopOf="@id/bottom"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linearLayout"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintTop_toBottomOf="@id/linearLayout">
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_quiz"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="top"
-                android:background="#20F2FFF3"
                 android:nestedScrollingEnabled="false"
-                tools:listitem="@layout/mypage_item_image_quiz" />
+                tools:listitem="@layout/mypage_item_word_and_answer_quiz" />
     </androidx.core.widget.NestedScrollView>
 
     <LinearLayout

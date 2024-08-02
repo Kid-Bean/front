@@ -14,7 +14,6 @@ import soongsil.kidbean.front.databinding.ActivityAnswerQuizUploadBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.program.ui.ProgramHomeActivity
-import soongsil.kidbean.front.quiz.MyQuizActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.quiz.answer.dto.request.AnswerQuizUploadRequest
 import soongsil.kidbean.front.quiz.answer.presentation.AnswerQuizController
@@ -109,7 +108,7 @@ class AnswerQuizUploadActivity : AppCompatActivity() {
                 }
 
                 // MyQuizActivity로 이동
-                val intent = Intent(this@AnswerQuizUploadActivity, MyQuizActivity::class.java)
+                val intent = Intent(this@AnswerQuizUploadActivity, MypageActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             }

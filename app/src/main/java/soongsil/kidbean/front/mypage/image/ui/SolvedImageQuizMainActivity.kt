@@ -7,10 +7,6 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
-import com.github.mikephil.charting.data.BarData
-import com.github.mikephil.charting.data.BarDataSet
-import com.github.mikephil.charting.data.BarEntry
-import com.github.mikephil.charting.data.CombinedData
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -21,7 +17,7 @@ import retrofit2.Response
 import soongsil.kidbean.front.databinding.ActivityMyImageQuizSolvedMainBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.home.ui.MainActivity
-import soongsil.kidbean.front.mypage.MySolvedQuizActivity
+import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.mypage.image.dto.response.MyPageImageScoreResponse
 import soongsil.kidbean.front.mypage.main.dto.QuizCategory
 import soongsil.kidbean.front.mypage.presentation.MypageController
@@ -45,17 +41,17 @@ class SolvedImageQuizMainActivity : AppCompatActivity() {
 
         binding.btnBack.setOnClickListener {
             // 홈 화면으로 이동
-            val intent = Intent(this, MySolvedQuizActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
-        binding.btnRightQuiz.setOnClickListener{
+        binding.btnRightQuiz.setOnClickListener {
             val intent = Intent(this, RightQuizListActivity::class.java)
             intent.putExtra("isRight", "right")
             startActivity(intent)
         }
 
-        binding.btnWrongQuiz.setOnClickListener{
+        binding.btnWrongQuiz.setOnClickListener {
             val intent = Intent(this, WrongQuizListActivity::class.java)
             intent.putExtra("isRight", "wrong")
             startActivity(intent)
@@ -73,8 +69,7 @@ class SolvedImageQuizMainActivity : AppCompatActivity() {
             ) {
                 if (response.isSuccessful) {
                     Log.d("post", "onResponse 성공: " + response.body().toString())
-                    val body = response.body()?.results
-                        ?: throw IllegalStateException("Response body is null")
+                    val body = response.body()?.results ?: throw IllegalStateException("Response body is null")
 
                     setScoreChart(body)
                 } else {
@@ -98,7 +93,8 @@ class SolvedImageQuizMainActivity : AppCompatActivity() {
 
         val categories = QuizCategory.values()
         categories.forEach { category ->
-            val matchingMyScoreInfo = body.myScoreInfo.find { it.quizCategory == category.toString() }
+            val matchingMyScoreInfo =
+                body.myScoreInfo.find { it.quizCategory == category.toString() }
             val score = matchingMyScoreInfo?.score?.toFloat() ?: 0f
             myScoreChartEntry.add(Entry(getCategoryCode(category.toString()), score))
         }
@@ -113,7 +109,7 @@ class SolvedImageQuizMainActivity : AppCompatActivity() {
                 Entry(
                     getCategoryCode(ageScoreInfo.quizCategory),
                     averageScore
-                ) as BarEntry
+                )
             )
         }
 
@@ -147,7 +143,7 @@ class SolvedImageQuizMainActivity : AppCompatActivity() {
             xAxis.enableGridDashedLine(10F, 24F, 0F); //수직 격자선
             xAxis.setGranularity(1f);
 
-            var yAxis : YAxis
+            var yAxis: YAxis
             yAxis = YAxis()
             yAxis.setDrawAxisLine(false)
 
@@ -185,7 +181,7 @@ class SolvedImageQuizMainActivity : AppCompatActivity() {
 
         // 마이페이지 화면으로 변경하기!
         binding.btnMypage.setOnClickListener {
-            val intent = Intent(this, MySolvedQuizActivity::class.java)
+            val intent = Intent(this, MypageActivity::class.java)
             startActivity(intent)
         }
     }

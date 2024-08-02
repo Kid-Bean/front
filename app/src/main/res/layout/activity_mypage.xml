@@ -57,8 +57,7 @@
             android:layout_height="150dp"
             app:layout_constraintTop_toBottomOf="@id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/quiz_category">
+            app:layout_constraintStart_toStartOf="parent">
 
         <!-- Profile Thumbnail -->
         <ImageView
@@ -131,48 +130,104 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-            android:id="@+id/quiz_category"
+    <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_vertical"
-            app:layout_constraintTop_toBottomOf="@id/member_info"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/member_info"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@id/bottom">
 
-        <Button
-                android:id="@+id/btn_change_info"
-                style="@style/AndroidH2"
+        <LinearLayout
+                android:id="@+id/quiz_category"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginBottom="20dp"
-                android:text="개인 정보 수정"
-                android:background="@drawable/shape_round_box"
-                android:layout_gravity="center_vertical">
-        </Button>
-        <Button
-                android:id="@+id/btn_solved_info"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginBottom="20dp"
-                style="@style/AndroidH2"
-                android:text="문제 풀이 결과"
-                android:background="@drawable/shape_round_box"
-                android:layout_gravity="center_vertical">
-        </Button>
-        <Button
-                android:id="@+id/btn_my_quiz"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                style="@style/AndroidH2"
-                android:text="내가 등록한 문제"
-                android:background="@drawable/shape_round_box"
-                android:layout_gravity="center_horizontal">
-        </Button>
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                app:layout_constraintTop_toBottomOf="@id/member_info"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/bottom">
 
-    </LinearLayout>
+            <TextView
+                    android:id="@+id/btn_change_info"
+                    style="@style/AndroidH1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="개인 정보 수정"
+                    android:layout_gravity="center_vertical"/>
+
+            <TextView
+                    android:id="@+id/btn_my_quiz"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/AndroidH1"
+                    android:text="내가 등록한 문제"
+                    android:layout_marginBottom="5dp"
+                    android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                    android:id="@+id/enroll_btn_image"
+                    style="@style/AndroidH2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="그림 맞추기"
+                    android:layout_gravity="center_vertical"/>
+
+            <TextView
+                    android:id="@+id/enroll_btn_word"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/AndroidH2"
+                    android:text="단어 맞추기"
+                    android:layout_gravity="center_vertical"/>
+
+            <TextView
+                    android:id="@+id/enroll_btn_answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/AndroidH2"
+                    android:text="질문 대답하기"
+                    android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                    android:id="@+id/btn_solved_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/AndroidH1"
+                    android:text="문제 풀이 결과"
+                    android:layout_marginBottom="5dp"
+                    android:layout_gravity="center_vertical"/>
+
+            <TextView
+                    android:id="@+id/btn_image"
+                    style="@style/AndroidH2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="그림 맞추기"
+                    android:layout_gravity="center_vertical" />
+
+            <TextView
+                    android:id="@+id/btn_word"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/AndroidH2"
+                    android:text="단어 맞추기"
+                    android:layout_gravity="center_vertical"/>
+
+            <TextView
+                    android:id="@+id/btn_voice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/AndroidH2"
+                    android:text="질문 대답하기"
+                    android:layout_gravity="center_horizontal"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 
     <LinearLayout

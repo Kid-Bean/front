@@ -10,7 +10,6 @@ import retrofit2.Response
 import soongsil.kidbean.front.databinding.ActivityWordQuizSolvedResultBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.home.ui.MainActivity
-import soongsil.kidbean.front.mypage.MySolvedQuizActivity
 import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.mypage.presentation.MypageController
 import soongsil.kidbean.front.mypage.word.dto.response.SolvedWordDetailResponse

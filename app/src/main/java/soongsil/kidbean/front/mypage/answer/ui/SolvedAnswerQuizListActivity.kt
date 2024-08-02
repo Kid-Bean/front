@@ -11,7 +11,6 @@ import retrofit2.Response
 import soongsil.kidbean.front.databinding.ActivityAnswerQuizSolvedListBinding
 import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.home.ui.MainActivity
-import soongsil.kidbean.front.mypage.MySolvedQuizActivity
 import soongsil.kidbean.front.mypage.MypageActivity
 import soongsil.kidbean.front.mypage.answer.dto.response.SolvedAnswerQuizListResponse
 import soongsil.kidbean.front.mypage.presentation.MypageController
@@ -34,7 +33,7 @@ class SolvedAnswerQuizListActivity : AppCompatActivity() {
 
         binding.btnBack.setOnClickListener {
             // 홈 화면으로 이동
-            val intent = Intent(this, SolvedAnswerQuizMainActivity::class.java)
+            val intent = Intent(this, MypageActivity::class.java)
             startActivity(intent)
         }
     }

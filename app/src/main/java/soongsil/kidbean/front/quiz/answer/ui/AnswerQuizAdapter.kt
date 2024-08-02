@@ -6,8 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import soongsil.kidbean.front.databinding.ItemQuizBinding
 import soongsil.kidbean.front.quiz.answer.dto.response.AnswerQuizMemberResponse
-import soongsil.kidbean.front.quiz.word.ui.WordQuizAdapter
-import soongsil.kidbean.front.quiz.word.ui.WordQuizShowActivity
 
 class AnswerQuizAdapter(private val dataList: List<AnswerQuizMemberResponse>) :
     RecyclerView.Adapter<AnswerQuizAdapter.ViewHolder>() {
@@ -18,7 +16,7 @@ class AnswerQuizAdapter(private val dataList: List<AnswerQuizMemberResponse>) :
             RecyclerView.ViewHolder(binding.root) {
 
             fun bind(position: Int) {
-                binding.tvQuizTitle.text = dataList[position].title
+                binding.tvQuizTitle.text = "· " + dataList[position].title
                 quizId = dataList[position].quizId
             }
         }
