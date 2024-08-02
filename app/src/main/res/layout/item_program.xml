@@ -37,19 +37,19 @@
                 android:layout_gravity="center">
 
             <TextView
-                    android:id="@+id/tv_department_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="부서 이름"
-                    style="@style/AndroidCaption1"
-                    android:textColor="@color/black" />
-
-            <TextView
                     android:id="@+id/tv_program_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="프로그램 이름"
-                    style="@style/AndroidBody1"
+                    style="@style/AndroidSubtitle1"
+                    android:textColor="@color/black" />
+
+            <TextView
+                    android:id="@+id/tv_department_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="부서 이름"
+                    style="@style/AndroidCaption2"
                     android:textColor="@color/black" />
 
             <TextView
@@ -57,7 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="프로그램 장소"
-                    style="@style/AndroidCaption1"
+                    style="@style/AndroidCaption2"
                     android:textColor="@color/black" />
         </LinearLayout>
 
@@ -68,16 +68,17 @@
             android:id="@+id/linear_star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="@+id/linear_program"
-            app:layout_constraintTop_toTopOf="@+id/linear_program">
+            app:layout_constraintTop_toTopOf="@+id/linear_program"
+            tools:ignore="NotSibling">
 
         <ImageView
                 android:id="@+id/img_star"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:foregroundGravity="center"
-                android:background="@drawable/empty_star"
-                tools:ignore="MissingConstraints" />
+                android:background="@drawable/empty_star"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
