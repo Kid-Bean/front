@@ -6,6 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.CombinedData
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
@@ -18,11 +23,12 @@ import soongsil.kidbean.front.global.ResponseTemplate
 import soongsil.kidbean.front.home.ui.MainActivity
 import soongsil.kidbean.front.mypage.MySolvedQuizActivity
 import soongsil.kidbean.front.mypage.image.dto.response.MyPageImageScoreResponse
-import soongsil.kidbean.front.mypage.presentation.MypageController
 import soongsil.kidbean.front.mypage.main.dto.QuizCategory
+import soongsil.kidbean.front.mypage.presentation.MypageController
 import soongsil.kidbean.front.program.ui.ProgramHomeActivity
 import soongsil.kidbean.front.quiz.QuizListActivity
 import soongsil.kidbean.front.util.ApiClient
+
 
 class SolvedImageQuizMainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMyImageQuizSolvedMainBinding
@@ -107,22 +113,43 @@ class SolvedImageQuizMainActivity : AppCompatActivity() {
                 Entry(
                     getCategoryCode(ageScoreInfo.quizCategory),
                     averageScore
-                )
+                ) as BarEntry
             )
         }
 
         val myScoreLineDataSet = LineDataSet(myScoreChartEntry, "내 아이 점수")
         val ageScoreLineDataSet = LineDataSet(ageScoreChartEntry, "평균 아이 점수")
-        myScoreLineDataSet.color = Color.GREEN
-        ageScoreLineDataSet.color = Color.RED
+        myScoreLineDataSet.color = Color.parseColor("#4CAF50")
+        ageScoreLineDataSet.color = Color.parseColor("#DF5757")
+
+        myScoreLineDataSet.setCircleColor(Color.parseColor("#4CAF50"))
+        myScoreLineDataSet.setLineWidth(4F); //라인 두께
+        myScoreLineDataSet.setCircleRadius(6F); // 점 크기
+        myScoreLineDataSet.setDrawCircleHole(true); // 원의 겉 부분 칠할거?
+        myScoreLineDataSet.valueTextSize = 0F
 
         binding.imageScoreChart.apply {
+//            var combinedata = LineDataSet(LineData(myScoreLineDataSet, ageScoreLineDataSet))
+//
+//            combinedata.setData(LineData(myScoreLineDataSet));
+//            combinedata.setData(LineData(ageScoreLineDataSet))
+//
+//            data = combinedata
             data = LineData(myScoreLineDataSet, ageScoreLineDataSet)
             description.isEnabled = false
+
             xAxis.position = XAxis.XAxisPosition.BOTTOM
             xAxis.labelCount = 4
             xAxis.granularity = 1f
             xAxis.setDrawGridLines(false)
+            xAxis.setDrawAxisLine(false)
+            xAxis.setTextSize(14f);
+            xAxis.enableGridDashedLine(10F, 24F, 0F); //수직 격자선
+            xAxis.setGranularity(1f);
+
+            var yAxis : YAxis
+            yAxis = YAxis()
+            yAxis.setDrawAxisLine(false)
 
             val xLabels = listOf(0f to "동물", 1f to "식물", 2f to "사물", 3f to "음식", 4f to "기타")
             xAxis.valueFormatter = object : ValueFormatter() {

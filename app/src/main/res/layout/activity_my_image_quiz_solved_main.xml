@@ -53,11 +53,12 @@
     <LinearLayout
             android:id="@+id/solved_result"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="450dp"
             android:layout_marginTop="15dp"
             tools:ignore="MissingConstraints"
             android:background="@android:color/transparent"
             app:layout_constraintTop_toBottomOf="@id/linearLayout"
+            app:layout_constraintBottom_toTopOf="@id/button_layout"
             android:orientation="horizontal">
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/image_score_chart"
@@ -67,29 +68,34 @@
     </LinearLayout>
 
     <LinearLayout
+            android:id="@+id/button_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="vertical"
-            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/solved_result"
             app:layout_constraintBottom_toTopOf="@id/bottom">
 
         <Button
                 android:id="@+id/btn_wrong_quiz"
                 style="@style/AndroidH2"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginBottom="20dp"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp"
                 android:text="자주 틀린 단어"
                 android:background="@drawable/shape_round_box"
                 android:layout_gravity="center_vertical" />
 
         <Button
                 android:id="@+id/btn_right_quiz"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginBottom="20dp"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
                 style="@style/AndroidH2"
                 android:text="맞춘 단어"
                 android:background="@drawable/shape_round_box"

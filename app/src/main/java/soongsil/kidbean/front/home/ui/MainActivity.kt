@@ -10,6 +10,7 @@ import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -37,7 +38,7 @@ import java.time.temporal.ChronoUnit
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     private var preferences: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -100,7 +101,8 @@ class MainActivity : AppCompatActivity() {
                             Log.d("post", "onResponse 실패 + ${response.code()}")
 
                             //refresh token은 괜찮은데 DB 초기화 등 이유로 유저 정보가 없는 경우
-                            preferences = getSharedPreferences("token", AppCompatActivity.MODE_PRIVATE)
+                            preferences =
+                                getSharedPreferences("token", AppCompatActivity.MODE_PRIVATE)
                             val editor = preferences!!.edit()
                             editor.clear()
                             editor.apply()
@@ -110,7 +112,10 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
 
-                    override fun onFailure(call: Call<ResponseTemplate<ReissueResponse>>, t: Throwable) {
+                    override fun onFailure(
+                        call: Call<ResponseTemplate<ReissueResponse>>,
+                        t: Throwable
+                    ) {
                         // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
                         Log.d("post", "onFailure 에러: " + t.message.toString())
                     }
@@ -173,7 +178,8 @@ class MainActivity : AppCompatActivity() {
                     if (name.isNullOrEmpty()) {
                         val intent = Intent(this@MainActivity, SignUpActivity::class.java)
                         startActivity(intent)
-                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         return // 이후 로직을 실행하지 않고 메서드 종료
                     }
 
@@ -192,7 +198,8 @@ class MainActivity : AppCompatActivity() {
                     val todayAsLocalDate = today.toLocalDate()
 
                     // 날짜 간의 차이를 계산
-                    val daysBetween = ChronoUnit.DAYS.between(createDateAsLocalDate, todayAsLocalDate) + 1
+                    val daysBetween =
+                        ChronoUnit.DAYS.between(createDateAsLocalDate, todayAsLocalDate) + 1
                     binding.tvKidDate.text = daysBetween.toString()
 
                     val imageView: ImageView = binding.imgView
@@ -258,5 +265,16 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return false
+    }
+
+    private var backPressedTime: Long = 0L
+
+    override fun onBackPressed() {
+        if (System.currentTimeMillis() - backPressedTime <= 2000) {
+            finish()
+        } else {
+            backPressedTime = System.currentTimeMillis()
+            Toast.makeText(this, "한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
+        }
     }
 }
