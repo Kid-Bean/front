@@ -60,23 +60,20 @@
             app:layout_constraintEnd_toEndOf="@id/linearLayout"
             tools:ignore="MissingConstraints,NotSibling">
 
-        <Button
+        <TextView
                 android:id="@+id/btn_program_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:text="추가하기"
-                android:textColor="@color/white"
+                android:textColor="@color/green"
                 style="@style/AndroidBody3"
                 android:foregroundGravity="bottom"
-                android:background="@drawable/shape_btn"
-                android:backgroundTint="@color/green"
                 android:src="@drawable/ic_left"
                 android:scaleType="fitCenter"
-                tools:ignore="MissingConstraints"
                 android:visibility="gone"
                 android:contentDescription="TODO">
-        </Button>
+        </TextView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout

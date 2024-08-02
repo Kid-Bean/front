@@ -57,32 +57,69 @@
             android:id="@+id/linear_program"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_vertical"
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_list"
             app:layout_constraintBottom_toTopOf="@id/bottom">
 
-        <Button
+        <LinearLayout
                 android:id="@+id/btn_star"
-                style="@style/AndroidH2"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginBottom="20dp"
-                android:text="즐겨찾기"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_marginRight="5dp"
                 android:background="@drawable/shape_round_box"
-                android:layout_gravity="center_vertical">
-        </Button>
-        <Button
-                android:id="@+id/btn_program_list"
-                android:layout_width="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                android:background="@drawable/ic_favorite"
+                android:layout_gravity="center_horizontal">
+            </ImageView>
+
+            <TextView
+                    android:id="@+id/tv_star"
+                    style="@style/AndroidSubtitle1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/black"
+                    android:text="즐겨찾기"
+                    android:layout_gravity="center_vertical">
+            </TextView>
+
+        </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/btn_program_list"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/shape_round_box"
+            android:orientation="vertical">
+
+        <ImageView
+                android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:layout_marginBottom="20dp"
-                style="@style/AndroidH2"
+                android:background="@drawable/ic_program_list"
+                android:layout_gravity="center_horizontal">
+        </ImageView>
+
+        <TextView
+                android:id="@+id/tv_program_list"
+                style="@style/AndroidSubtitle1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black"
                 android:text="프로그램 목록"
-                android:background="@drawable/shape_round_box"
                 android:layout_gravity="center_vertical">
-        </Button>
+        </TextView>
+    </LinearLayout>
 
     </LinearLayout>
 
@@ -114,7 +151,7 @@
             android:id="@+id/bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="20dp"
+            android:paddingTop="50dp"
             android:weightSum="4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
